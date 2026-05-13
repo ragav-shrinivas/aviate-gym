@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Results — Gokul Srinivasan's Aviate Gym. Real transformations, coming soon." />
+  <title>Results — Aviate Gym</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Rajdhani:wght@300;400;500;600;700&family=DM+Sans:wght@200;300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+
+  <style>
+    html, body { height: 100%; }
+
+    body {
+      background: var(--color-black);
+      overflow: hidden;
+    }
+
+    /* Full screen layout */
+    .results-page {
+      min-height: 100svh;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Background image */
+    .results-bg {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+    }
+
+    .results-bg__img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      filter: brightness(0.12) grayscale(25%);
+      transform: scale(1.06);
+      animation: bg-drift 20s ease-in-out infinite alternate;
+    }
+
+    @keyframes bg-drift {
+      from { transform: scale(1.06) translateX(0); }
+      to   { transform: scale(1.08) translateX(-1.5%); }
+    }
+
+    .results-bg__overlay {
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at center, rgba(6,6,6,0.4) 0%, rgba(6,6,6,0.88) 100%);
+    }
+
+    /* Animated grid */
+    .results-bg__grid {
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(201,169,110,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(201,169,110,0.04) 1px, transparent 1px);
+      background-size: 72px 72px;
+    }
+
+    /* Watermark */
+    .results-watermark {
+      position: fixed;
+      font-family: var(--font-brand);
+      font-size: clamp(10rem, 28vw, 26rem);
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      color: rgba(255,255,255,0.018);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      white-space: nowrap;
+      pointer-events: none;
+      user-select: none;
+      z-index: 1;
+    }
+
+    /* Nav — minimal on this page */
+    .results-page .site-header { background: transparent !important; box-shadow: none !important; }
+    .results-page .site-header.is-scrolled { background: transparent !important; }
+
+    /* Main content */
+    .results-main {
+      position: relative;
+      z-index: 2;
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 78px var(--container-pad) 3rem;
+    }
+
+    .results-inner {
+      text-align: center;
+      max-width: 720px;
+    }
+
+    /* Corner decorations */
+    .results-corner {
+      position: fixed;
+      width: 52px; height: 52px;
+      opacity: 0;
+      animation: corner-in 0.7s cubic-bezier(0.16,1,0.3,1) 0.4s forwards;
+      z-index: 3;
+    }
+
+    @keyframes corner-in {
+      from { opacity: 0; transform: scale(0.5); }
+      to   { opacity: 1; transform: scale(1); }
+    }
+
+    .results-corner--tl { top: 1.5rem; left: 1.5rem; border-top: 1px solid rgba(201,169,110,0.3); border-left: 1px solid rgba(201,169,110,0.3); }
+    .results-corner--tr { top: 1.5rem; right: 1.5rem; border-top: 1px solid rgba(201,169,110,0.3); border-right: 1px solid rgba(201,169,110,0.3); }
+    .results-corner--bl { bottom: 1.5rem; left: 1.5rem; border-bottom: 1px solid rgba(201,169,110,0.3); border-left: 1px solid rgba(201,169,110,0.3); }
+    .results-corner--br { bottom: 1.5rem; right: 1.5rem; border-bottom: 1px solid rgba(201,169,110,0.3); border-right: 1px solid rgba(201,169,110,0.3); }
+
+    /* Content animations */
+    .results-eyebrow {
+      display: inline-block;
+      font-family: var(--font-brand);
+      font-size: 0.62rem;
+      font-weight: 600;
+      letter-spacing: 0.45em;
+      text-transform: uppercase;
+      color: var(--color-gold);
+      margin-bottom: 1.75rem;
+      opacity: 0;
+      animation: cs-in 0.9s cubic-bezier(0.16,1,0.3,1) 0.35s forwards;
+    }
+
+    .results-heading {
+      font-family: var(--font-display);
+      font-size: clamp(3rem, 9vw, 6.5rem);
+      font-weight: 300;
+      line-height: 0.98;
+      letter-spacing: -0.025em;
+      color: var(--color-white);
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      animation: cs-in 0.9s cubic-bezier(0.16,1,0.3,1) 0.55s forwards;
+    }
+
+    .results-heading em {
+      font-style: italic;
+      color: var(--color-gold);
+    }
+
+    /* Gold rule */
+    .results-rule {
+      width: 44px; height: 1px;
+      background: var(--color-gold);
+      margin: 0 auto 1.5rem;
+      opacity: 0;
+      animation: cs-in 0.9s cubic-bezier(0.16,1,0.3,1) 0.75s forwards;
+    }
+
+    .results-body {
+      font-family: var(--font-body);
+      font-size: clamp(0.9375rem, 1.8vw, 1.125rem);
+      font-weight: 300;
+      line-height: 1.78;
+      color: rgba(255,255,255,0.40);
+      max-width: 46ch;
+      margin: 0 auto 2.5rem;
+      opacity: 0;
+      animation: cs-in 0.9s cubic-bezier(0.16,1,0.3,1) 0.95s forwards;
+    }
+
+    /* Stats row */
+    .results-stats {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: clamp(2rem, 5vw, 4rem);
+      margin-bottom: 3rem;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: cs-in 0.9s cubic-bezier(0.16,1,0.3,1) 1.1s forwards;
+    }
+
+    .results-stat {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.2rem;
+    }
+
+    .results-stat__num {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 300;
+      color: var(--color-white);
+      line-height: 1;
+    }
+
+    .results-stat__num em {
+      font-style: normal;
+      color: var(--color-gold);
+    }
+
+    .results-stat__label {
+      font-family: var(--font-brand);
+      font-size: 0.52rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.25);
+    }
+
+    .results-stat__div {
+      width: 1px; height: 36px;
+      background: rgba(255,255,255,0.08);
+    }
+
+    /* CTA group */
+    .results-actions {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: cs-in 0.9s cubic-bezier(0.16,1,0.3,1) 1.3s forwards;
+    }
+
+    /* Instagram tease */
+    .results-insta {
+      margin-top: 2.5rem;
+      opacity: 0;
+      animation: cs-in 0.9s cubic-bezier(0.16,1,0.3,1) 1.5s forwards;
+    }
+
+    .results-insta__label {
+      font-family: var(--font-brand);
+      font-size: 0.58rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.22);
+      margin-bottom: 0.75rem;
+    }
+
+    .results-insta__link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--font-brand);
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.45);
+      border-bottom: 1px solid rgba(255,255,255,0.12);
+      padding-bottom: 3px;
+      transition: color 0.22s, border-color 0.22s;
+    }
+
+    .results-insta__link:hover {
+      color: var(--color-gold);
+      border-color: var(--color-gold);
+    }
+
+    /* Notification form */
+    .results-notify {
+      margin-top: 2.5rem;
+      opacity: 0;
+      animation: cs-in 0.9s cubic-bezier(0.16,1,0.3,1) 1.7s forwards;
+    }
+
+    .results-notify__label {
+      font-family: var(--font-brand);
+      font-size: 0.58rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.22);
+      margin-bottom: 0.75rem;
+    }
+
+    .results-notify__form {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      max-width: 420px;
+      margin-inline: auto;
+    }
+
+    .results-notify__input {
+      flex: 1;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-right: none;
+      padding: 0.75rem 1rem;
+      font-family: var(--font-body);
+      font-size: 0.875rem;
+      font-weight: 300;
+      color: var(--color-white);
+      outline: none;
+      transition: border-color 0.18s, background-color 0.18s;
+    }
+
+    .results-notify__input::placeholder { color: rgba(255,255,255,0.22); }
+
+    .results-notify__input:focus {
+      border-color: var(--color-gold);
+      background-color: rgba(201,169,110,0.05);
+    }
+
+    .results-notify__btn {
+      font-family: var(--font-brand);
+      font-size: 0.62rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--color-black);
+      background: var(--color-gold);
+      border: 1px solid var(--color-gold);
+      padding: 0.75rem 1.25rem;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background-color 0.18s;
+    }
+
+    .results-notify__btn:hover { background-color: var(--color-gold-light); }
+
+    .results-notify__success {
+      font-family: var(--font-body);
+      font-size: 0.8125rem;
+      font-weight: 300;
+      color: rgba(201,169,110,0.7);
+      margin-top: 0.5rem;
+      display: none;
+    }
+
+    /* Floating back link */
+    .results-back {
+      position: fixed;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 3;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--font-brand);
+      font-size: 0.58rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.22);
+      transition: color 0.22s;
+      opacity: 0;
+      animation: cs-in 0.9s cubic-bezier(0.16,1,0.3,1) 1.9s forwards;
+    }
+
+    .results-back:hover { color: rgba(255,255,255,0.6); }
+
+    @keyframes cs-in {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 768px) {
+      body { overflow: auto; }
+      .results-notify__form { flex-direction: column; }
+      .results-notify__input { border-right: 1px solid rgba(255,255,255,0.12); width: 100%; }
+      .results-notify__btn { width: 100%; }
+    }
+  </style>
+</head>
+
+<body class="is-loading">
+
+  <!-- PRELOADER -->
+  <div class="preloader" id="preloader">
+    <div class="preloader__panel preloader__panel--left"></div>
+    <div class="preloader__panel preloader__panel--right"></div>
+    <div class="preloader__corner preloader__corner--tl"></div>
+    <div class="preloader__corner preloader__corner--tr"></div>
+    <div class="preloader__corner preloader__corner--bl"></div>
+    <div class="preloader__corner preloader__corner--br"></div>
+    <div class="preloader__inner">
+      <div class="preloader__owner-wrap"><span class="preloader__owner">GOKUL SRINIVASAN'S</span></div>
+      <div class="preloader__line"></div>
+      <div class="preloader__brand-wrap">
+        <div class="preloader__logo-wrap">
+          <img src="assets/images/aviate-logo.jpg" alt="Aviate Gym" class="preloader__logo-img" />
+        </div>
+      </div>
+      <div class="preloader__bar-wrap">
+        <div class="preloader__bar"><div class="preloader__fill"></div></div>
+        <span class="preloader__percent" id="pl-percent">Loading...</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="results-page">
+
+    <!-- BG -->
+    <div class="results-bg">
+      <img src="assets/images/gallery-3.jpg" alt="" aria-hidden="true" class="results-bg__img" />
+      <div class="results-bg__overlay"></div>
+      <div class="results-bg__grid" aria-hidden="true"></div>
+    </div>
+
+    <p class="results-watermark" aria-hidden="true">SOON</p>
+
+    <!-- Corner decorations -->
+    <div class="results-corner results-corner--tl"></div>
+    <div class="results-corner results-corner--tr"></div>
+    <div class="results-corner results-corner--bl"></div>
+    <div class="results-corner results-corner--br"></div>
+
+    <!-- NAVIGATION -->
+    <header class="site-header" id="site-header">
+      <nav class="nav">
+        <a href="index.html" class="nav__logo" aria-label="Aviate Gym home">
+          <img src="assets/images/aviate-logo.jpg" alt="Gokul Srinivasan's Aviate Gym" class="nav__logo-img" />
+        </a>
+        <ul class="nav__links">
+          <li><a href="about.html"           class="nav__link">About</a></li>
+          <li><a href="programs.html"        class="nav__link">Programs</a></li>
+          <li><a href="online-coaching.html" class="nav__link">Online Coaching</a></li>
+          <li><a href="gallery.html"         class="nav__link">Gallery</a></li>
+          <li><a href="results.html"         class="nav__link is-active">Results</a></li>
+          <li><a href="booking.html"         class="nav__link nav__link--cta">Book a Session</a></li>
+        </ul>
+        <button class="nav__hamburger" aria-label="Toggle menu" aria-expanded="false">
+          <span class="nav__hamburger-line"></span>
+          <span class="nav__hamburger-line"></span>
+        </button>
+      </nav>
+      <div class="mobile-menu" id="mobile-menu">
+        <ul class="mobile-menu__links">
+          <li><a href="about.html"           class="mobile-menu__link">About</a></li>
+          <li><a href="programs.html"        class="mobile-menu__link">Programs</a></li>
+          <li><a href="online-coaching.html" class="mobile-menu__link">Online Coaching</a></li>
+          <li><a href="gallery.html"         class="mobile-menu__link">Gallery</a></li>
+          <li><a href="results.html"         class="mobile-menu__link">Results</a></li>
+          <li><a href="booking.html"         class="mobile-menu__link mobile-menu__link--cta">Book a Session</a></li>
+        </ul>
+      </div>
+    </header>
+
+    <!-- MAIN -->
+    <main class="results-main">
+      <div class="results-inner">
+
+        <p class="results-eyebrow">✦ Real Results · Coming Soon</p>
+
+        <h1 class="results-heading">
+          3,000+ Stories.<br /><em>One Page.</em>
+        </h1>
+
+        <div class="results-rule"></div>
+
+        <p class="results-body">
+          We're curating every before &amp; after, every member story, every transformation — into one landmark page. The results are real. The page is almost ready. Come back soon.
+        </p>
+
+        <!-- Stats -->
+        <div class="results-stats">
+          <div class="results-stat">
+            <span class="results-stat__num">3K<em>+</em></span>
+            <span class="results-stat__label">Transformations</span>
+          </div>
+          <div class="results-stat__div"></div>
+          <div class="results-stat">
+            <span class="results-stat__num">12<em>+</em></span>
+            <span class="results-stat__label">Years Proven</span>
+          </div>
+          <div class="results-stat__div"></div>
+          <div class="results-stat">
+            <span class="results-stat__num">6<em></em></span>
+            <span class="results-stat__label">Programs</span>
+          </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="results-actions">
+          <a href="booking.html"          class="btn btn--gold btn--large">Book a Session</a>
+          <a href="online-coaching.html"  class="btn btn--outline-light">Online Coaching →</a>
+        </div>
+
+        <!-- Instagram tease -->
+        <div class="results-insta">
+          <p class="results-insta__label">See results in the meantime</p>
+          <a href="https://www.instagram.com/aviate.gym" target="_blank" rel="noopener" class="results-insta__link">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+            View transformations @aviate.gym
+          </a>
+        </div>
+
+        <!-- Notify form -->
+        <div class="results-notify">
+          <p class="results-notify__label">Get notified when this page goes live</p>
+          <form class="results-notify__form" id="notify-form" novalidate>
+            <input
+              class="results-notify__input"
+              type="email"
+              id="notify-email"
+              placeholder="your@email.com"
+              autocomplete="email"
+              required
+            />
+            <button class="results-notify__btn" type="submit">Notify Me</button>
+          </form>
+          <p class="results-notify__success" id="notify-success">
+            ✓ You're on the list. We'll email you when the Results page goes live.
+          </p>
+        </div>
+
+      </div>
+    </main>
+
+    <!-- Back link -->
+    <a href="index.html" class="results-back">← Back to Aviate</a>
+
+  </div>
+
+  <script src="script.js" defer></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const form    = document.getElementById('notify-form');
+      const success = document.getElementById('notify-success');
+
+      if (form) {
+        form.addEventListener('submit', e => {
+          e.preventDefault();
+          const email = document.getElementById('notify-email')?.value.trim();
+          if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+            document.getElementById('notify-email')?.focus();
+            return;
+          }
+          form.style.display = 'none';
+          if (success) success.style.display = 'block';
+        });
+      }
+    });
+  </script>
+</body>
+</html>

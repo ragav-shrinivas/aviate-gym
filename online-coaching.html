@@ -1,0 +1,1971 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Online Coaching — Gokul Srinivasan's Aviate Gym. AI-powered program matching and expert remote coaching." />
+  <title>Online Coaching — Aviate Gym</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Rajdhani:wght@300;400;500;600;700&family=DM+Sans:wght@200;300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+
+  <style>
+    /* ── Page-specific styles ─────────────────────── */
+
+    /* Hero — dark cinematic */
+    .coaching-hero {
+      position: relative;
+      min-height: 92svh;
+      display: flex;
+      align-items: center;
+      padding-top: 78px;
+      background-color: var(--color-black);
+      overflow: hidden;
+    }
+
+    .coaching-hero__bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+
+    .coaching-hero__bg-img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center;
+      filter: brightness(0.22) grayscale(20%);
+    }
+
+    .coaching-hero__overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        135deg,
+        rgba(6,6,6,0.85) 0%,
+        rgba(6,6,6,0.50) 100%
+      );
+    }
+
+    /* Animated grid lines decoration */
+    .coaching-hero__grid {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background-image:
+        linear-gradient(rgba(201,169,110,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(201,169,110,0.04) 1px, transparent 1px);
+      background-size: 80px 80px;
+      mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 40%, transparent 100%);
+    }
+
+    .coaching-hero__content {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+    }
+
+    .coaching-hero__inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(3rem, 6vw, 6rem);
+      align-items: center;
+    }
+
+    .coaching-hero__eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-family: var(--font-brand);
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.42em;
+      text-transform: uppercase;
+      color: var(--color-gold);
+      margin-bottom: 1.5rem;
+      animation: hero-up 1s cubic-bezier(0.16,1,0.3,1) 0.2s both;
+    }
+
+    .coaching-hero__eyebrow-line {
+      display: block;
+      width: 28px; height: 1px;
+      background: var(--color-gold);
+      opacity: 0.7;
+    }
+
+    .coaching-hero__heading {
+      font-family: var(--font-display);
+      font-size: clamp(2.8rem, 6vw, 5rem);
+      font-weight: 300;
+      line-height: 1.04;
+      letter-spacing: -0.02em;
+      color: var(--color-white);
+      margin-bottom: 1.5rem;
+      animation: hero-up 1s cubic-bezier(0.16,1,0.3,1) 0.4s both;
+    }
+
+    .coaching-hero__heading em {
+      font-style: italic;
+      color: var(--color-gold);
+    }
+
+    .coaching-hero__sub {
+      font-family: var(--font-body);
+      font-size: 1.125rem;
+      font-weight: 300;
+      line-height: 1.75;
+      color: rgba(255,255,255,0.5);
+      max-width: 44ch;
+      margin-bottom: 2.5rem;
+      animation: hero-up 1s cubic-bezier(0.16,1,0.3,1) 0.6s both;
+    }
+
+    .coaching-hero__actions {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      animation: hero-up 1s cubic-bezier(0.16,1,0.3,1) 0.8s both;
+    }
+
+    /* Right side — floating stats card */
+    .coaching-hero__stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background-color: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.08);
+      animation: hero-up 1s cubic-bezier(0.16,1,0.3,1) 0.6s both;
+    }
+
+    .coaching-hero__stat {
+      padding: 2rem 1.5rem;
+      background-color: rgba(6,6,6,0.6);
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+      backdrop-filter: blur(8px);
+    }
+
+    .coaching-hero__stat-num {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 300;
+      color: var(--color-white);
+      line-height: 1;
+    }
+
+    .coaching-hero__stat-num em {
+      font-style: normal;
+      color: var(--color-gold);
+    }
+
+    .coaching-hero__stat-label {
+      font-family: var(--font-brand);
+      font-size: 0.58rem;
+      font-weight: 500;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+    }
+
+    /* How it works strip */
+    .how-it-works {
+      background-color: var(--color-cream);
+      padding-block: clamp(3rem, 6vw, 5rem);
+      border-bottom: 1px solid var(--color-grey-mid);
+    }
+
+    .how-it-works__steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+    }
+
+    .how-step {
+      padding: 2rem 1.5rem;
+      border-right: 1px solid var(--color-grey-mid);
+      position: relative;
+    }
+
+    .how-step:last-child { border-right: none; }
+
+    .how-step__num {
+      font-family: var(--font-display);
+      font-size: 3rem;
+      font-weight: 300;
+      color: var(--color-grey-mid);
+      line-height: 1;
+      margin-bottom: 0.75rem;
+    }
+
+    .how-step__title {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 400;
+      color: var(--color-text);
+      margin-bottom: 0.5rem;
+      line-height: 1.2;
+    }
+
+    .how-step__desc {
+      font-family: var(--font-body);
+      font-size: 0.875rem;
+      font-weight: 300;
+      color: var(--color-text-muted);
+      line-height: 1.65;
+    }
+
+    /* Connector arrow */
+    .how-step::after {
+      content: '→';
+      position: absolute;
+      right: -0.75rem;
+      top: 50%;
+      transform: translateY(-50%);
+      font-family: var(--font-brand);
+      font-size: 1rem;
+      color: var(--color-gold);
+      background: var(--color-cream);
+      padding: 0 0.25rem;
+      z-index: 1;
+    }
+
+    .how-step:last-child::after { display: none; }
+
+    /* Programs section */
+    .coaching-programs-section {
+      background-color: var(--color-white);
+    }
+
+    .coaching-programs-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+    }
+
+    /* Program card */
+    .cprogram-card {
+      border: 1px solid var(--color-grey-mid);
+      background: var(--color-off-white);
+      overflow: hidden;
+      cursor: pointer;
+      transition:
+        transform 0.32s cubic-bezier(0.16,1,0.3,1),
+        box-shadow 0.32s cubic-bezier(0.16,1,0.3,1),
+        border-color 0.22s ease;
+      position: relative;
+    }
+
+    .cprogram-card::before {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      height: 2px; width: 0;
+      background: linear-gradient(90deg, var(--color-gold-dark), var(--color-gold));
+      transition: width 0.5s cubic-bezier(0.16,1,0.3,1);
+      z-index: 2;
+    }
+
+    .cprogram-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-xl); }
+    .cprogram-card:hover::before { width: 100%; }
+
+    .cprogram-card--selected {
+      border-color: var(--color-gold);
+      box-shadow: 0 0 0 2px rgba(201,169,110,0.2), var(--shadow-lg);
+    }
+
+    .cprogram-card--selected::before { width: 100%; }
+
+    .cprogram-card__img {
+      width: 100%;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      object-position: top;
+      filter: grayscale(18%) brightness(0.96);
+      transition: filter 0.4s ease, transform 0.9s cubic-bezier(0.16,1,0.3,1);
+    }
+
+    .cprogram-card:hover .cprogram-card__img {
+      filter: grayscale(0%) brightness(1.02);
+      transform: scale(1.04);
+    }
+
+    .cprogram-card__img-wrap { overflow: hidden; line-height: 0; }
+
+    .cprogram-card__body {
+      padding: 1.25rem 1.5rem 1.5rem;
+    }
+
+    .cprogram-card__tag {
+      font-family: var(--font-brand);
+      font-size: 0.58rem;
+      font-weight: 600;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: var(--color-gold-dark);
+      margin-bottom: 0.5rem;
+    }
+
+    .cprogram-card__title {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      font-weight: 400;
+      line-height: 1.2;
+      color: var(--color-text);
+      margin-bottom: 0.25rem;
+    }
+
+    .cprogram-card__duration {
+      font-family: var(--font-brand);
+      font-size: 0.6rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--color-grey-muted);
+      margin-bottom: 0.75rem;
+    }
+
+    .cprogram-card__desc {
+      font-family: var(--font-body);
+      font-size: 0.8125rem;
+      font-weight: 300;
+      line-height: 1.65;
+      color: var(--color-text-muted);
+      margin-bottom: 1rem;
+    }
+
+    .cprogram-card__select {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--font-brand);
+      font-size: 0.62rem;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+      padding-top: 0.75rem;
+      border-top: 1px solid var(--color-grey-mid);
+      transition: color 0.18s;
+    }
+
+    .cprogram-card:hover .cprogram-card__select,
+    .cprogram-card--selected .cprogram-card__select {
+      color: var(--color-gold-dark);
+    }
+
+    .cprogram-card__select-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      border: 1px solid var(--color-grey-subtle);
+      flex-shrink: 0;
+      transition: background-color 0.18s, border-color 0.18s;
+    }
+
+    .cprogram-card--selected .cprogram-card__select-dot {
+      background-color: var(--color-gold);
+      border-color: var(--color-gold);
+    }
+
+    /* ── AI SURVEY ───────────────────────────────── */
+    .ai-survey-section {
+      background-color: var(--color-black);
+      padding-block: clamp(4rem, 10vw, 7rem);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Futuristic bg decoration */
+    .ai-survey-section::before {
+      content: 'AI';
+      position: absolute;
+      font-family: var(--font-brand);
+      font-size: clamp(16rem, 35vw, 32rem);
+      font-weight: 700;
+      color: rgba(255,255,255,0.018);
+      right: -2rem;
+      top: 50%;
+      transform: translateY(-50%);
+      letter-spacing: 0.05em;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .survey-layout {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: clamp(2.5rem, 5vw, 5rem);
+      align-items: start;
+    }
+
+    .survey-sidebar {
+      position: sticky;
+      top: calc(78px + 2rem);
+    }
+
+    .survey-sidebar__eyebrow {
+      font-family: var(--font-brand);
+      font-size: 0.62rem;
+      font-weight: 600;
+      letter-spacing: 0.38em;
+      text-transform: uppercase;
+      color: var(--color-gold);
+      margin-bottom: 1.25rem;
+    }
+
+    .survey-sidebar__heading {
+      font-family: var(--font-display);
+      font-size: clamp(1.75rem, 3vw, 2.5rem);
+      font-weight: 300;
+      line-height: 1.1;
+      color: var(--color-white);
+      margin-bottom: 1rem;
+    }
+
+    .survey-sidebar__heading em {
+      font-style: italic;
+      color: var(--color-gold);
+    }
+
+    .survey-sidebar__body {
+      font-family: var(--font-body);
+      font-size: 0.9375rem;
+      font-weight: 300;
+      line-height: 1.75;
+      color: rgba(255,255,255,0.42);
+      margin-bottom: 1.5rem;
+    }
+
+    .survey-sidebar__features {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .survey-feature {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      font-family: var(--font-body);
+      font-size: 0.8125rem;
+      font-weight: 300;
+      color: rgba(255,255,255,0.38);
+      line-height: 1.5;
+    }
+
+    .survey-feature__dot {
+      width: 4px; height: 4px;
+      border-radius: 50%;
+      background: var(--color-gold);
+      flex-shrink: 0;
+      margin-top: 0.45em;
+    }
+
+    /* Survey card — glassmorphism */
+    .survey-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      padding: clamp(1.75rem, 4vw, 3rem);
+      position: relative;
+    }
+
+    /* Top accent line */
+    .survey-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--color-gold), transparent);
+    }
+
+    /* Step progress bar */
+    .survey-progress {
+      display: flex;
+      gap: 0.35rem;
+      margin-bottom: 2rem;
+    }
+
+    .survey-progress__step {
+      flex: 1;
+      height: 2px;
+      background: rgba(255,255,255,0.10);
+      transition: background 0.35s ease, flex 0.35s ease;
+    }
+
+    .survey-progress__step.is-done   { background: var(--color-gold-dark); }
+    .survey-progress__step.is-active { background: var(--color-gold); flex: 2; }
+
+    /* Question pane */
+    .survey-question {
+      display: none;
+      flex-direction: column;
+      gap: 1.5rem;
+      animation: q-slide-in 0.4s cubic-bezier(0.16,1,0.3,1) both;
+    }
+
+    .survey-question.is-active { display: flex; }
+
+    @keyframes q-slide-in {
+      from { opacity: 0; transform: translateX(20px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+
+    .survey-q-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .survey-q-label {
+      font-family: var(--font-brand);
+      font-size: 0.58rem;
+      font-weight: 600;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--color-gold);
+    }
+
+    .survey-q-count {
+      font-family: var(--font-brand);
+      font-size: 0.58rem;
+      letter-spacing: 0.15em;
+      color: rgba(255,255,255,0.2);
+    }
+
+    .survey-q-text {
+      font-family: var(--font-display);
+      font-size: clamp(1.3rem, 2.5vw, 1.9rem);
+      font-weight: 300;
+      line-height: 1.2;
+      color: rgba(255,255,255,0.92);
+    }
+
+    /* Option buttons */
+    .survey-options {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.6rem;
+    }
+
+    .survey-options--single { grid-template-columns: 1fr 1fr 1fr; }
+    .survey-options--wide   { grid-template-columns: 1fr; }
+
+    .survey-opt {
+      padding: 0.9rem 1.1rem;
+      border: 1px solid rgba(255,255,255,0.10);
+      background: transparent;
+      font-family: var(--font-body);
+      font-size: 0.8125rem;
+      font-weight: 300;
+      color: rgba(255,255,255,0.65);
+      text-align: left;
+      line-height: 1.5;
+      cursor: pointer;
+      transition:
+        border-color 0.18s,
+        background-color 0.18s,
+        color 0.18s,
+        transform 0.18s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .survey-opt::before {
+      content: '';
+      position: absolute;
+      top: 0; left: -100%;
+      width: 100%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(201,169,110,0.06), transparent);
+      transition: left 0.4s ease;
+    }
+
+    .survey-opt:hover::before { left: 100%; }
+    .survey-opt:hover {
+      border-color: rgba(201,169,110,0.4);
+      color: rgba(255,255,255,0.92);
+      transform: translateX(2px);
+    }
+
+    .survey-opt.is-selected {
+      border-color: var(--color-gold);
+      background: rgba(201,169,110,0.08);
+      color: var(--color-gold-light);
+    }
+
+    .survey-opt__check {
+      display: inline-block;
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.2);
+      margin-right: 0.6rem;
+      vertical-align: middle;
+      flex-shrink: 0;
+      transition: background 0.18s, border-color 0.18s;
+    }
+
+    .survey-opt.is-selected .survey-opt__check {
+      background: var(--color-gold);
+      border-color: var(--color-gold);
+    }
+
+    /* Nav row */
+    .survey-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 1.5rem;
+      border-top: 1px solid rgba(255,255,255,0.07);
+      margin-top: 0.5rem;
+    }
+
+    .survey-nav__back {
+      font-family: var(--font-brand);
+      font-size: 0.62rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.28);
+      background: none;
+      border: none;
+      cursor: pointer;
+      transition: color 0.18s;
+      padding: 0;
+    }
+
+    .survey-nav__back:hover { color: rgba(255,255,255,0.65); }
+    .survey-nav__back[disabled] { opacity: 0; pointer-events: none; }
+
+    /* Result state */
+    .survey-result {
+      display: none;
+      flex-direction: column;
+      gap: 1.5rem;
+      animation: q-slide-in 0.5s cubic-bezier(0.16,1,0.3,1) both;
+    }
+
+    .survey-result.is-active { display: flex; }
+
+    .survey-result__ai-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--font-brand);
+      font-size: 0.58rem;
+      font-weight: 600;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--color-gold);
+      padding: 0.35rem 0.75rem;
+      border: 1px solid rgba(201,169,110,0.25);
+      background: rgba(201,169,110,0.06);
+      width: fit-content;
+    }
+
+    .survey-result__ai-badge::before {
+      content: '✦';
+      font-size: 0.6rem;
+      color: var(--color-gold);
+    }
+
+    .survey-result__heading {
+      font-family: var(--font-display);
+      font-size: clamp(1.5rem, 3vw, 2.2rem);
+      font-weight: 300;
+      line-height: 1.12;
+      color: rgba(255,255,255,0.92);
+    }
+
+    .survey-result__program-name {
+      font-family: var(--font-brand);
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--color-gold);
+      padding: 0.6rem 1.25rem;
+      border: 1px solid rgba(201,169,110,0.35);
+      background: rgba(201,169,110,0.06);
+      display: inline-block;
+      margin-bottom: 0.25rem;
+    }
+
+    .survey-result__duration {
+      font-family: var(--font-brand);
+      font-size: 0.58rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.25);
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+
+    .survey-result__reason {
+      font-family: var(--font-body);
+      font-size: 0.9375rem;
+      font-weight: 300;
+      line-height: 1.75;
+      color: rgba(255,255,255,0.48);
+      padding-left: 1rem;
+      border-left: 1px solid rgba(201,169,110,0.3);
+    }
+
+    .survey-result__actions {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      padding-top: 0.5rem;
+    }
+
+    /* ── INTAKE FORM SECTION ───────────────────────── */
+    .intake-section {
+      background-color: var(--color-cream);
+    }
+
+    .intake-layout {
+      display: grid;
+      grid-template-columns: 1fr 1.6fr;
+      gap: clamp(3rem, 6vw, 6rem);
+      align-items: start;
+    }
+
+    .intake-sidebar {
+      position: sticky;
+      top: calc(78px + 2rem);
+    }
+
+    .intake-sidebar__body {
+      font-family: var(--font-body);
+      font-size: 1rem;
+      font-weight: 300;
+      line-height: 1.8;
+      color: var(--color-text-muted);
+      margin-bottom: 1.5rem;
+    }
+
+    .intake-contact {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .intake-contact__item {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .intake-contact__label {
+      font-family: var(--font-brand);
+      font-size: 0.58rem;
+      font-weight: 600;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--color-gold-dark);
+    }
+
+    .intake-contact__val {
+      font-family: var(--font-body);
+      font-size: 0.875rem;
+      font-weight: 300;
+      color: var(--color-text-soft);
+    }
+
+    .intake-contact__val a:hover { color: var(--color-gold-dark); }
+
+    /* Automation tip */
+    .auto-tip-box {
+      background: var(--color-black);
+      padding: 1.25rem 1.5rem;
+      border-left: 2px solid var(--color-gold);
+    }
+
+    .auto-tip-box__label {
+      font-family: var(--font-brand);
+      font-size: 0.55rem;
+      font-weight: 600;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: var(--color-gold);
+      margin-bottom: 0.6rem;
+    }
+
+    .auto-tip-box__text {
+      font-family: var(--font-body);
+      font-size: 0.8rem;
+      font-weight: 300;
+      color: rgba(255,255,255,0.42);
+      line-height: 1.7;
+    }
+
+    /* Intake form card */
+    .intake-form-card {
+      background: var(--color-white);
+      border: 1px solid var(--color-grey-mid);
+      padding: clamp(1.5rem, 4vw, 2.5rem);
+    }
+
+    .intake-form-card__title {
+      font-family: var(--font-display);
+      font-size: 1.75rem;
+      font-weight: 300;
+      color: var(--color-text);
+      margin-bottom: 0.25rem;
+      line-height: 1.2;
+    }
+
+    .intake-form-card__sub {
+      font-family: var(--font-body);
+      font-size: 0.8125rem;
+      font-weight: 300;
+      color: var(--color-text-muted);
+      margin-bottom: 2rem;
+    }
+
+    /* Form divider */
+    .intake-divider {
+      font-family: var(--font-brand);
+      font-size: 0.58rem;
+      font-weight: 600;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--color-gold-dark);
+      padding: 0.5rem 0;
+      border-bottom: 1px solid var(--color-grey-mid);
+      margin-bottom: 1.25rem;
+      margin-top: 0.5rem;
+    }
+
+    /* Radio/checkbox group */
+    .intake-radio-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .intake-radio-group--inline {
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    .intake-radio {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--font-body);
+      font-size: 0.875rem;
+      font-weight: 300;
+      color: var(--color-text-soft);
+      cursor: pointer;
+      line-height: 1.4;
+    }
+
+    .intake-radio input { accent-color: var(--color-gold); flex-shrink: 0; }
+
+    /* File upload */
+    .intake-file-label {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 1rem 1.25rem;
+      background: var(--color-off-white);
+      border: 1px dashed var(--color-grey-mid);
+      cursor: pointer;
+      font-family: var(--font-body);
+      font-size: 0.875rem;
+      font-weight: 300;
+      color: var(--color-text-muted);
+      transition: border-color 0.18s, background-color 0.18s;
+    }
+
+    .intake-file-label:hover {
+      border-color: var(--color-gold);
+      background-color: rgba(201,169,110,0.04);
+    }
+
+    .intake-file-label svg { flex-shrink: 0; opacity: 0.5; }
+    .intake-file-input { display: none; }
+
+    /* WA notice */
+    .wa-notice {
+      background: rgba(37,211,102,0.06);
+      border: 1px solid rgba(37,211,102,0.2);
+      padding: 1rem 1.25rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      margin-top: 1rem;
+    }
+
+    .wa-notice__icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 2px; }
+
+    .wa-notice__text {
+      font-family: var(--font-body);
+      font-size: 0.8rem;
+      font-weight: 300;
+      color: var(--color-text-soft);
+      line-height: 1.65;
+    }
+
+    .wa-notice__text strong {
+      font-weight: 500;
+      color: var(--color-text);
+    }
+
+    /* Form field helpers */
+    .intake-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .intake-field {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .intake-label {
+      font-family: var(--font-brand);
+      font-size: 0.62rem;
+      font-weight: 600;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+    }
+
+    .intake-input,
+    .intake-select,
+    .intake-textarea {
+      width: 100%;
+      background: var(--color-off-white);
+      border: 1px solid var(--color-grey-mid);
+      border-radius: 0;
+      padding: 0.875rem 1.125rem;
+      font-family: var(--font-body);
+      font-size: 0.9375rem;
+      font-weight: 300;
+      color: var(--color-text);
+      appearance: none;
+      -webkit-appearance: none;
+      outline: none;
+      transition: border-color 0.18s, box-shadow 0.18s, background-color 0.18s;
+    }
+
+    .intake-input::placeholder,
+    .intake-textarea::placeholder { color: var(--color-grey-subtle); }
+
+    .intake-input:focus,
+    .intake-select:focus,
+    .intake-textarea:focus {
+      border-color: var(--color-gold);
+      background-color: var(--color-white);
+      box-shadow: 0 0 0 3px rgba(201,169,110,0.10);
+    }
+
+    .intake-select {
+      cursor: pointer;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23c9a96e' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 1.125rem center;
+      padding-right: 2.5rem;
+    }
+
+    .intake-textarea { resize: vertical; min-height: 110px; }
+
+    .intake-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+    }
+
+    .intake-error {
+      font-family: var(--font-body);
+      font-size: 0.72rem;
+      color: #9a0020;
+      min-height: 1em;
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .coaching-hero__inner { grid-template-columns: 1fr; }
+      .coaching-hero__stats { max-width: 480px; }
+      .coaching-programs-grid { grid-template-columns: 1fr 1fr; }
+      .how-it-works__steps { grid-template-columns: 1fr 1fr; }
+      .how-step:nth-child(2) { border-right: none; }
+      .how-step:nth-child(2)::after { display: none; }
+      .how-step:nth-child(3) { border-top: 1px solid var(--color-grey-mid); border-right: 1px solid var(--color-grey-mid); }
+      .survey-layout { grid-template-columns: 1fr; }
+      .survey-sidebar { position: static; }
+      .intake-layout { grid-template-columns: 1fr; }
+      .intake-sidebar { position: static; }
+    }
+
+    @media (max-width: 768px) {
+      .coaching-programs-grid { grid-template-columns: 1fr; }
+      .how-it-works__steps { grid-template-columns: 1fr; }
+      .how-step { border-right: none; border-bottom: 1px solid var(--color-grey-mid); }
+      .how-step::after { content: '↓'; right: auto; left: 1.5rem; top: auto; bottom: -0.9rem; transform: none; }
+      .how-step:last-child { border-bottom: none; }
+      .survey-options { grid-template-columns: 1fr; }
+      .survey-options--single { grid-template-columns: 1fr 1fr; }
+      .intake-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+
+<body class="is-loading">
+
+  <!-- PRELOADER -->
+  <div class="preloader" id="preloader">
+    <div class="preloader__panel preloader__panel--left"></div>
+    <div class="preloader__panel preloader__panel--right"></div>
+    <div class="preloader__corner preloader__corner--tl"></div>
+    <div class="preloader__corner preloader__corner--tr"></div>
+    <div class="preloader__corner preloader__corner--bl"></div>
+    <div class="preloader__corner preloader__corner--br"></div>
+    <div class="preloader__inner">
+      <div class="preloader__owner-wrap"><span class="preloader__owner">GOKUL SRINIVASAN'S</span></div>
+      <div class="preloader__line"></div>
+      <div class="preloader__brand-wrap">
+        <div class="preloader__logo-wrap">
+          <img src="assets/images/aviate-logo.jpg" alt="Aviate Gym" class="preloader__logo-img" />
+        </div>
+      </div>
+      <div class="preloader__bar-wrap">
+        <div class="preloader__bar"><div class="preloader__fill"></div></div>
+        <span class="preloader__percent" id="pl-percent">Loading...</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- NAVIGATION -->
+  <header class="site-header" id="site-header">
+    <nav class="nav">
+      <a href="index.html" class="nav__logo" aria-label="Aviate Gym home">
+        <img src="assets/images/aviate-logo.jpg" alt="Gokul Srinivasan's Aviate Gym" class="nav__logo-img" />
+      </a>
+      <ul class="nav__links">
+        <li><a href="about.html"           class="nav__link">About</a></li>
+        <li><a href="programs.html"        class="nav__link">Programs</a></li>
+        <li><a href="online-coaching.html" class="nav__link is-active">Online Coaching</a></li>
+        <li><a href="gallery.html"         class="nav__link">Gallery</a></li>
+        <li><a href="results.html"         class="nav__link">Results</a></li>
+        <li><a href="booking.html"         class="nav__link nav__link--cta">Book a Session</a></li>
+      </ul>
+      <button class="nav__hamburger" aria-label="Toggle menu" aria-expanded="false">
+        <span class="nav__hamburger-line"></span>
+        <span class="nav__hamburger-line"></span>
+      </button>
+    </nav>
+    <div class="mobile-menu" id="mobile-menu">
+      <ul class="mobile-menu__links">
+        <li><a href="about.html"           class="mobile-menu__link">About</a></li>
+        <li><a href="programs.html"        class="mobile-menu__link">Programs</a></li>
+        <li><a href="online-coaching.html" class="mobile-menu__link">Online Coaching</a></li>
+        <li><a href="gallery.html"         class="mobile-menu__link">Gallery</a></li>
+        <li><a href="results.html"         class="mobile-menu__link">Results</a></li>
+        <li><a href="booking.html"         class="mobile-menu__link mobile-menu__link--cta">Book a Session</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ═══════════════════════════════════════
+         HERO
+    ═══════════════════════════════════════ -->
+    <section class="coaching-hero">
+      <div class="coaching-hero__bg">
+        <img src="assets/images/gokul.jpg" alt="" aria-hidden="true" class="coaching-hero__bg-img" />
+        <div class="coaching-hero__overlay"></div>
+      </div>
+      <div class="coaching-hero__grid" aria-hidden="true"></div>
+
+      <div class="coaching-hero__content">
+        <div class="container coaching-hero__inner">
+          <div>
+            <p class="coaching-hero__eyebrow">
+              <span class="coaching-hero__eyebrow-line"></span>
+              Online Coaching
+            </p>
+            <h1 class="coaching-hero__heading">
+              Transform.<br />From <em>Anywhere.</em>
+            </h1>
+            <p class="coaching-hero__sub">
+              Aviate's precision coaching — now delivered to your city, your home, your schedule. Real programs. Real coaches. Real results.
+            </p>
+            <div class="coaching-hero__actions">
+              <a href="#ai-survey" class="btn btn--gold btn--large" data-scroll-to="ai-survey">
+                ✦ Take the AI Survey
+              </a>
+              <a href="#coaching-programs" class="btn btn--outline-light" data-scroll-to="coaching-programs">
+                View Programs →
+              </a>
+            </div>
+          </div>
+
+          <div class="coaching-hero__stats">
+            <div class="coaching-hero__stat">
+              <span class="coaching-hero__stat-num">3K<em>+</em></span>
+              <span class="coaching-hero__stat-label">Lives Transformed</span>
+            </div>
+            <div class="coaching-hero__stat">
+              <span class="coaching-hero__stat-num">6<em>+</em></span>
+              <span class="coaching-hero__stat-label">Coaching Programs</span>
+            </div>
+            <div class="coaching-hero__stat">
+              <span class="coaching-hero__stat-num">12<em>+</em></span>
+              <span class="coaching-hero__stat-label">Years Experience</span>
+            </div>
+            <div class="coaching-hero__stat">
+              <span class="coaching-hero__stat-num">24<em>h</em></span>
+              <span class="coaching-hero__stat-label">Coach Response Time</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ═══════════════════════════════════════
+         HOW IT WORKS
+    ═══════════════════════════════════════ -->
+    <div class="how-it-works">
+      <div class="container">
+        <div class="how-it-works__steps reveal-stagger">
+          <div class="how-step">
+            <div class="how-step__num">01</div>
+            <h3 class="how-step__title">Take the AI Survey</h3>
+            <p class="how-step__desc">Answer 4 quick questions. Our AI matches your goal, gender, experience and timeline to the perfect program.</p>
+          </div>
+          <div class="how-step">
+            <div class="how-step__num">02</div>
+            <h3 class="how-step__title">Get Your Recommendation</h3>
+            <p class="how-step__desc">Receive a personalised program suggestion with an explanation of why it fits your profile.</p>
+          </div>
+          <div class="how-step">
+            <div class="how-step__num">03</div>
+            <h3 class="how-step__title">Fill Your Intake Form</h3>
+            <p class="how-step__desc">Share your details — age, weight, height, goals and more. Your data goes directly to Coach Gokul.</p>
+          </div>
+          <div class="how-step">
+            <div class="how-step__num">04</div>
+            <h3 class="how-step__title">Coach Contacts You</h3>
+            <p class="how-step__desc">Within 24 hours, your coach reaches out on WhatsApp to confirm your program and get you started.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ═══════════════════════════════════════
+         PROGRAMS
+    ═══════════════════════════════════════ -->
+    <section class="coaching-programs-section" id="coaching-programs">
+      <div class="container">
+        <header class="section-header reveal">
+          <p class="section-eyebrow">Choose Your Goal</p>
+          <h2 class="section-heading">Start Your<br /><em>Transformation</em></h2>
+          <p class="section-subheading">Seven specialised programs. Each engineered around a specific body type, goal, and timeline.</p>
+        </header>
+
+        <div class="coaching-programs-grid reveal-stagger" id="coaching-programs-grid">
+
+          <!-- Card 1: Body Recomposition (Male) -->
+          <div class="cprogram-card" data-program="Body Recomposition Program (6 Months)" data-gender="male">
+            <div class="cprogram-card__img-wrap">
+              <img src="assets/images/recomposition.jpg" alt="Body Recomposition" class="cprogram-card__img" loading="lazy" />
+            </div>
+            <div class="cprogram-card__body">
+              <p class="cprogram-card__tag">For Men · Recomposition</p>
+              <h3 class="cprogram-card__title">Body Recomposition</h3>
+              <p class="cprogram-card__duration">6 Months</p>
+              <p class="cprogram-card__desc">Lose chest fat, belly fat and build lean muscle simultaneously. The complete body overhaul for men ready to look and perform differently.</p>
+              <div class="cprogram-card__select">
+                <span class="cprogram-card__select-dot"></span>
+                Select This Program
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 2: PCOD/Thyroid (Female) -->
+          <div class="cprogram-card" data-program="PCOD / Thyroid Fat Loss Program (6 Months)" data-gender="female">
+            <div class="cprogram-card__img-wrap">
+              <img src="assets/images/pcod.jpg" alt="PCOD Thyroid Fat Loss" class="cprogram-card__img" loading="lazy" />
+            </div>
+            <div class="cprogram-card__body">
+              <p class="cprogram-card__tag">For Women · Hormonal Health</p>
+              <h3 class="cprogram-card__title">PCOD / Thyroid Fat Loss</h3>
+              <p class="cprogram-card__duration">6 Months</p>
+              <p class="cprogram-card__desc">Fix hormones, burn stubborn fat and get a toned body naturally. Designed specifically for women dealing with PCOD or thyroid conditions.</p>
+              <div class="cprogram-card__select">
+                <span class="cprogram-card__select-dot"></span>
+                Select This Program
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 3: Weight Loss (Male) -->
+          <div class="cprogram-card" data-program="Weight Loss Program — Male (4 Months)" data-gender="male">
+            <div class="cprogram-card__img-wrap">
+              <img src="assets/images/male.jpg" alt="Weight Loss Male" class="cprogram-card__img" loading="lazy" />
+            </div>
+            <div class="cprogram-card__body">
+              <p class="cprogram-card__tag">For Men · Weight Loss</p>
+              <h3 class="cprogram-card__title">Weight Loss (Male)</h3>
+              <p class="cprogram-card__duration">4 Months</p>
+              <p class="cprogram-card__desc">Drop unwanted fat, improve fitness and boost confidence fast. Science-backed protocols built around the male metabolism for rapid visible results.</p>
+              <div class="cprogram-card__select">
+                <span class="cprogram-card__select-dot"></span>
+                Select This Program
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 4: Weight Loss (Female) -->
+          <div class="cprogram-card" data-program="Weight Loss Program — Female (4 Months)" data-gender="female">
+            <div class="cprogram-card__img-wrap">
+              <img src="assets/images/female.jpg" alt="Weight Loss Female" class="cprogram-card__img" loading="lazy" />
+            </div>
+            <div class="cprogram-card__body">
+              <p class="cprogram-card__tag">For Women · Weight Loss</p>
+              <h3 class="cprogram-card__title">Weight Loss (Female)</h3>
+              <p class="cprogram-card__duration">4 Months</p>
+              <p class="cprogram-card__desc">Drop unwanted fat, improve fitness and boost confidence fast. Tailored to the female hormonal cycle for sustainable, lasting fat loss without muscle sacrifice.</p>
+              <div class="cprogram-card__select">
+                <span class="cprogram-card__select-dot"></span>
+                Select This Program
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 5: Lean Gaining (Male) -->
+          <div class="cprogram-card" data-program="Lean Gaining Program (6 Months)" data-gender="male">
+            <div class="cprogram-card__img-wrap">
+              <img src="assets/images/lean-gaining.jpg" alt="Lean Gaining" class="cprogram-card__img" loading="lazy" />
+            </div>
+            <div class="cprogram-card__body">
+              <p class="cprogram-card__tag">For Men · Muscle Building</p>
+              <h3 class="cprogram-card__title">Lean Gaining</h3>
+              <p class="cprogram-card__duration">6 Months</p>
+              <p class="cprogram-card__desc">Gain lean muscle without fat. Look strong, defined and athletic. Precision nutrition and hypertrophy programming for the physique you've always visualised.</p>
+              <div class="cprogram-card__select">
+                <span class="cprogram-card__select-dot"></span>
+                Select This Program
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 6: Fat Loss Transformation (Female) -->
+          <div class="cprogram-card" data-program="Fat Loss Transformation Program (6 Months)" data-gender="female">
+            <div class="cprogram-card__img-wrap">
+              <img src="assets/images/fatloss.jpg" alt="Fat Loss Transformation" class="cprogram-card__img" loading="lazy" />
+            </div>
+            <div class="cprogram-card__body">
+              <p class="cprogram-card__tag">For Women · Full Transformation</p>
+              <h3 class="cprogram-card__title">Fat Loss Transformation</h3>
+              <p class="cprogram-card__duration">6 Months</p>
+              <p class="cprogram-card__desc">Rebuild strength, tone your body and feel confident, strong and full of energy. The complete 6-month physical and mental transformation for women.</p>
+              <div class="cprogram-card__select">
+                <span class="cprogram-card__select-dot"></span>
+                Select This Program
+              </div>
+            </div>
+          </div>
+        
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ═══════════════════════════════════════
+         AI SURVEY
+    ═══════════════════════════════════════ -->
+    <section class="ai-survey-section" id="ai-survey">
+      <div class="container">
+        <div class="survey-layout">
+
+          <!-- Sidebar -->
+          <div class="survey-sidebar reveal">
+            <p class="survey-sidebar__eyebrow">✦ AI-Powered Matching</p>
+            <h2 class="survey-sidebar__heading">Find Your<br /><em>Perfect</em><br />Program.</h2>
+            <p class="survey-sidebar__body">Answer 4 questions. Our AI analyses your goal, gender, experience level and timeline to give you a precise, personalised recommendation.</p>
+            <div class="survey-sidebar__features">
+              <div class="survey-feature"><span class="survey-feature__dot"></span>Takes under 60 seconds</div>
+              <div class="survey-feature"><span class="survey-feature__dot"></span>Personalised to your biology &amp; goals</div>
+              <div class="survey-feature"><span class="survey-feature__dot"></span>Coach reviews and confirms your match</div>
+              <div class="survey-feature"><span class="survey-feature__dot"></span>No commitment required</div>
+            </div>
+          </div>
+
+          <!-- Survey card -->
+          <div class="survey-card reveal" id="survey-card">
+
+            <!-- Progress -->
+            <div class="survey-progress" id="survey-progress">
+              <div class="survey-progress__step is-active"></div>
+              <div class="survey-progress__step"></div>
+              <div class="survey-progress__step"></div>
+              <div class="survey-progress__step"></div>
+            </div>
+
+            <!-- Questions container -->
+            <div id="survey-questions">
+
+              <!-- Q1: Goal -->
+              <div class="survey-question is-active" id="sq-0">
+                <div class="survey-q-meta">
+                  <span class="survey-q-label">Your Goal</span>
+                  <span class="survey-q-count">1 / 4</span>
+                </div>
+                <h3 class="survey-q-text">What is your primary fitness goal?</h3>
+                <div class="survey-options survey-options--wide" role="group">
+                  <button class="survey-opt" data-value="recomp" type="button"><span class="survey-opt__check"></span>Lose fat &amp; build lean muscle (Body Recomposition)</button>
+                  <button class="survey-opt" data-value="pcod"   type="button"><span class="survey-opt__check"></span>Fix hormones &amp; burn stubborn fat (PCOD / Thyroid)</button>
+                  <button class="survey-opt" data-value="wloss"  type="button"><span class="survey-opt__check"></span>Drop unwanted fat &amp; boost confidence (Weight Loss)</button>
+                  <button class="survey-opt" data-value="lean"   type="button"><span class="survey-opt__check"></span>Gain lean muscle &amp; look athletic (Lean Gaining)</button>
+                  <button class="survey-opt" data-value="ftrans" type="button"><span class="survey-opt__check"></span>Rebuild strength, tone &amp; feel energetic (Fat Loss Transformation)</button>
+                </div>
+                <div class="survey-nav">
+                  <button class="survey-nav__back" type="button" disabled>← Back</button>
+                  <button class="btn btn--primary survey-nav__next" type="button" disabled>Next →</button>
+                </div>
+              </div>
+
+              <!-- Q2: Gender -->
+              <div class="survey-question" id="sq-1">
+                <div class="survey-q-meta">
+                  <span class="survey-q-label">Your Gender</span>
+                  <span class="survey-q-count">2 / 4</span>
+                </div>
+                <h3 class="survey-q-text">What is your gender?</h3>
+                <div class="survey-options survey-options--single" role="group">
+                  <button class="survey-opt" data-value="male"   type="button"><span class="survey-opt__check"></span>Male</button>
+                  <button class="survey-opt" data-value="female" type="button"><span class="survey-opt__check"></span>Female</button>
+                  <button class="survey-opt" data-value="other"  type="button"><span class="survey-opt__check"></span>Other</button>
+                </div>
+                <div class="survey-nav">
+                  <button class="survey-nav__back" type="button">← Back</button>
+                  <button class="btn btn--primary survey-nav__next" type="button" disabled>Next →</button>
+                </div>
+              </div>
+
+              <!-- Q3: Experience -->
+              <div class="survey-question" id="sq-2">
+                <div class="survey-q-meta">
+                  <span class="survey-q-label">Experience Level</span>
+                  <span class="survey-q-count">3 / 4</span>
+                </div>
+                <h3 class="survey-q-text">What is your current fitness experience?</h3>
+                <div class="survey-options survey-options--single" role="group">
+                  <button class="survey-opt" data-value="beginner"     type="button"><span class="survey-opt__check"></span>Beginner — just starting out</button>
+                  <button class="survey-opt" data-value="intermediate" type="button"><span class="survey-opt__check"></span>Intermediate — I train occasionally</button>
+                  <button class="survey-opt" data-value="advanced"     type="button"><span class="survey-opt__check"></span>Advanced — I train regularly</button>
+                </div>
+                <div class="survey-nav">
+                  <button class="survey-nav__back" type="button">← Back</button>
+                  <button class="btn btn--primary survey-nav__next" type="button" disabled>Next →</button>
+                </div>
+              </div>
+
+              <!-- Q4: Timeline -->
+              <div class="survey-question" id="sq-3">
+                <div class="survey-q-meta">
+                  <span class="survey-q-label">Commitment</span>
+                  <span class="survey-q-count">4 / 4</span>
+                </div>
+                <h3 class="survey-q-text">How committed are you to your transformation?</h3>
+                <div class="survey-options survey-options--single" role="group">
+                  <button class="survey-opt" data-value="4months"  type="button"><span class="survey-opt__check"></span>4 months — I want fast, visible results</button>
+                  <button class="survey-opt" data-value="6months"  type="button"><span class="survey-opt__check"></span>6 months — I'm ready for a real transformation</button>
+                  <button class="survey-opt" data-value="ongoing"  type="button"><span class="survey-opt__check"></span>Long-term — I want sustainable, lasting change</button>
+                </div>
+                <div class="survey-nav">
+                  <button class="survey-nav__back" type="button">← Back</button>
+                  <button class="btn btn--gold survey-nav__next" type="button" disabled>Get My Recommendation ✦</button>
+                </div>
+              </div>
+
+            </div><!-- /survey-questions -->
+
+            <!-- Result (hidden until complete) -->
+            <div class="survey-result" id="survey-result">
+              <!-- Populated by JS -->
+            </div>
+
+          </div><!-- /survey-card -->
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ═══════════════════════════════════════
+         INTAKE FORM
+    ═══════════════════════════════════════ -->
+    <section class="intake-section" id="coaching-form-section">
+      <div class="container intake-layout">
+
+        <!-- Sidebar -->
+        <div class="intake-sidebar reveal">
+          <p class="section-eyebrow">Your Intake Form</p>
+          <h2 class="section-heading">Tell Us<br />About You.</h2>
+          <p class="intake-sidebar__body">
+            Fill in your details below. Every field helps your coach build a program that's truly yours. Be as specific as possible.
+          </p>
+
+          <div class="intake-contact">
+            <div class="intake-contact__item">
+              <span class="intake-contact__label">WhatsApp</span>
+              <span class="intake-contact__val">
+                <a href="https://wa.me/919789892696" target="_blank" rel="noopener">+91 97898 92696</a>
+              </span>
+            </div>
+            <div class="intake-contact__item">
+              <span class="intake-contact__label">Instagram</span>
+              <span class="intake-contact__val">
+                <a href="https://www.instagram.com/aviate.gym" target="_blank" rel="noopener">@aviate.gym</a>
+              </span>
+            </div>
+            <div class="intake-contact__item">
+              <span class="intake-contact__label">Response Time</span>
+              <span class="intake-contact__val">Within 24 hours</span>
+            </div>
+          </div>
+
+          <div class="auto-tip-box">
+            <p class="auto-tip-box__label">🔔 Save This Before Submitting</p>
+            <p class="auto-tip-box__text">
+              <strong style="color:rgba(255,255,255,0.75);">Gokul's personal sales number:</strong><br />
+              +91 97898 92696 (WhatsApp)<br /><br />
+              Save this number <em>before</em> submitting your form — only then can Gokul see your data on WhatsApp and respond to you.
+            </p>
+          </div>
+        </div>
+
+        <!-- Form -->
+        <div class="intake-form-card reveal">
+          <h3 class="intake-form-card__title">Coaching Intake Form</h3>
+          <p class="intake-form-card__sub">All fields marked * are required. Your data is sent securely to your coach.</p>
+
+          <form class="intake-form" id="coaching-intake-form" novalidate>
+
+            <!-- Selected Program (pre-filled by survey) -->
+            <div class="intake-field">
+              <label class="intake-label" for="cf-program">Program Selected *</label>
+              <select class="intake-select" id="cf-program" name="program" required>
+                <option value="" disabled selected>— Select your program —</option>
+                <option value="Body Recomposition Program (6 Months)">Body Recomposition (6 Months) — Male</option>
+                <option value="PCOD / Thyroid Fat Loss Program (6 Months)">PCOD / Thyroid Fat Loss (6 Months) — Female</option>
+                <option value="Weight Loss Program — Male (4 Months)">Weight Loss (4 Months) — Male</option>
+                <option value="Weight Loss Program — Female (4 Months)">Weight Loss (4 Months) — Female</option>
+                <option value="Lean Gaining Program (6 Months)">Lean Gaining (6 Months) — Male</option>
+                <option value="Fat Loss Transformation Program (6 Months)">Fat Loss Transformation (6 Months) — Female</option>
+              </select>
+              <span class="intake-error" id="err-cf-program"></span>
+            </div>
+
+            <div class="intake-divider">Personal Details</div>
+
+            <!-- Name -->
+            <div class="intake-field">
+              <label class="intake-label" for="cf-name">Full Name *</label>
+              <input class="intake-input" type="text" id="cf-name" name="name" placeholder="Your full name" required autocomplete="name" />
+              <span class="intake-error" id="err-cf-name"></span>
+            </div>
+
+            <!-- Age + Gender -->
+            <div class="intake-row">
+              <div class="intake-field">
+                <label class="intake-label" for="cf-age">Age *</label>
+                <input class="intake-input" type="number" id="cf-age" name="age" placeholder="e.g. 28" min="14" max="80" required />
+                <span class="intake-error" id="err-cf-age"></span>
+              </div>
+              <div class="intake-field">
+                <label class="intake-label" for="cf-gender">Gender *</label>
+                <select class="intake-select" id="cf-gender" name="gender" required>
+                  <option value="" disabled selected>Select</option>
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                  <option value="Other">Other / Prefer not to say</option>
+                </select>
+                <span class="intake-error" id="err-cf-gender"></span>
+              </div>
+            </div>
+
+            <!-- Country + City -->
+            <div class="intake-row">
+              <div class="intake-field">
+                <label class="intake-label" for="cf-country">Country *</label>
+                <input class="intake-input" type="text" id="cf-country" name="country" placeholder="e.g. India" required autocomplete="country-name" />
+                <span class="intake-error" id="err-cf-country"></span>
+              </div>
+              <div class="intake-field">
+                <label class="intake-label" for="cf-city">City *</label>
+                <input class="intake-input" type="text" id="cf-city" name="city" placeholder="e.g. Chennai" required autocomplete="address-level2" />
+                <span class="intake-error" id="err-cf-city"></span>
+              </div>
+            </div>
+
+            <div class="intake-divider">Body Metrics</div>
+
+            <!-- Weight + Height -->
+            <div class="intake-row">
+              <div class="intake-field">
+                <label class="intake-label" for="cf-weight">Current Weight *</label>
+                <input class="intake-input" type="text" id="cf-weight" name="weight" placeholder="e.g. 78 kg" required />
+                <span class="intake-error" id="err-cf-weight"></span>
+              </div>
+              <div class="intake-field">
+                <label class="intake-label" for="cf-height">Height *</label>
+                <input class="intake-input" type="text" id="cf-height" name="height" placeholder="e.g. 5'9&quot; or 175 cm" required />
+                <span class="intake-error" id="err-cf-height"></span>
+              </div>
+            </div>
+
+            <!-- Favourite Food -->
+            <div class="intake-field">
+              <label class="intake-label" for="cf-food">Favourite Food</label>
+              <input class="intake-input" type="text" id="cf-food" name="food" placeholder="e.g. Rice, chicken, fruits..." />
+            </div>
+
+            <div class="intake-divider">Contact Details</div>
+
+            <!-- Instagram -->
+            <div class="intake-field">
+              <label class="intake-label" for="cf-instagram">Instagram ID</label>
+              <input class="intake-input" type="text" id="cf-instagram" name="instagram" placeholder="@yourusername" />
+            </div>
+
+            <!-- Phone WA + Call -->
+            <div class="intake-row">
+              <div class="intake-field">
+                <label class="intake-label" for="cf-phone-wa">WhatsApp Number *</label>
+                <input class="intake-input" type="tel" id="cf-phone-wa" name="phone_wa" placeholder="+91 98765 43210" required autocomplete="tel" />
+                <span class="intake-error" id="err-cf-phone-wa"></span>
+              </div>
+              <div class="intake-field">
+                <label class="intake-label" for="cf-phone-call">Calling Number *</label>
+                <input class="intake-input" type="tel" id="cf-phone-call" name="phone_call" placeholder="+91 98765 43210" required autocomplete="tel" />
+                <span class="intake-error" id="err-cf-phone-call"></span>
+              </div>
+            </div>
+
+            <div class="intake-divider">About You</div>
+
+            <!-- Marital Status -->
+            <div class="intake-field">
+              <label class="intake-label">Marital Status</label>
+              <div class="intake-radio-group intake-radio-group--inline">
+                <label class="intake-radio"><input type="radio" name="cf-marital" value="Married" /> Married</label>
+                <label class="intake-radio"><input type="radio" name="cf-marital" value="Single"  /> Single</label>
+              </div>
+            </div>
+
+            <!-- How did you hear -->
+            <div class="intake-field">
+              <label class="intake-label">How did you hear about us?</label>
+              <div class="intake-radio-group">
+                <label class="intake-radio"><input type="radio" name="cf-source" value="Instagram" /> Instagram</label>
+                <label class="intake-radio"><input type="radio" name="cf-source" value="YouTube"   /> YouTube</label>
+                <label class="intake-radio"><input type="radio" name="cf-source" value="Facebook"  /> Facebook</label>
+                <label class="intake-radio"><input type="radio" name="cf-source" value="Friend / Family Reference" /> Friend / Family Reference</label>
+                <label class="intake-radio"><input type="radio" name="cf-source" value="Other"     /> Other</label>
+              </div>
+            </div>
+
+            <!-- Reason / Goal -->
+            <div class="intake-field">
+              <label class="intake-label" for="cf-reason">Why do you want to transform? What is your main reason? *</label>
+              <textarea class="intake-textarea" id="cf-reason" name="reason" rows="4" placeholder="Please explain in detail — your goals, struggles, what has or hasn't worked before..." required></textarea>
+              <span class="intake-error" id="err-cf-reason"></span>
+            </div>
+
+            <!-- Photo upload -->
+            <div class="intake-field">
+              <label class="intake-label">Upload Your Current Photo</label>
+              <label class="intake-file-label" for="cf-photo">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                <span id="cf-photo-label">Click to upload current photo (male: shirtless clear pic · female: regular pic)</span>
+              </label>
+              <input class="intake-file-input" type="file" id="cf-photo" name="photo" accept="image/*" />
+            </div>
+
+            <!-- WhatsApp notice -->
+            <div class="wa-notice">
+              <span class="wa-notice__icon">📱</span>
+              <p class="wa-notice__text">
+                <strong>🚨 ALERT — Save before submitting:</strong><br />
+                Gokul's personal sales number: <strong>+91 97898 92696</strong> (WhatsApp).<br />
+                Save this number first — only then can your coach see your data and respond on WhatsApp.
+              </p>
+            </div>
+
+            <!-- Submit -->
+            <button class="btn btn--primary btn--full btn--large" type="submit" style="margin-top:0.5rem;letter-spacing:0.22em;">
+              Submit on WhatsApp →
+            </button>
+
+            <p class="booking-form__disclaimer" style="margin-top:0.75rem;">
+              Your intake form will be downloaded automatically and your details sent to Coach Gokul on WhatsApp.
+            </p>
+
+          </form>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ═══════════════════════════════════════
+         CTA BAND
+    ═══════════════════════════════════════ -->
+    <section class="cta-band">
+      <div class="container cta-band__inner reveal">
+        <div class="cta-band__text">
+          <p class="section-eyebrow">Prefer In-Person?</p>
+          <h2 class="cta-band__heading">Book Your<br /><em>Free Session.</em></h2>
+        </div>
+        <div class="cta-band__action">
+          <p class="cta-band__sub">Visit us at 12 Elevation Drive, Chennai. Your first session is completely on us — experience Aviate before you commit to anything.</p>
+          <div style="display:flex;gap:1rem;flex-wrap:wrap;">
+            <a href="booking.html"  class="btn btn--gold btn--large">Reserve Free Session</a>
+            <a href="programs.html" class="btn btn--outline-light">View Programs →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container site-footer__inner">
+      <div class="site-footer__brand">
+        <a href="index.html" class="site-footer__logo">
+          <span class="site-footer__logo-owner">GOKUL SRINIVASAN'S</span>
+          <span class="site-footer__logo-brand">AVIATE GYM</span>
+        </a>
+        <p class="site-footer__tagline">Train with intention.</p>
+        <ul class="site-footer__socials">
+          <li><a href="https://www.instagram.com/aviate.gym" target="_blank" rel="noopener" class="site-footer__social-link">Instagram</a></li>
+          <li><a href="https://youtube.com/" target="_blank" rel="noopener" class="site-footer__social-link">YouTube</a></li>
+          <li><a href="https://facebook.com/" target="_blank" rel="noopener" class="site-footer__social-link">Facebook</a></li>
+        </ul>
+        <a href="https://www.instagram.com/aviate.gym" target="_blank" rel="noopener" class="site-footer__insta-badge">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+          @aviate.gym
+        </a>
+      </div>
+      <nav class="site-footer__nav">
+        <div class="site-footer__nav-col">
+          <h3 class="site-footer__nav-heading">Explore</h3>
+          <ul>
+            <li><a href="about.html"    class="site-footer__nav-link">About Us</a></li>
+            <li><a href="programs.html" class="site-footer__nav-link">Programs</a></li>
+            <li><a href="gallery.html"  class="site-footer__nav-link">Gallery</a></li>
+            <li><a href="results.html"  class="site-footer__nav-link">Results</a></li>
+          </ul>
+        </div>
+        <div class="site-footer__nav-col">
+          <h3 class="site-footer__nav-heading">Services</h3>
+          <ul>
+            <li><a href="online-coaching.html" class="site-footer__nav-link">Online Coaching</a></li>
+            <li><a href="booking.html"         class="site-footer__nav-link">Book a Session</a></li>
+            <li><a href="programs.html"        class="site-footer__nav-link">Memberships</a></li>
+          </ul>
+        </div>
+        <div class="site-footer__nav-col">
+          <h3 class="site-footer__nav-heading">Contact</h3>
+          <ul>
+            <li><a href="tel:+919789892696"          class="site-footer__nav-link">+91 97898 92696</a></li>
+            <li><a href="https://wa.me/919789892696" target="_blank" rel="noopener" class="site-footer__nav-link">WhatsApp</a></li>
+            <li><a href="https://www.instagram.com/aviate.gym" target="_blank" rel="noopener" class="site-footer__nav-link">@aviate.gym</a></li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+    <div class="site-footer__bottom">
+      <div class="container site-footer__bottom-inner">
+        <p class="site-footer__copy">© <span id="footer-year"></span> Gokul Srinivasan's Aviate Gym. All rights reserved.</p>
+        <p class="site-footer__credit">Crafted with precision in Chennai.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js" defer></script>
+
+  <script>
+  /* ── Page-specific JS ─────────────────────── */
+  document.addEventListener('DOMContentLoaded', () => {
+
+    /* Program card selection → pre-fill survey + form */
+    document.querySelectorAll('.cprogram-card').forEach(card => {
+      card.addEventListener('click', () => {
+        document.querySelectorAll('.cprogram-card').forEach(c => c.classList.remove('cprogram-card--selected'));
+        card.classList.add('cprogram-card--selected');
+
+        const program = card.dataset.program;
+        const cfProgram = document.getElementById('cf-program');
+        if (cfProgram && program) cfProgram.value = program;
+
+        const survey = document.getElementById('ai-survey');
+        if (survey) {
+          const offset = document.getElementById('site-header')?.offsetHeight ?? 78;
+          window.scrollTo({ top: survey.getBoundingClientRect().top + window.scrollY - offset, behavior: 'smooth' });
+        }
+      });
+    });
+
+    /* File upload label update */
+    const photoInput = document.getElementById('cf-photo');
+    const photoLabel = document.getElementById('cf-photo-label');
+    if (photoInput && photoLabel) {
+      photoInput.addEventListener('change', () => {
+        if (photoInput.files.length > 0) {
+          photoLabel.textContent = '✓ ' + photoInput.files[0].name;
+        }
+      });
+    }
+
+    /* ── Inline AI Survey Logic ─────────────── */
+    const surveyCard     = document.getElementById('survey-card');
+    const questionsWrap  = document.getElementById('survey-questions');
+    const resultWrap     = document.getElementById('survey-result');
+    const progressSteps  = document.querySelectorAll('.survey-progress__step');
+    if (!surveyCard || !questionsWrap || !resultWrap) return;
+
+    const questions  = ['sq-0','sq-1','sq-2','sq-3'];
+    const answers    = {};
+    const qKeys      = ['goal','gender','experience','timeline'];
+    let   currentQ   = 0;
+
+    function updateProgress() {
+      progressSteps.forEach((s, i) => {
+        s.className = 'survey-progress__step' +
+          (i < currentQ ? ' is-done' : i === currentQ ? ' is-active' : '');
+      });
+    }
+
+    function goTo(idx) {
+      questions.forEach((id, i) => {
+        const el = document.getElementById(id);
+        if (el) el.classList.toggle('is-active', i === idx);
+      });
+      currentQ = idx;
+      updateProgress();
+    }
+
+    function getRecommendation() {
+      const { goal, gender, timeline } = answers;
+      const map = {
+        recomp: { name: 'Body Recomposition Program', duration: '6 Months', reason: 'Your goal to lose fat and build lean muscle simultaneously is best served by the Body Recomposition program. It uses strategic nutrition timing and progressive overload to reshape your physique from the inside out.' },
+        pcod:   { name: 'PCOD / Thyroid Fat Loss Program', duration: '6 Months', reason: 'Hormonal fat loss requires a completely different approach. This program addresses the root cause — hormonal imbalance — through targeted training and nutrition protocols, helping you burn stubborn fat and achieve a toned, energetic body naturally.' },
+        wloss:  { name: gender === 'female' ? 'Weight Loss Program — Female' : 'Weight Loss Program — Male', duration: '4 Months', reason: `Our ${gender === 'female' ? 'female-specific' : 'male-optimised'} Weight Loss program uses science-backed fat-loss protocols tuned to your metabolism to deliver fast, visible results in just 4 months.` },
+        lean:   { name: 'Lean Gaining Program', duration: '6 Months', reason: 'To gain lean muscle without excess fat and achieve that athletic, defined physique, the Lean Gaining program is your perfect match. Precision hypertrophy training meets strategic nutrition to build exactly the physique you\'ve envisioned.' },
+        ftrans: { name: 'Fat Loss Transformation Program', duration: '6 Months', reason: 'The complete 6-month transformation — rebuilding strength, toning your body and reigniting your energy. This program is built for people who want lasting, total-body change, not just a quick fix.' },
+      };
+      const rec = map[goal] || map.recomp;
+      if (gender === 'female' && goal === 'recomp') {
+        rec.name = 'Body Recomposition Program';
+        rec.reason += ' For women, training phases are synced with your hormonal cycle for optimised results.';
+      }
+      return rec;
+    }
+
+    function showResult() {
+      questionsWrap.style.display = 'none';
+      document.getElementById('survey-progress').style.display = 'none';
+      resultWrap.classList.add('is-active');
+
+      const rec = getRecommendation();
+
+      resultWrap.innerHTML = `
+        <div class="survey-result__ai-badge">AI Recommendation</div>
+        <h3 class="survey-result__heading">We've found your<br />perfect program.</h3>
+        <div>
+          <span class="survey-result__program-name">${rec.name}</span>
+          <span class="survey-result__duration">Duration: ${rec.duration}</span>
+        </div>
+        <p class="survey-result__reason">${rec.reason}</p>
+        <div class="survey-result__actions">
+          <button class="btn btn--gold btn--large" type="button" id="survey-go-form">
+            Start My ${rec.duration} Journey →
+          </button>
+          <button class="btn btn--outline-light" type="button" onclick="location.reload()">
+            Retake Survey
+          </button>
+        </div>
+        <p style="margin-top:1rem;font-family:var(--font-body);font-size:0.72rem;
+           font-weight:300;color:rgba(255,255,255,0.22);line-height:1.6;">
+          ✦ Recommendation generated from your answers. Your coach will confirm and personalise further after your intake form.
+        </p>`;
+
+      document.getElementById('survey-go-form').addEventListener('click', () => {
+        const cfProgram = document.getElementById('cf-program');
+        if (cfProgram) cfProgram.value = rec.name + ' (' + rec.duration + ')';
+
+        const formSection = document.getElementById('coaching-form-section');
+        if (formSection) {
+          const offset = document.getElementById('site-header')?.offsetHeight ?? 78;
+          window.scrollTo({ top: formSection.getBoundingClientRect().top + window.scrollY - offset, behavior: 'smooth' });
+        }
+      });
+    }
+
+    /* Option selection */
+    questionsWrap.addEventListener('click', e => {
+      const opt = e.target.closest('.survey-opt');
+      if (!opt) return;
+      const qEl  = opt.closest('.survey-question');
+      const qIdx = questions.indexOf(qEl.id);
+      document.querySelectorAll('.survey-opt', qEl).forEach(o => { o.classList.remove('is-selected'); o.setAttribute('aria-pressed','false'); });
+      opt.classList.add('is-selected');
+      opt.setAttribute('aria-pressed','true');
+      answers[qKeys[qIdx]] = opt.dataset.value;
+      const nextBtn = qEl.querySelector('.survey-nav__next');
+      if (nextBtn) nextBtn.disabled = false;
+    });
+
+    /* Next / Back */
+    questionsWrap.addEventListener('click', e => {
+      const next = e.target.closest('.survey-nav__next');
+      const back = e.target.closest('.survey-nav__back');
+      if (next && !next.disabled) {
+        if (currentQ < questions.length - 1) goTo(currentQ + 1);
+        else showResult();
+      }
+      if (back && currentQ > 0) goTo(currentQ - 1);
+    });
+
+    /* ── Inline Intake Form Submit ─────────── */
+    const intakeForm = document.getElementById('coaching-intake-form');
+    if (!intakeForm) return;
+
+    const required = ['cf-program','cf-name','cf-age','cf-country','cf-city','cf-gender','cf-weight','cf-height','cf-phone-wa','cf-phone-call','cf-reason'];
+
+    function validateField(id) {
+      const el  = document.getElementById(id);
+      const err = document.getElementById('err-' + id);
+      if (!el) return true;
+      const val = el.value.trim();
+      const msg = !val ? 'This field is required.' : '';
+      if (err) err.textContent = msg;
+      el.classList.toggle('is-invalid', !!msg);
+      return !msg;
+    }
+
+    required.forEach(id => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.addEventListener('blur',  () => validateField(id));
+      el.addEventListener('input', () => el.classList.contains('is-invalid') && validateField(id));
+    });
+
+    intakeForm.addEventListener('submit', e => {
+      e.preventDefault();
+      let valid = true;
+      required.forEach(id => { if (!validateField(id)) valid = false; });
+      if (!valid) {
+        intakeForm.querySelector('.is-invalid')?.scrollIntoView({ behavior:'smooth', block:'center' });
+        return;
+      }
+
+      const g = id => document.getElementById(id)?.value.trim() || '—';
+      const r = name => {
+        const checked = [...intakeForm.querySelectorAll(`input[name="${name}"]:checked`)];
+        return checked.map(c => c.value).join(', ') || '—';
+      };
+
+      const d = {
+        program: g('cf-program'), name: g('cf-name'), age: g('cf-age'),
+        country: g('cf-country'), city: g('cf-city'), gender: g('cf-gender'),
+        weight: g('cf-weight'), height: g('cf-height'), food: g('cf-food'),
+        instagram: g('cf-instagram'), phoneWa: g('cf-phone-wa'), phoneCall: g('cf-phone-call'),
+        marital: r('cf-marital'), source: r('cf-source'), reason: g('cf-reason'),
+      };
+
+      /* Download TXT */
+      const txt = [
+        '═══════════════════════════════════════════',
+        "  AVIATE GYM — ONLINE COACHING INTAKE",
+        "  Gokul Srinivasan's Aviate Gym, Chennai",
+        '═══════════════════════════════════════════',
+        '', `Program     : ${d.program}`, `Submitted   : ${new Date().toLocaleString('en-IN')}`, '',
+        '── PERSONAL ──────────────────────────────',
+        `Name        : ${d.name}`, `Age         : ${d.age}`, `Gender      : ${d.gender}`,
+        `Country     : ${d.country}`, `City        : ${d.city}`, `Marital     : ${d.marital}`, '',
+        '── BODY ──────────────────────────────────',
+        `Weight      : ${d.weight}`, `Height      : ${d.height}`, `Fav Food    : ${d.food}`, '',
+        '── CONTACT ───────────────────────────────',
+        `Instagram   : @${d.instagram}`, `WhatsApp    : ${d.phoneWa}`, `Calling     : ${d.phoneCall}`, '',
+        '── REFERRAL ──────────────────────────────',
+        `Source      : ${d.source}`, '',
+        '── GOAL ──────────────────────────────────',
+        d.reason, '',
+        '═══════════════════════════════════════════',
+      ].join('\n');
+
+      const fname = `aviate-${d.name.replace(/\s+/g,'-').toLowerCase()}-${Date.now()}.txt`;
+      const blob  = new Blob([txt], { type: 'text/plain;charset=utf-8' });
+      const url   = URL.createObjectURL(blob);
+      const a     = document.createElement('a');
+      a.href = url; a.download = fname;
+      document.body.appendChild(a); a.click();
+      document.body.removeChild(a); URL.revokeObjectURL(url);
+
+      /* WhatsApp */
+      const msg = encodeURIComponent(
+        `🏋️ *AVIATE GYM — ONLINE COACHING*\n\n` +
+        `*Program:* ${d.program}\n*Name:* ${d.name}\n*Age:* ${d.age} | *Gender:* ${d.gender}\n` +
+        `*Location:* ${d.city}, ${d.country}\n*Weight:* ${d.weight} | *Height:* ${d.height}\n` +
+        `*Instagram:* @${d.instagram}\n*WhatsApp:* ${d.phoneWa}\n*Calling:* ${d.phoneCall}\n` +
+        `*Heard from:* ${d.source}\n\n*Goal / Reason:*\n${d.reason}\n\n` +
+        `_Submitted: ${new Date().toLocaleString('en-IN')}_`
+      );
+      setTimeout(() => window.open(`https://wa.me/919789892696?text=${msg}`, '_blank'), 700);
+
+      /* Success state */
+      intakeForm.parentElement.innerHTML = `
+        <div style="display:flex;flex-direction:column;align-items:center;gap:1.25rem;
+                    padding:3rem 2rem;border:1px solid #e2dfd9;background:#fff;text-align:center;">
+          <div style="width:56px;height:56px;border:1px solid #c9a96e;border-radius:50%;
+               display:flex;align-items:center;justify-content:center;font-size:1.5rem;color:#c9a96e;">✓</div>
+          <p style="font-family:'Rajdhani',sans-serif;font-size:0.62rem;letter-spacing:0.38em;
+                    text-transform:uppercase;color:#c9a96e;">Submitted Successfully</p>
+          <p style="font-family:'Cormorant Garamond',Georgia,serif;font-size:2.4rem;
+                    font-weight:300;line-height:1.1;color:#0f0f0f;">Your journey<br />begins now.</p>
+          <p style="font-family:'DM Sans',sans-serif;font-size:0.9rem;font-weight:300;
+                    color:#6b6760;line-height:1.75;max-width:40ch;margin:0 auto;">
+            Your intake form has been downloaded and your details sent to Coach Gokul on WhatsApp. Expect a reply within 24 hours.
+          </p>
+          <div style="display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;margin-top:0.5rem;">
+            <a href="https://wa.me/919789892696" target="_blank" rel="noopener"
+               style="font-family:'Rajdhani',sans-serif;font-size:0.68rem;font-weight:600;
+               letter-spacing:0.22em;text-transform:uppercase;padding:0.75rem 1.75rem;
+               background:#c9a96e;color:#060606;border:1.5px solid #c9a96e;display:inline-block;">
+              Open WhatsApp →
+            </a>
+            <a href="index.html"
+               style="font-family:'Rajdhani',sans-serif;font-size:0.68rem;font-weight:600;
+               letter-spacing:0.22em;text-transform:uppercase;padding:0.75rem 1.75rem;
+               background:transparent;color:#0f0f0f;border:1.5px solid #0f0f0f;display:inline-block;">
+              ← Back to Home
+            </a>
+          </div>
+          <p style="margin-top:0.75rem;font-family:'DM Sans',sans-serif;font-size:0.72rem;
+                    color:#b8b2a8;line-height:1.6;">
+            📎 File "<strong>${fname}</strong>" downloaded automatically for coach records.
+          </p>
+        </div>`;
+    });
+
+  });
+  </script>
+
+</body>
+</html>

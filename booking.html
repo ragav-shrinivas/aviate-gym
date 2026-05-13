@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Book a Session — Gokul Srinivasan's Aviate Gym, Chennai." />
+  <title>Book a Session — Aviate Gym</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Rajdhani:wght@300;400;500;600;700&family=DM+Sans:wght@200;300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+
+  <style>
+    .booking-hero {
+      position: relative;
+      min-height: 52svh;
+      display: flex;
+      align-items: flex-end;
+      padding-top: 78px;
+      padding-bottom: clamp(3rem,5vw,4.5rem);
+      background: var(--color-black);
+      overflow: hidden;
+    }
+
+    .booking-hero__bg {
+      position: absolute; inset: 0;
+    }
+
+    .booking-hero__bg-img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      filter: brightness(0.20) grayscale(20%);
+    }
+
+    .booking-hero__overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(6,6,6,0.96) 0%, rgba(6,6,6,0.25) 100%);
+    }
+
+    .booking-hero__grid {
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(201,169,110,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(201,169,110,0.03) 1px, transparent 1px);
+      background-size: 64px 64px;
+    }
+
+    .booking-hero__content { position: relative; z-index: 2; width: 100%; }
+
+    .booking-hero__eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-family: var(--font-brand);
+      font-size: 0.62rem;
+      font-weight: 600;
+      letter-spacing: 0.42em;
+      text-transform: uppercase;
+      color: var(--color-gold);
+      margin-bottom: 1.25rem;
+      animation: hero-up 1s cubic-bezier(0.16,1,0.3,1) 0.2s both;
+    }
+
+    .booking-hero__rule { width: 28px; height: 1px; background: var(--color-gold); opacity: 0.7; display: block; }
+
+    .booking-hero__heading {
+      font-family: var(--font-display);
+      font-size: clamp(3rem, 7vw, 6rem);
+      font-weight: 300;
+      line-height: 0.98;
+      letter-spacing: -0.025em;
+      color: var(--color-white);
+      margin-bottom: 1rem;
+      animation: hero-up 1s cubic-bezier(0.16,1,0.3,1) 0.4s both;
+    }
+
+    .booking-hero__heading em { font-style: italic; color: var(--color-gold); }
+
+    .booking-hero__sub {
+      font-family: var(--font-body);
+      font-size: 1.0625rem;
+      font-weight: 300;
+      line-height: 1.72;
+      color: rgba(255,255,255,0.45);
+      max-width: 50ch;
+      animation: hero-up 1s cubic-bezier(0.16,1,0.3,1) 0.6s both;
+    }
+
+    /* Main booking layout */
+    .booking-main {
+      background: var(--color-cream);
+      padding-block: clamp(3rem, 7vw, 6rem);
+    }
+
+    .booking-layout {
+      display: grid;
+      grid-template-columns: 1fr 1.5fr;
+      gap: clamp(3rem, 6vw, 6rem);
+      align-items: start;
+    }
+
+    /* Info panel */
+    .booking-info {
+      position: sticky;
+      top: calc(78px + 2rem);
+    }
+
+    .booking-info .section-heading { margin-bottom: 1rem; }
+
+    .booking-info__body {
+      font-family: var(--font-body);
+      font-size: 1rem;
+      font-weight: 300;
+      line-height: 1.8;
+      color: var(--color-text-muted);
+      margin-bottom: 2rem;
+    }
+
+    /* Perks list */
+    .booking-perks {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .booking-perk {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.875rem;
+      padding: 1rem 1.25rem;
+      background: var(--color-white);
+      border: 1px solid var(--color-grey-mid);
+      transition: border-color 0.22s;
+    }
+
+    .booking-perk:hover { border-color: var(--color-gold); }
+
+    .booking-perk__icon {
+      font-size: 1.1rem;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .booking-perk__text {
+      flex: 1;
+    }
+
+    .booking-perk__title {
+      font-family: var(--font-brand);
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--color-text);
+      margin-bottom: 0.2rem;
+    }
+
+    .booking-perk__desc {
+      font-family: var(--font-body);
+      font-size: 0.8125rem;
+      font-weight: 300;
+      color: var(--color-text-muted);
+      line-height: 1.55;
+    }
+
+    /* Contact details */
+    .booking-contact-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.875rem;
+    }
+
+    .booking-contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+    }
+
+    .booking-contact-icon {
+      font-size: 0.9rem;
+      flex-shrink: 0;
+      margin-top: 0.15rem;
+      opacity: 0.7;
+    }
+
+    .booking-contact-text {
+      flex: 1;
+    }
+
+    .booking-contact-label {
+      font-family: var(--font-brand);
+      font-size: 0.58rem;
+      font-weight: 600;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--color-gold-dark);
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .booking-contact-val {
+      font-family: var(--font-body);
+      font-size: 0.875rem;
+      font-weight: 300;
+      color: var(--color-text-soft);
+    }
+
+    .booking-contact-val a { transition: color 0.18s; }
+    .booking-contact-val a:hover { color: var(--color-gold-dark); }
+
+    /* Map placeholder */
+    .booking-map {
+      width: 100%;
+      height: 200px;
+      background: var(--color-grey-light);
+      border: 1px solid var(--color-grey-mid);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 1.75rem;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .booking-map__label {
+      font-family: var(--font-brand);
+      font-size: 0.62rem;
+      font-weight: 600;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--color-grey-muted);
+    }
+
+    .booking-map iframe {
+      width: 100%; height: 100%;
+      border: none;
+      filter: grayscale(30%) contrast(1.05);
+    }
+
+    /* Form card */
+    .booking-form-card {
+      background: var(--color-white);
+      border: 1px solid var(--color-grey-mid);
+      padding: clamp(1.75rem, 4vw, 3rem);
+    }
+
+    .booking-form-card__title {
+      font-family: var(--font-display);
+      font-size: 1.75rem;
+      font-weight: 300;
+      color: var(--color-text);
+      margin-bottom: 0.25rem;
+      line-height: 1.15;
+    }
+
+    .booking-form-card__sub {
+      font-family: var(--font-body);
+      font-size: 0.8125rem;
+      font-weight: 300;
+      color: var(--color-text-muted);
+      margin-bottom: 2rem;
+    }
+
+    /* Form uses booking-form classes from style.css */
+    .booking-form { display: flex; flex-direction: column; gap: 1.25rem; }
+    .booking-form__row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+    .booking-form__field { display: flex; flex-direction: column; gap: 0.4rem; }
+
+    .booking-form__label {
+      font-family: var(--font-brand);
+      font-size: 0.62rem;
+      font-weight: 600;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+    }
+
+    .booking-form__optional {
+      font-family: var(--font-body);
+      font-weight: 300;
+      text-transform: none;
+      letter-spacing: 0;
+      color: var(--color-grey-subtle);
+      font-size: 0.7rem;
+    }
+
+    .booking-form__input,
+    .booking-form__select,
+    .booking-form__textarea {
+      width: 100%;
+      background: var(--color-off-white);
+      border: 1px solid var(--color-grey-mid);
+      border-radius: 0;
+      padding: 0.875rem 1.125rem;
+      font-family: var(--font-body);
+      font-size: 0.9375rem;
+      font-weight: 300;
+      color: var(--color-text);
+      appearance: none;
+      -webkit-appearance: none;
+      outline: none;
+      transition: border-color 0.18s, box-shadow 0.18s, background-color 0.18s;
+    }
+
+    .booking-form__input::placeholder,
+    .booking-form__textarea::placeholder { color: var(--color-grey-subtle); }
+
+    .booking-form__input:focus,
+    .booking-form__select:focus,
+    .booking-form__textarea:focus {
+      border-color: var(--color-gold);
+      background: var(--color-white);
+      box-shadow: 0 0 0 3px rgba(201,169,110,0.10);
+    }
+
+    .booking-form__input.is-invalid,
+    .booking-form__select.is-invalid { border-color: #9a0020; }
+
+    .booking-form__error {
+      font-family: var(--font-body);
+      font-size: 0.72rem;
+      color: #9a0020;
+      min-height: 1em;
+    }
+
+    .booking-form__select {
+      cursor: pointer;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23c9a96e' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 1.125rem center;
+      padding-right: 2.5rem;
+    }
+
+    .booking-form__textarea { resize: vertical; min-height: 100px; }
+
+    .booking-form__disclaimer {
+      font-family: var(--font-body);
+      font-size: 0.72rem;
+      font-weight: 300;
+      color: var(--color-grey-muted);
+      text-align: center;
+      line-height: 1.6;
+    }
+
+    .booking-form__policy-link {
+      border-bottom: 1px solid currentColor;
+      transition: opacity 0.18s;
+    }
+
+    .booking-form__policy-link:hover { opacity: 0.6; }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .booking-layout { grid-template-columns: 1fr; }
+      .booking-info { position: static; }
+    }
+
+    @media (max-width: 768px) {
+      .booking-form__row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+
+<body class="is-loading">
+
+  <!-- PRELOADER -->
+  <div class="preloader" id="preloader">
+    <div class="preloader__panel preloader__panel--left"></div>
+    <div class="preloader__panel preloader__panel--right"></div>
+    <div class="preloader__corner preloader__corner--tl"></div>
+    <div class="preloader__corner preloader__corner--tr"></div>
+    <div class="preloader__corner preloader__corner--bl"></div>
+    <div class="preloader__corner preloader__corner--br"></div>
+    <div class="preloader__inner">
+      <div class="preloader__owner-wrap"><span class="preloader__owner">GOKUL SRINIVASAN'S</span></div>
+      <div class="preloader__line"></div>
+      <div class="preloader__brand-wrap">
+        <div class="preloader__logo-wrap">
+          <img src="assets/images/aviate-logo.jpg" alt="Aviate Gym" class="preloader__logo-img" />
+        </div>
+      </div>
+      <div class="preloader__bar-wrap">
+        <div class="preloader__bar"><div class="preloader__fill"></div></div>
+        <span class="preloader__percent" id="pl-percent">Loading...</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- NAVIGATION -->
+  <header class="site-header" id="site-header">
+    <nav class="nav">
+      <a href="index.html" class="nav__logo" aria-label="Aviate Gym home">
+        <img src="assets/images/aviate-logo.jpg" alt="Gokul Srinivasan's Aviate Gym" class="nav__logo-img" />
+      </a>
+      <ul class="nav__links">
+        <li><a href="about.html"           class="nav__link">About</a></li>
+        <li><a href="programs.html"        class="nav__link">Programs</a></li>
+        <li><a href="online-coaching.html" class="nav__link">Online Coaching</a></li>
+        <li><a href="gallery.html"         class="nav__link">Gallery</a></li>
+        <li><a href="results.html"         class="nav__link">Results</a></li>
+        <li><a href="booking.html"         class="nav__link nav__link--cta is-active">Book a Session</a></li>
+      </ul>
+      <button class="nav__hamburger" aria-label="Toggle menu" aria-expanded="false">
+        <span class="nav__hamburger-line"></span>
+        <span class="nav__hamburger-line"></span>
+      </button>
+    </nav>
+    <div class="mobile-menu" id="mobile-menu">
+      <ul class="mobile-menu__links">
+        <li><a href="about.html"           class="mobile-menu__link">About</a></li>
+        <li><a href="programs.html"        class="mobile-menu__link">Programs</a></li>
+        <li><a href="online-coaching.html" class="mobile-menu__link">Online Coaching</a></li>
+        <li><a href="gallery.html"         class="mobile-menu__link">Gallery</a></li>
+        <li><a href="results.html"         class="mobile-menu__link">Results</a></li>
+        <li><a href="booking.html"         class="mobile-menu__link mobile-menu__link--cta">Book a Session</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- HERO -->
+    <section class="booking-hero">
+      <div class="booking-hero__bg">
+        <img src="assets/images/gallery-1.jpg" alt="" aria-hidden="true" class="booking-hero__bg-img" />
+        <div class="booking-hero__overlay"></div>
+      </div>
+      <div class="booking-hero__grid" aria-hidden="true"></div>
+      <div class="booking-hero__content">
+        <div class="container">
+          <p class="booking-hero__eyebrow">
+            <span class="booking-hero__rule"></span>
+            First Session
+          </p>
+          <h1 class="booking-hero__heading">
+            Begin Your<br /><em>Transformation.</em>
+          </h1>
+          <p class="booking-hero__sub">
+            One session. Zero pressure. Experience what intentional training truly feels like.
+          </p>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- BOOKING MAIN -->
+    <section class="booking-main" id="booking">
+      <div class="container booking-layout">
+
+        <!-- Info -->
+        <div class="booking-info reveal">
+          <p class="section-eyebrow">Take the First Step</p>
+          <h2 class="section-heading">Book Your<br />Session</h2>
+          <p class="booking-info__body">
+            Spend your first session with one of our coaches — on the floor, with the equipment, inside the community — and decide from experience, not assumption.
+          </p>
+
+          <div class="booking-perks">
+            <div class="booking-perk">
+              <span class="booking-perk__icon">⚡</span>
+              <div class="booking-perk__text">
+                <p class="booking-perk__title">Zero Commitment</p>
+                <p class="booking-perk__desc">Your first session has no strings attached. No sales pressure, no hidden fees.</p>
+              </div>
+            </div>
+            <div class="booking-perk">
+              <span class="booking-perk__icon">🎯</span>
+              <div class="booking-perk__text">
+                <p class="booking-perk__title">Coach-Led</p>
+                <p class="booking-perk__desc">You'll be guided by one of our expert coaches — not handed a program and left alone.</p>
+              </div>
+            </div>
+            <div class="booking-perk">
+              <span class="booking-perk__icon">📋</span>
+              <div class="booking-perk__text">
+                <p class="booking-perk__title">Goal Assessment</p>
+                <p class="booking-perk__desc">We'll understand your goals and give you a personalised recommendation before you leave.</p>
+              </div>
+            </div>
+            <div class="booking-perk">
+              <span class="booking-perk__icon">🤝</span>
+              <div class="booking-perk__text">
+                <p class="booking-perk__title">Meet the Community</p>
+                <p class="booking-perk__desc">Experience the Aviate environment and the people who make it the best gym in Chennai.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="booking-contact-list">
+            <div class="booking-contact-item">
+              <span class="booking-contact-icon">📍</span>
+              <div class="booking-contact-text">
+                <span class="booking-contact-label">Location</span>
+                <span class="booking-contact-val">12 Elevation Drive, Chennai, TN 600001</span>
+              </div>
+            </div>
+            <div class="booking-contact-item">
+              <span class="booking-contact-icon">📞</span>
+              <div class="booking-contact-text">
+                <span class="booking-contact-label">Phone</span>
+                <span class="booking-contact-val">
+                  <a href="tel:+919789892696">+91 97898 92696</a>
+                </span>
+              </div>
+            </div>
+            <div class="booking-contact-item">
+              <span class="booking-contact-icon">💬</span>
+              <div class="booking-contact-text">
+                <span class="booking-contact-label">WhatsApp</span>
+                <span class="booking-contact-val">
+                  <a href="https://wa.me/919789892696" target="_blank" rel="noopener">+91 97898 92696</a>
+                </span>
+              </div>
+            </div>
+            <div class="booking-contact-item">
+              <span class="booking-contact-icon">📸</span>
+              <div class="booking-contact-text">
+                <span class="booking-contact-label">Instagram</span>
+                <span class="booking-contact-val">
+                  <a href="https://www.instagram.com/aviate.gym" target="_blank" rel="noopener">@aviate.gym</a>
+                </span>
+              </div>
+            </div>
+            <div class="booking-contact-item">
+              <span class="booking-contact-icon">⏰</span>
+              <div class="booking-contact-text">
+                <span class="booking-contact-label">Hours</span>
+                <span class="booking-contact-val">Mon–Sat: 5:30 AM – 10:00 PM</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="booking-map">
+            <span class="booking-map__label">12 Elevation Drive, Chennai</span>
+          </div>
+        </div>
+
+        <!-- Form -->
+        <div class="reveal">
+          <div class="booking-form-card">
+            <h3 class="booking-form-card__title">Begin My<br />Transformation</h3>
+            <p class="booking-form-card__sub">Fill in your details and we'll confirm your session within 24 hours.</p>
+
+            <form class="booking-form" id="booking-form" novalidate>
+
+              <div class="booking-form__row">
+                <div class="booking-form__field">
+                  <label class="booking-form__label" for="field-first-name">First Name *</label>
+                  <input class="booking-form__input" type="text" id="field-first-name" name="first_name" placeholder="Alex" required autocomplete="given-name" />
+                  <span class="booking-form__error" role="alert"></span>
+                </div>
+                <div class="booking-form__field">
+                  <label class="booking-form__label" for="field-last-name">Last Name *</label>
+                  <input class="booking-form__input" type="text" id="field-last-name" name="last_name" placeholder="Morgan" required autocomplete="family-name" />
+                  <span class="booking-form__error" role="alert"></span>
+                </div>
+              </div>
+
+              <div class="booking-form__field">
+                <label class="booking-form__label" for="field-email">Email Address *</label>
+                <input class="booking-form__input" type="email" id="field-email" name="email" placeholder="you@example.com" required autocomplete="email" />
+                <span class="booking-form__error" role="alert"></span>
+              </div>
+
+              <div class="booking-form__field">
+                <label class="booking-form__label" for="field-phone">Phone Number *</label>
+                <input class="booking-form__input" type="tel" id="field-phone" name="phone" placeholder="+91 98765 43210" required autocomplete="tel" />
+                <span class="booking-form__error" role="alert"></span>
+              </div>
+
+              <div class="booking-form__row">
+                <div class="booking-form__field">
+                  <label class="booking-form__label" for="field-program">Program Interest *</label>
+                  <select class="booking-form__select" id="field-program" name="program" required>
+                    <option value="" disabled selected>Select a program</option>
+                    <option value="strength">Strength &amp; Conditioning</option>
+                    <option value="hiit">HIIT Training</option>
+                    <option value="mobility">Mobility &amp; Functional Movement</option>
+                    <option value="personal">Personal Training</option>
+                    <option value="online">Online Coaching</option>
+                    <option value="unsure">Not sure yet</option>
+                  </select>
+                  <span class="booking-form__error" role="alert"></span>
+                </div>
+                <div class="booking-form__field">
+                  <label class="booking-form__label" for="field-date">Preferred Date *</label>
+                  <input class="booking-form__input" type="date" id="field-date" name="preferred_date" required />
+                  <span class="booking-form__error" role="alert"></span>
+                </div>
+              </div>
+
+              <div class="booking-form__field">
+                <label class="booking-form__label" for="field-message">Anything we should know? <span class="booking-form__optional">(optional)</span></label>
+                <textarea class="booking-form__textarea" id="field-message" name="message" rows="3" placeholder="Goals, injuries, experience level, preferred time…"></textarea>
+              </div>
+
+              <button class="btn btn--primary btn--full btn--large" type="submit" style="letter-spacing:0.22em;padding-block:1.125rem;">
+                Book My Session →
+              </button>
+
+              <p class="booking-form__disclaimer">
+                By submitting you agree to our
+                <a href="#" class="booking-form__policy-link">Privacy Policy</a>.
+                We'll never share your data.
+              </p>
+
+            </form>
+
+            <div id="booking-wrap" style="display:none;"></div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ONLINE COACHING PUSH -->
+    <section style="background:var(--color-white);padding-block:clamp(3rem,6vw,5rem);">
+      <div class="container" style="text-align:center;max-width:680px;">
+        <p class="section-eyebrow">Can't Make It In Person?</p>
+        <h2 class="section-heading" style="margin-bottom:1rem;">We Come<br /><em>To You.</em></h2>
+        <p style="font-family:var(--font-body);font-size:1rem;font-weight:300;color:var(--color-text-muted);line-height:1.8;margin-bottom:2rem;">
+          Our online coaching programs deliver the same Aviate quality — anywhere in the world. Take our AI survey and get matched to your perfect program in under 60 seconds.
+        </p>
+        <a href="online-coaching.html" class="btn btn--primary btn--large">Take the AI Survey →</a>
+      </div>
+    </section>
+
+  </main>
+
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container site-footer__inner">
+      <div class="site-footer__brand">
+        <a href="index.html" class="site-footer__logo">
+          <span class="site-footer__logo-owner">GOKUL SRINIVASAN'S</span>
+          <span class="site-footer__logo-brand">AVIATE GYM</span>
+        </a>
+        <p class="site-footer__tagline">Train with intention.</p>
+        <ul class="site-footer__socials">
+          <li><a href="https://www.instagram.com/aviate.gym" target="_blank" rel="noopener" class="site-footer__social-link">Instagram</a></li>
+          <li><a href="https://youtube.com/"                 target="_blank" rel="noopener" class="site-footer__social-link">YouTube</a></li>
+          <li><a href="https://facebook.com/"                target="_blank" rel="noopener" class="site-footer__social-link">Facebook</a></li>
+        </ul>
+        <a href="https://www.instagram.com/aviate.gym" target="_blank" rel="noopener" class="site-footer__insta-badge">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+          @aviate.gym
+        </a>
+      </div>
+      <nav class="site-footer__nav">
+        <div class="site-footer__nav-col">
+          <h3 class="site-footer__nav-heading">Explore</h3>
+          <ul>
+            <li><a href="about.html"    class="site-footer__nav-link">About Us</a></li>
+            <li><a href="programs.html" class="site-footer__nav-link">Programs</a></li>
+            <li><a href="gallery.html"  class="site-footer__nav-link">Gallery</a></li>
+            <li><a href="results.html"  class="site-footer__nav-link">Results</a></li>
+          </ul>
+        </div>
+        <div class="site-footer__nav-col">
+          <h3 class="site-footer__nav-heading">Services</h3>
+          <ul>
+            <li><a href="online-coaching.html" class="site-footer__nav-link">Online Coaching</a></li>
+            <li><a href="booking.html"         class="site-footer__nav-link">Book a Session</a></li>
+            <li><a href="programs.html"        class="site-footer__nav-link">Memberships</a></li>
+          </ul>
+        </div>
+        <div class="site-footer__nav-col">
+          <h3 class="site-footer__nav-heading">Contact</h3>
+          <ul>
+            <li><a href="tel:+919789892696"          class="site-footer__nav-link">+91 97898 92696</a></li>
+            <li><a href="https://wa.me/919789892696" target="_blank" rel="noopener" class="site-footer__nav-link">WhatsApp</a></li>
+            <li><a href="https://www.instagram.com/aviate.gym" target="_blank" rel="noopener" class="site-footer__nav-link">@aviate.gym</a></li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+    <div class="site-footer__bottom">
+      <div class="container site-footer__bottom-inner">
+        <p class="site-footer__copy">© <span id="footer-year"></span> Gokul Srinivasan's Aviate Gym. All rights reserved.</p>
+        <p class="site-footer__credit">Crafted with precision in Chennai.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js" defer></script>
+</body>
+</html>

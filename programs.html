@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Gallery — Inside Aviate Gym. Experience the space, the team, and the energy." />
+  <title>Gallery — Aviate Gym</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Rajdhani:wght@300;400;500;600;700&family=DM+Sans:wght@200;300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/11.0.5/swiper-bundle.min.css" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* ── Gallery-page specific overrides ── */
+
+    /* Full-bleed quote slides */
+    .quote-swiper { background: var(--color-black); padding-block: clamp(var(--space-16),8vw,var(--space-24)); }
+    .quote-swiper .swiper { overflow: visible; }
+
+    .quote-slide {
+      position: relative;
+      height: clamp(420px, 58vh, 700px);
+      overflow: hidden;
+    }
+
+    .quote-slide__img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center;
+      filter: brightness(0.55) grayscale(12%);
+      transition: transform 0.9s cubic-bezier(0.16,1,0.3,1);
+      transform: scale(1.06);
+    }
+
+    .swiper-slide-active .quote-slide__img { transform: scale(1); }
+
+    .quote-slide__content {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: clamp(var(--space-8),5vw,var(--space-16));
+      text-align: center;
+      opacity: 0;
+      transform: translateY(14px);
+      transition: opacity 0.7s var(--ease-out) 0.2s, transform 0.7s var(--ease-out) 0.2s;
+    }
+
+    .swiper-slide-active .quote-slide__content { opacity: 1; transform: translateY(0); }
+
+    .quote-slide__tag {
+      font-family: var(--font-brand);
+      font-size: 0.58rem;
+      font-weight: 600;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--color-gold);
+      margin-bottom: var(--space-5);
+    }
+
+    .quote-slide__quote {
+      font-family: var(--font-display);
+      font-size: clamp(var(--text-2xl), 4.5vw, var(--text-4xl));
+      font-weight: 300;
+      font-style: italic;
+      line-height: 1.15;
+      color: var(--color-white);
+      max-width: 22ch;
+      margin-inline: auto;
+      margin-bottom: var(--space-6);
+    }
+
+    .quote-slide__sub {
+      font-family: var(--font-brand);
+      font-size: var(--text-xs);
+      font-weight: 500;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+    }
+
+    .quote-slide__cta {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      font-family: var(--font-brand);
+      font-size: var(--text-xs);
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.6);
+      margin-top: var(--space-5);
+      padding-bottom: 3px;
+      border-bottom: 1px solid rgba(255,255,255,0.2);
+      transition: color 180ms ease, border-color 180ms ease, gap 180ms ease;
+    }
+    .quote-slide__cta:hover { color: var(--color-gold); border-color: var(--color-gold); gap: var(--space-3); }
+
+    /* Quote swiper nav */
+    .qswiper-prev, .qswiper-next {
+      position: absolute;
+      top: 50%; transform: translateY(-50%);
+      z-index: 10;
+      width: 50px; height: 50px;
+      border: 1px solid rgba(255,255,255,0.15);
+      background: rgba(0,0,0,0.35);
+      backdrop-filter: blur(6px);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      transition: background 180ms, border-color 180ms;
+      margin: 0;
+    }
+    .qswiper-prev { left: clamp(1rem,3vw,3rem); }
+    .qswiper-next { right: clamp(1rem,3vw,3rem); }
+    .qswiper-prev:hover, .qswiper-next:hover { background: var(--color-gold); border-color: var(--color-gold); }
+    .qswiper-prev::after, .qswiper-next::after { font-size: 13px; color: #fff; font-weight: 700; }
+
+    /* Gallery stats strip */
+    .gallery-stats {
+      background: var(--color-black);
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding-block: clamp(var(--space-10),5vw,var(--space-16));
+    }
+    .gallery-stats__inner {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: clamp(var(--space-12),8vw,var(--space-24));
+      flex-wrap: wrap;
+    }
+    .gallery-stat { display: flex; flex-direction: column; align-items: center; gap: var(--space-1); }
+    .gallery-stat__num {
+      font-family: var(--font-display);
+      font-size: clamp(var(--text-2xl),4vw,var(--text-4xl));
+      font-weight: 300;
+      color: var(--color-white);
+      line-height: 1;
+    }
+    .gallery-stat__suffix { color: var(--color-gold); }
+    .gallery-stat__label {
+      font-family: var(--font-brand);
+      font-size: 0.58rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+      margin-top: 2px;
+    }
+    .gallery-stat__div {
+      width: 1px; height: 40px;
+      background: rgba(255,255,255,0.08);
+    }
+
+    /* Spotlight section label */
+    .spotlight-label {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-6);
+      flex-wrap: wrap;
+      margin-bottom: var(--space-4);
+    }
+
+    /* Section divider */
+    .section-divider {
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--color-grey-mid), transparent);
+      margin-block: var(--space-4);
+    }
+
+    /* Gallery grid label */
+    .gallery-grid-label {
+      font-family: var(--font-brand);
+      font-size: var(--text-xs);
+      font-weight: 600;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: var(--color-grey-muted);
+      margin-bottom: var(--space-6);
+    }
+
+    /* Featured gallery-2 section */
+    .gallery-featured-section {
+      background: var(--color-cream);
+      padding-block: clamp(var(--space-16),8vw,var(--space-24));
+    }
+    .gallery-featured-section__inner {
+      display: grid;
+      grid-template-columns: 1fr 1.8fr;
+      gap: clamp(var(--space-10),5vw,var(--space-16));
+      align-items: center;
+    }
+    .gallery-featured-section__copy .section-heading { margin-bottom: var(--space-5); }
+    .gallery-featured-section__body {
+      font-family: var(--font-body);
+      font-size: var(--text-md);
+      font-weight: 300;
+      line-height: 1.8;
+      color: var(--color-text-muted);
+      margin-bottom: var(--space-6);
+    }
+    .gallery-featured-section__img-wrap {
+      overflow: hidden;
+      line-height: 0;
+      cursor: zoom-in;
+    }
+    .gallery-featured-section__img {
+      width: 100%;
+      height: clamp(360px,50vh,560px);
+      object-fit: cover;
+      object-position: center;
+      filter: grayscale(6%) brightness(0.98);
+      transition: transform 1s cubic-bezier(0.16,1,0.3,1), filter 0.6s ease;
+    }
+    .gallery-featured-section__img-wrap:hover .gallery-featured-section__img {
+      transform: scale(1.04);
+      filter: grayscale(0%) brightness(1.01);
+    }
+
+    @media (max-width:768px) {
+      .gallery-featured-section__inner { grid-template-columns: 1fr; }
+      .qswiper-prev { left: 0.5rem; }
+      .qswiper-next { right: 0.5rem; }
+    }
+  </style>
+</head>
+
+<body class="is-loading">
+
+  <!-- PRELOADER -->
+    <div class="preloader" id="preloader">
+    <div class="preloader__panel preloader__panel--left"></div>
+    <div class="preloader__panel preloader__panel--right"></div>
+    <div class="preloader__corner preloader__corner--tl"></div>
+    <div class="preloader__corner preloader__corner--tr"></div>
+    <div class="preloader__corner preloader__corner--bl"></div>
+    <div class="preloader__corner preloader__corner--br"></div>
+    <div class="preloader__inner">
+      <div class="preloader__owner-wrap">
+        <span class="preloader__owner">GOKUL SRINIVASAN'S</span>
+      </div>
+      <div class="preloader__line"></div>
+      <div class="preloader__brand-wrap">
+        <div class="preloader__logo-wrap">
+          <img src="assets/images/aviate-logo.jpg" alt="Aviate Gym" class="preloader__logo-img" />
+        </div>
+      </div>
+      <div class="preloader__bar-wrap">
+        <div class="preloader__bar"><div class="preloader__fill"></div></div>
+        <span class="preloader__percent" id="pl-percent">Loading...</span>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- NAVIGATION -->
+  <header class="site-header" id="site-header">
+    <nav class="nav">
+      <a href="index.html" class="nav__logo" aria-label="Aviate Gym home">
+        <img src="assets/images/aviate-logo.jpg" alt="Gokul Srinivasan's Aviate Gym" class="nav__logo-img" />
+      </a>
+      <ul class="nav__links">
+        <li><a href="about.html"           class="nav__link">About</a></li>
+        <li><a href="programs.html"        class="nav__link">Programs</a></li>
+        <li><a href="online-coaching.html" class="nav__link">Online Coaching</a></li>
+        <li><a href="gallery.html"         class="nav__link is-active">Gallery</a></li>
+        <li><a href="results.html"         class="nav__link">Results</a></li>
+        <li><a href="booking.html"         class="nav__link nav__link--cta">Book a Session</a></li>
+      </ul>
+      <button class="nav__hamburger" aria-label="Toggle menu" aria-expanded="false">
+        <span class="nav__hamburger-line"></span>
+        <span class="nav__hamburger-line"></span>
+      </button>
+    </nav>
+    <div class="mobile-menu" id="mobile-menu">
+      <ul class="mobile-menu__links">
+        <li><a href="about.html"           class="mobile-menu__link">About</a></li>
+        <li><a href="programs.html"        class="mobile-menu__link">Programs</a></li>
+        <li><a href="online-coaching.html" class="mobile-menu__link">Online Coaching</a></li>
+        <li><a href="gallery.html"         class="mobile-menu__link">Gallery</a></li>
+        <li><a href="results.html"         class="mobile-menu__link">Results</a></li>
+        <li><a href="booking.html"         class="mobile-menu__link mobile-menu__link--cta">Book a Session</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ══════════════════════════════════
+         PAGE HERO
+    ══════════════════════════════════ -->
+    <section class="page-hero">
+      <div class="container page-hero__inner">
+        <div class="page-hero__rule"></div>
+        <p class="section-eyebrow">The Space & The People</p>
+        <h1 class="page-hero__heading">Inside<br /><em style="font-style:italic;color:var(--color-gold-dark);">Aviate</em></h1>
+        <p class="page-hero__sub">The floor, the faces, the fire. Everything that makes Aviate more than just a gym — it's a movement.</p>
+      </div>
+    </section>
+
+
+    <!-- ══════════════════════════════════
+         360° GYM TOUR VIDEO
+    ══════════════════════════════════ -->
+    <section class="gallery-360">
+      <div class="container gallery-360__inner">
+
+        <div class="gallery-360__copy reveal">
+          <p class="section-eyebrow">360° Gym Tour</p>
+          <h2 class="gallery-360__heading">Experience<br />Aviate Before<br />You Walk In.</h2>
+          <p class="gallery-360__body">
+            Walk the floor virtually. Feel the layout, absorb the atmosphere, and understand what sets Aviate apart — before your first session even begins.
+          </p>
+          <a href="https://www.instagram.com/aviate.gym" target="_blank" rel="noopener"
+             style="display:inline-flex;align-items:center;gap:0.5rem;margin-top:1.5rem;
+             font-family:var(--font-brand);font-size:0.65rem;font-weight:600;
+             letter-spacing:0.22em;text-transform:uppercase;color:rgba(255,255,255,0.45);
+             border-bottom:1px solid rgba(255,255,255,0.15);padding-bottom:3px;
+             transition:color 180ms,border-color 180ms;"
+             onmouseover="this.style.color='var(--color-gold)';this.style.borderColor='var(--color-gold)'"
+             onmouseout="this.style.color='rgba(255,255,255,0.45)';this.style.borderColor='rgba(255,255,255,0.15)'">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+            Follow @aviate.gym
+          </a>
+        </div>
+
+        <div class="reveal">
+          <div class="video-player">
+            <video
+              class="video-player__media"
+              poster="assets/images/gallery-3.jpg"
+              preload="none"
+              aria-label="360 degree gym tour"
+            >
+              <source src="assets/videos/gym 360.mp4"  type="video/mp4" />
+              <source src="assets/videos/gym-360.webm" type="video/webm" />
+            </video>
+            <button class="video-player__play-btn" aria-label="Play 360 gym tour">
+              <span class="video-player__play-icon"></span>
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ══════════════════════════════════
+         STATS STRIP
+    ══════════════════════════════════ -->
+    <div class="gallery-stats">
+      <div class="container gallery-stats__inner">
+        <div class="gallery-stat">
+          <span class="gallery-stat__num">12<span class="gallery-stat__suffix">+</span></span>
+          <span class="gallery-stat__label">Years of Excellence</span>
+        </div>
+        <div class="gallery-stat__div"></div>
+        <div class="gallery-stat">
+          <span class="gallery-stat__num">3K<span class="gallery-stat__suffix">+</span></span>
+          <span class="gallery-stat__label">Lives Transformed</span>
+        </div>
+        <div class="gallery-stat__div"></div>
+        <div class="gallery-stat">
+          <span class="gallery-stat__num">5<span class="gallery-stat__suffix">+</span></span>
+          <span class="gallery-stat__label">Expert Coaches</span>
+        </div>
+        <div class="gallery-stat__div"></div>
+        <div class="gallery-stat">
+          <span class="gallery-stat__num">6<span class="gallery-stat__suffix"></span></span>
+          <span class="gallery-stat__label">Programs Offered</span>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ══════════════════════════════════
+         QUOTE IMAGES — SWIPER SLIDER
+         gallery-1, 4, 5, 6, 7, 8 (quote images)
+    ══════════════════════════════════ -->
+    <section class="quote-swiper">
+      <div class="container" style="margin-bottom:clamp(1.5rem,3vw,2.5rem);">
+        <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:1.5rem;flex-wrap:wrap;">
+          <div>
+            <p class="section-eyebrow">Our Philosophy in Images</p>
+            <h2 class="section-heading" style="color:rgba(255,255,255,0.9);">Words We<br /><em>Live By</em></h2>
+          </div>
+          <a href="https://www.instagram.com/aviate.gym" target="_blank" rel="noopener" class="btn btn--outline-light">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+            @aviate.gym
+          </a>
+        </div>
+      </div>
+
+      <div class="swiper quote-swiper-el" style="overflow:hidden;">
+        <div class="swiper-wrapper">
+
+          <!-- Slide 1 — gallery-1.jpg: Philosophy -->
+          <div class="swiper-slide quote-slide">
+            <img src="assets/images/gallery-1.jpg" alt="Train hard live harder" class="quote-slide__img" loading="lazy" />
+            <div class="quote-slide__content">
+              <span class="quote-slide__tag">The Philosophy</span>
+              <p class="quote-slide__quote">"Train Hard. Live Harder."</p>
+              <span class="quote-slide__sub">The Aviate Way</span>
+              <a href="https://www.instagram.com/aviate.gym" target="_blank" rel="noopener" class="quote-slide__cta">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+                Follow our journey
+              </a>
+            </div>
+          </div>
+
+          <!-- Slide 2 — gallery-4.jpg: Strength -->
+          <div class="swiper-slide quote-slide">
+            <img src="assets/images/gallery-4.jpg" alt="Built different built here" class="quote-slide__img" loading="lazy" />
+            <div class="quote-slide__content">
+              <span class="quote-slide__tag">Strength Program</span>
+              <p class="quote-slide__quote">"Built Different. Built Here."</p>
+              <span class="quote-slide__sub">Strength &amp; Conditioning</span>
+              <a href="programs.html" class="quote-slide__cta">→ Explore Programs</a>
+            </div>
+          </div>
+
+          <!-- Slide 3 — gallery-5.jpg: Transformation -->
+          <div class="swiper-slide quote-slide">
+            <img src="assets/images/gallery-5.jpg" alt="Your before is just the start" class="quote-slide__img" loading="lazy" />
+            <div class="quote-slide__content">
+              <span class="quote-slide__tag">Transformation</span>
+              <p class="quote-slide__quote">"Your Before Is Just The Start."</p>
+              <span class="quote-slide__sub">3000+ Lives Changed</span>
+              <a href="results.html" class="quote-slide__cta">→ See Results</a>
+            </div>
+          </div>
+
+          <!-- Slide 4 — gallery-6.jpg: Community -->
+          <div class="swiper-slide quote-slide">
+            <img src="assets/images/gallery-6.jpg" alt="Alone you run together you fly" class="quote-slide__img" loading="lazy" />
+            <div class="quote-slide__content">
+              <span class="quote-slide__tag">Community</span>
+              <p class="quote-slide__quote">"Alone You Run. Together You Fly."</p>
+              <span class="quote-slide__sub">The Aviate Family</span>
+              <a href="https://www.instagram.com/aviate.gym" target="_blank" rel="noopener" class="quote-slide__cta">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+                @aviate.gym
+              </a>
+            </div>
+          </div>
+
+          <!-- Slide 5 — gallery-7.jpg: Online Coaching -->
+          <div class="swiper-slide quote-slide">
+            <img src="assets/images/gallery-7.jpg" alt="World class coaching anywhere" class="quote-slide__img" loading="lazy" />
+            <div class="quote-slide__content">
+              <span class="quote-slide__tag">Online Coaching</span>
+              <p class="quote-slide__quote">"World-Class Coaching. Anywhere."</p>
+              <span class="quote-slide__sub">Train Remotely With Aviate</span>
+              <a href="online-coaching.html" class="quote-slide__cta">→ Start Online Coaching</a>
+            </div>
+          </div>
+
+          <!-- Slide 6 — gallery-8.jpg: Mindset -->
+          <div class="swiper-slide quote-slide">
+            <img src="assets/images/gallery-8.jpg" alt="The grind the glory" class="quote-slide__img" loading="lazy" />
+            <div class="quote-slide__content">
+              <span class="quote-slide__tag">The Mindset</span>
+              <p class="quote-slide__quote">"The Grind. The Glory."</p>
+              <span class="quote-slide__sub">Champions Are Made Here</span>
+              <a href="booking.html" class="quote-slide__cta">→ Book a Session</a>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Pagination -->
+        <div class="swiper-pagination quote-pagination"
+             style="bottom:1.5rem!important;"></div>
+
+        <!-- Nav buttons -->
+        <div class="swiper-button-prev qswiper-prev"></div>
+        <div class="swiper-button-next qswiper-next"></div>
+      </div>
+    </section>
+
+
+    <!-- ══════════════════════════════════
+         GALLERY-3 TEAM SPOTLIGHT
+         (The most important image — full width)
+    ══════════════════════════════════ -->
+    <section class="gallery-grid" style="background:var(--color-white);">
+      <div class="container">
+
+        <div class="spotlight-label reveal">
+          <div>
+            <p class="section-eyebrow">The Aviate Family</p>
+            <h2 class="section-heading">All Of Us.<br /><em style="font-style:italic;color:var(--color-gold-dark);">In One Frame.</em></h2>
+          </div>
+          <a href="https://www.instagram.com/aviate.gym" target="_blank" rel="noopener"
+             style="display:inline-flex;align-items:center;gap:0.5rem;
+             font-family:var(--font-brand);font-size:0.65rem;font-weight:600;
+             letter-spacing:0.22em;text-transform:uppercase;color:var(--color-text-muted);
+             border-bottom:1px solid var(--color-grey-mid);padding-bottom:3px;
+             transition:color 180ms,border-color 180ms;"
+             onmouseover="this.style.color='var(--color-gold-dark)';this.style.borderColor='var(--color-gold)'"
+             onmouseout="this.style.color='var(--color-text-muted)';this.style.borderColor='var(--color-grey-mid)'">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+            @aviate.gym
+          </a>
+        </div>
+
+        <!-- SPOTLIGHT: gallery-3.jpg -->
+        <div class="gallery-spotlight reveal" style="margin-bottom:var(--space-3);">
+          <img
+            src="assets/images/gallery-3.jpg"
+            alt="The full Aviate team — coaches and members together"
+            class="gallery-spotlight__img"
+            loading="eager"
+          />
+          <div class="gallery-spotlight__caption">
+            <div>
+              <p class="gallery-spotlight__label">Our Community</p>
+              <p class="gallery-spotlight__title">The Aviate Family<br />— All Together</p>
+            </div>
+            <a href="https://www.instagram.com/aviate.gym" target="_blank" rel="noopener" class="gallery-spotlight__insta">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+              Tag us @aviate.gym
+            </a>
+          </div>
+        </div>
+
+        <div class="section-divider"></div>
+
+        <!-- Secondary grid — gallery-1, 4, 5, 6, 7, 8 -->
+        <p class="gallery-grid-label reveal">The Space &amp; The Stories</p>
+
+        <div class="gallery-grid-items reveal-stagger">
+          <!-- gallery-4: strength -->
+          <div class="gallery-item">
+            <img src="assets/images/gallery-4.jpg" alt="Strength training at Aviate" class="gallery-item__img" loading="lazy" />
+            <div class="gallery-item__overlay">
+              <span class="gallery-item__label">Strength Program</span>
+            </div>
+          </div>
+
+          <!-- gallery-5: transformation -->
+          <div class="gallery-item">
+            <img src="assets/images/gallery-5.jpg" alt="Transformation results" class="gallery-item__img" loading="lazy" />
+            <div class="gallery-item__overlay">
+              <span class="gallery-item__label">Transformation</span>
+            </div>
+          </div>
+
+          <!-- gallery-6: community -->
+          <div class="gallery-item">
+            <img src="assets/images/gallery-6.jpg" alt="Aviate community" class="gallery-item__img" loading="lazy" />
+            <div class="gallery-item__overlay">
+              <span class="gallery-item__label">Community</span>
+            </div>
+          </div>
+
+          <!-- gallery-7: online coaching -->
+          <div class="gallery-item">
+            <img src="assets/images/gallery-7.jpg" alt="Online coaching" class="gallery-item__img" loading="lazy" />
+            <div class="gallery-item__overlay">
+              <span class="gallery-item__label">Online Coaching</span>
+            </div>
+          </div>
+
+          <!-- gallery-8: mindset -->
+          <div class="gallery-item">
+            <img src="assets/images/gallery-8.jpg" alt="The mindset" class="gallery-item__img" loading="lazy" />
+            <div class="gallery-item__overlay">
+              <span class="gallery-item__label">The Mindset</span>
+            </div>
+          </div>
+
+          <!-- gallery-1: philosophy -->
+          <div class="gallery-item">
+            <img src="assets/images/gallery-1.jpg" alt="Aviate philosophy" class="gallery-item__img" loading="lazy" />
+            <div class="gallery-item__overlay">
+              <span class="gallery-item__label">The Philosophy</span>
+            </div>
+          </div>
+
+          <!-- gallery-3 small (community repeat, different crop) -->
+          <div class="gallery-item">
+            <img src="assets/images/gallery-3.jpg" alt="Aviate team" class="gallery-item__img" loading="lazy" style="object-position:top center;" />
+            <div class="gallery-item__overlay">
+              <span class="gallery-item__label">The Team</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ══════════════════════════════════
+         GALLERY-2 — FEATURED NEAR BOTTOM
+         (Important image — prominent section)
+    ══════════════════════════════════ -->
+    <section class="gallery-featured-section">
+      <div class="container gallery-featured-section__inner">
+
+        <div class="gallery-featured-section__copy reveal">
+          <p class="section-eyebrow">Behind the Lens</p>
+          <h2 class="section-heading">More Than<br />A Gym.</h2>
+          <p class="gallery-featured-section__body">
+            Every corner of Aviate tells a story. This is the space where ordinary people
+            decide to become extraordinary — and where coaches pour everything into making
+            that happen.
+          </p>
+          <div style="display:flex;gap:1rem;flex-wrap:wrap;">
+            <a href="booking.html" class="btn btn--primary">Book a Session</a>
+            <a href="https://www.instagram.com/aviate.gym" target="_blank" rel="noopener" class="btn btn--outline">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+              @aviate.gym
+            </a>
+          </div>
+        </div>
+
+        <!-- gallery-2.jpg featured -->
+        <div class="gallery-featured-section__img-wrap reveal" id="gallery2-featured">
+          <img
+            src="assets/images/gallery-2.jpg"
+            alt="Aviate Gym — more than a gym"
+            class="gallery-featured-section__img"
+            loading="lazy"
+          />
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ══════════════════════════════════
+         CTA BAND
+    ══════════════════════════════════ -->
+    <section class="cta-band">
+      <div class="container cta-band__inner reveal">
+        <div class="cta-band__text">
+          <p class="section-eyebrow">You've Seen The Space</p>
+          <h2 class="cta-band__heading">Now Come<br /><em>Experience It.</em></h2>
+        </div>
+        <div class="cta-band__action">
+          <p class="cta-band__sub">One session to experience what Aviate truly feels like. Come in. Feel the difference.</p>
+          <div style="display:flex;gap:1rem;flex-wrap:wrap;">
+            <a href="booking.html"          class="btn btn--gold btn--large">Book a Session</a>
+            <a href="online-coaching.html"  class="btn btn--outline-light">Online Coaching →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container site-footer__inner">
+      <div class="site-footer__brand">
+        <a href="index.html" class="site-footer__logo">
+          <span class="site-footer__logo-owner">GOKUL SRINIVASAN'S</span>
+          <span class="site-footer__logo-brand">AVIATE GYM</span>
+        </a>
+        <p class="site-footer__tagline">Train with intention.</p>
+        <ul class="site-footer__socials">
+          <li><a href="https://www.instagram.com/aviate.gym" target="_blank" rel="noopener" class="site-footer__social-link">Instagram</a></li>
+          <li><a href="https://youtube.com/" target="_blank" rel="noopener" class="site-footer__social-link">YouTube</a></li>
+          <li><a href="https://facebook.com/" target="_blank" rel="noopener" class="site-footer__social-link">Facebook</a></li>
+        </ul>
+        <a href="https://www.instagram.com/aviate.gym" target="_blank" rel="noopener" class="site-footer__insta-badge">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+          @aviate.gym
+        </a>
+      </div>
+      <nav class="site-footer__nav">
+        <div class="site-footer__nav-col">
+          <h3 class="site-footer__nav-heading">Explore</h3>
+          <ul>
+            <li><a href="about.html"    class="site-footer__nav-link">About Us</a></li>
+            <li><a href="programs.html" class="site-footer__nav-link">Programs</a></li>
+            <li><a href="gallery.html"  class="site-footer__nav-link">Gallery</a></li>
+            <li><a href="results.html"  class="site-footer__nav-link">Results</a></li>
+          </ul>
+        </div>
+        <div class="site-footer__nav-col">
+          <h3 class="site-footer__nav-heading">Services</h3>
+          <ul>
+            <li><a href="online-coaching.html" class="site-footer__nav-link">Online Coaching</a></li>
+            <li><a href="booking.html"         class="site-footer__nav-link">Book a Session</a></li>
+            <li><a href="programs.html"        class="site-footer__nav-link">Memberships</a></li>
+          </ul>
+        </div>
+        <div class="site-footer__nav-col">
+          <h3 class="site-footer__nav-heading">Contact</h3>
+          <ul>
+            <li><a href="tel:+919789892696"          class="site-footer__nav-link">+91 97898 92696</a></li>
+            <li><a href="https://wa.me/919789892696" target="_blank" rel="noopener" class="site-footer__nav-link">WhatsApp</a></li>
+            <li><a href="https://www.instagram.com/aviate.gym" target="_blank" rel="noopener" class="site-footer__nav-link">@aviate.gym</a></li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+    <div class="site-footer__bottom">
+      <div class="container site-footer__bottom-inner">
+        <p class="site-footer__copy">© <span id="footer-year"></span> Gokul Srinivasan's Aviate Gym. All rights reserved.</p>
+        <p class="site-footer__credit">Crafted with precision in Chennai.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Gallery item hover overlay styles (injected here to keep style.css clean) -->
+  <style>
+    .gallery-item {
+      position: relative;
+      overflow: hidden;
+      cursor: zoom-in;
+    }
+    .gallery-item__overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.55) 0%, transparent 50%);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      display: flex;
+      align-items: flex-end;
+      padding: var(--space-4);
+    }
+    .gallery-item:hover .gallery-item__overlay { opacity: 1; }
+    .gallery-item__label {
+      font-family: var(--font-brand);
+      font-size: 0.58rem;
+      font-weight: 600;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--color-gold);
+    }
+
+    /* Quote pagination dots */
+    .quote-pagination .swiper-pagination-bullet {
+      width: 24px; height: 2px;
+      border-radius: 0;
+      background: rgba(255,255,255,0.2);
+      opacity: 1;
+      transition: background 0.3s, width 0.3s;
+    }
+    .quote-pagination .swiper-pagination-bullet-active {
+      background: var(--color-gold);
+      width: 40px;
+    }
+  </style>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/11.0.5/swiper-bundle.min.js"></script>
+  <script src="script.js" defer></script>
+  <script>
+    // Quote swiper — init after DOM ready
+    document.addEventListener('DOMContentLoaded', () => {
+      if (typeof Swiper === 'undefined') return;
+
+      new Swiper('.quote-swiper-el', {
+        loop: true,
+        speed: 950,
+        grabCursor: true,
+        effect: 'slide',
+        autoplay: {
+          delay: 5000,
+          disableOnInteraction: false,
+          pauseOnMouseEnter: true,
+        },
+        pagination: {
+          el: '.quote-pagination',
+          clickable: true,
+        },
+        navigation: {
+          prevEl: '.qswiper-prev',
+          nextEl: '.qswiper-next',
+        },
+        keyboard: { enabled: true },
+        a11y: {
+          prevSlideMessage: 'Previous quote',
+          nextSlideMessage: 'Next quote',
+        },
+      });
+    });
+  </script>
+</body>
+</html>

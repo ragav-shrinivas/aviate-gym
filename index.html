@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Gokul Srinivasan's Aviate Gym — Premium fitness studio. Train with intention." />
+  <title>Aviate Gym — Train With Intention</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Rajdhani:wght@300;400;500;600;700&family=DM+Sans:wght@200;300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/11.0.5/swiper-bundle.min.css" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body class="is-loading">
+
+  <!-- ══════════════════════════════════════════
+       PRELOADER
+  ══════════════════════════════════════════ -->
+    <div class="preloader" id="preloader">
+    <div class="preloader__panel preloader__panel--left"></div>
+    <div class="preloader__panel preloader__panel--right"></div>
+    <div class="preloader__corner preloader__corner--tl"></div>
+    <div class="preloader__corner preloader__corner--tr"></div>
+    <div class="preloader__corner preloader__corner--bl"></div>
+    <div class="preloader__corner preloader__corner--br"></div>
+    <div class="preloader__inner">
+      <div class="preloader__owner-wrap">
+        <span class="preloader__owner">GOKUL SRINIVASAN'S</span>
+      </div>
+      <div class="preloader__line"></div>
+      <div class="preloader__brand-wrap">
+        <div class="preloader__logo-wrap">
+          <img src="assets/images/aviate-logo.jpg" alt="Aviate Gym" class="preloader__logo-img" />
+        </div>
+      </div>
+      <div class="preloader__bar-wrap">
+        <div class="preloader__bar"><div class="preloader__fill"></div></div>
+        <span class="preloader__percent" id="pl-percent">Loading...</span>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ══════════════════════════════════════════
+       NAVIGATION
+  ══════════════════════════════════════════ -->
+  <header class="site-header" id="site-header">
+    <nav class="nav">
+      <a href="index.html" class="nav__logo" aria-label="Aviate Gym home">
+        <img src="assets/images/aviate-logo.jpg" alt="Gokul Srinivasan's Aviate Gym" class="nav__logo-img" />
+      </a>
+      <ul class="nav__links">
+        <li><a href="about.html"           class="nav__link">About</a></li>
+        <li><a href="programs.html"        class="nav__link">Programs</a></li>
+        <li><a href="online-coaching.html" class="nav__link">Online Coaching</a></li>
+        <li><a href="gallery.html"         class="nav__link">Gallery</a></li>
+        <li><a href="results.html"         class="nav__link">Results</a></li>
+        <li><a href="booking.html"         class="nav__link nav__link--cta">Book a Session</a></li>
+      </ul>
+      <button class="nav__hamburger" aria-label="Toggle menu" aria-expanded="false">
+        <span class="nav__hamburger-line"></span>
+        <span class="nav__hamburger-line"></span>
+      </button>
+    </nav>
+    <div class="mobile-menu" id="mobile-menu">
+      <ul class="mobile-menu__links">
+        <li><a href="about.html"           class="mobile-menu__link">About</a></li>
+        <li><a href="programs.html"        class="mobile-menu__link">Programs</a></li>
+        <li><a href="online-coaching.html" class="mobile-menu__link">Online Coaching</a></li>
+        <li><a href="gallery.html"         class="mobile-menu__link">Gallery</a></li>
+        <li><a href="results.html"         class="mobile-menu__link">Results</a></li>
+        <li><a href="booking.html"         class="mobile-menu__link mobile-menu__link--cta">Book a Session</a></li>
+      </ul>
+    </div>
+  </header>
+
+
+  <main>
+
+    <!-- ══════════════════════════════════════════
+         HERO
+    ══════════════════════════════════════════ -->
+    <section class="hero" id="hero">
+      <div class="hero__media">
+        <video class="hero__video" autoplay muted loop playsinline poster="assets/images/gallery-3.jpg">
+          <source src="assets/videos/hero.mp4" type="video/mp4" />
+        </video>
+        <div class="hero__overlay"></div>
+        <div class="hero__grain"></div>
+      </div>
+      <div class="hero__content container">
+        <p class="hero__eyebrow">
+          <span class="hero__eyebrow-line"></span>
+          Premium Fitness Studio · Chennai
+          <span class="hero__eyebrow-line"></span>
+        </p>
+        <h1 class="hero__headline">Train With<br /><em>Intention.</em></h1>
+        <p class="hero__subline">Precision programming. Elite coaching.<br />A community built to elevate.</p>
+        <div class="hero__actions">
+          <a href="booking.html"          class="btn btn--primary">Start Today</a>
+          <a href="online-coaching.html"  class="btn btn--ghost">Online Coaching <span class="btn__arrow">→</span></a>
+        </div>
+      </div>
+      <div class="hero__scroll-cue">
+        <div class="hero__scroll-line"></div>
+        <span class="hero__scroll-label">Scroll</span>
+      </div>
+      <div class="hero__badge">
+        <span class="hero__badge-num">3K+</span>
+        <span class="hero__badge-label">Lives Transformed</span>
+      </div>
+    </section>
+
+
+    <!-- ══════════════════════════════════════════
+         MARQUEE
+    ══════════════════════════════════════════ -->
+    <div class="marquee-strip" aria-hidden="true">
+      <div class="marquee__track">
+        <span>Strength &amp; Conditioning</span><span class="mdot">·</span>
+        <span>HIIT Training</span><span class="mdot">·</span>
+        <span>Personal Training</span><span class="mdot">·</span>
+        <span>Online Coaching</span><span class="mdot">·</span>
+        <span>Mobility &amp; Recovery</span><span class="mdot">·</span>
+        <span>Elite Coaching</span><span class="mdot">·</span>
+        <span>Body Recomposition</span><span class="mdot">·</span>
+        <span>Fat Loss Transformation</span><span class="mdot">·</span>
+        <span>Lean Gaining</span><span class="mdot">·</span>
+        <span>Strength &amp; Conditioning</span><span class="mdot">·</span>
+        <span>HIIT Training</span><span class="mdot">·</span>
+        <span>Personal Training</span><span class="mdot">·</span>
+        <span>Online Coaching</span><span class="mdot">·</span>
+        <span>Mobility &amp; Recovery</span><span class="mdot">·</span>
+        <span>Elite Coaching</span><span class="mdot">·</span>
+        <span>Body Recomposition</span><span class="mdot">·</span>
+        <span>Fat Loss Transformation</span><span class="mdot">·</span>
+        <span>Lean Gaining</span><span class="mdot">·</span>
+      </div>
+    </div>
+
+
+    <!-- ══════════════════════════════════════════
+         SHOWCASE SLIDER
+    ══════════════════════════════════════════ -->
+    <section class="showcase" id="showcase">
+      <div class="container showcase__header reveal">
+        <div class="showcase__header-left">
+          <p class="section-eyebrow">The Space</p>
+          <h2 class="section-heading">Inside <em>Aviate</em></h2>
+        </div>
+        <a href="gallery.html" class="btn btn--outline">Full Gallery →</a>
+      </div>
+
+      <div class="swiper showcase-swiper">
+        <div class="swiper-wrapper">
+
+          <!-- Slide 1 — gallery-3.jpg SPOTLIGHT -->
+          <div class="swiper-slide showcase-slide showcase-slide--spotlight">
+            <div class="showcase-slide__media">
+              <img src="assets/images/gallery-3.jpg" alt="The Aviate Family" class="showcase-slide__img" loading="eager" />
+              <div class="showcase-slide__overlay"></div>
+            </div>
+            <div class="showcase-slide__content">
+              <span class="showcase-slide__tag">Our Community</span>
+              <h3 class="showcase-slide__title">The Aviate<br />Family</h3>
+              <p class="showcase-slide__desc">Every transformation starts with the right people. Meet the coaches, members, and warriors who make Aviate what it is.</p>
+              <a href="https://www.instagram.com/aviate.gym" target="_blank" rel="noopener" class="showcase-slide__cta">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+                @aviate.gym
+              </a>
+            </div>
+          </div>
+
+          <!-- Slide 2 — gallery-1.jpg Quote: Philosophy -->
+          <div class="swiper-slide showcase-slide">
+            <div class="showcase-slide__media">
+              <img src="assets/images/gallery-1.jpg" alt="Train hard live harder" class="showcase-slide__img" loading="lazy" />
+              <div class="showcase-slide__overlay"></div>
+            </div>
+            <div class="showcase-slide__content">
+              <span class="showcase-slide__tag">The Philosophy</span>
+              <h3 class="showcase-slide__title">Train Hard.<br />Live Harder.</h3>
+              <p class="showcase-slide__desc">Every rep, every set, every drop of sweat is a statement. We don't train to look good — we train to feel unstoppable.</p>
+              <a href="https://www.instagram.com/aviate.gym" target="_blank" rel="noopener" class="showcase-slide__cta">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+                Follow Our Journey
+              </a>
+            </div>
+          </div>
+
+          <!-- Slide 3 — gallery-4.jpg Quote: Strength -->
+          <div class="swiper-slide showcase-slide">
+            <div class="showcase-slide__media">
+              <img src="assets/images/gallery-4.jpg" alt="Built different built here" class="showcase-slide__img" loading="lazy" />
+              <div class="showcase-slide__overlay"></div>
+            </div>
+            <div class="showcase-slide__content">
+              <span class="showcase-slide__tag">Strength Program</span>
+              <h3 class="showcase-slide__title">Built Different.<br />Built Here.</h3>
+              <p class="showcase-slide__desc">Progressive overload meets intelligent periodization. Our Strength &amp; Conditioning program engineers bodies that perform as powerfully as they look.</p>
+              <a href="programs.html" class="showcase-slide__cta">→ Explore Programs</a>
+            </div>
+          </div>
+
+          <!-- Slide 4 — gallery-5.jpg Quote: Transformation -->
+          <div class="swiper-slide showcase-slide">
+            <div class="showcase-slide__media">
+              <img src="assets/images/gallery-5.jpg" alt="Your before is just the start" class="showcase-slide__img" loading="lazy" />
+              <div class="showcase-slide__overlay"></div>
+            </div>
+            <div class="showcase-slide__content">
+              <span class="showcase-slide__tag">Transformation</span>
+              <h3 class="showcase-slide__title">Your Before<br />Is Just The Start.</h3>
+              <p class="showcase-slide__desc">3000+ lives transformed. Real people, real results, real stories. Your journey begins the moment you decide you're ready.</p>
+              <a href="results.html" class="showcase-slide__cta">→ See Results</a>
+            </div>
+          </div>
+
+          <!-- Slide 5 — gallery-6.jpg Quote: Community -->
+          <div class="swiper-slide showcase-slide">
+            <div class="showcase-slide__media">
+              <img src="assets/images/gallery-6.jpg" alt="Alone you run together you fly" class="showcase-slide__img" loading="lazy" />
+              <div class="showcase-slide__overlay"></div>
+            </div>
+            <div class="showcase-slide__content">
+              <span class="showcase-slide__tag">Community</span>
+              <h3 class="showcase-slide__title">Alone You Run.<br />Together You Fly.</h3>
+              <p class="showcase-slide__desc">The Aviate community is your biggest asset. Coaches who care, members who push you, and an environment that makes greatness inevitable.</p>
+              <a href="https://www.instagram.com/aviate.gym" target="_blank" rel="noopener" class="showcase-slide__cta">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+                @aviate.gym
+              </a>
+            </div>
+          </div>
+
+          <!-- Slide 6 — gallery-7.jpg Quote: Online Coaching -->
+          <div class="swiper-slide showcase-slide">
+            <div class="showcase-slide__media">
+              <img src="assets/images/gallery-7.jpg" alt="World class coaching anywhere" class="showcase-slide__img" loading="lazy" />
+              <div class="showcase-slide__overlay"></div>
+            </div>
+            <div class="showcase-slide__content">
+              <span class="showcase-slide__tag">Online Coaching</span>
+              <h3 class="showcase-slide__title">World-Class.<br />Anywhere.</h3>
+              <p class="showcase-slide__desc">Distance is not a barrier. Aviate's precision programming delivered to your city, your home, your schedule.</p>
+              <a href="online-coaching.html" class="showcase-slide__cta">→ Start Online Coaching</a>
+            </div>
+          </div>
+
+          <!-- Slide 7 — gallery-8.jpg Quote: Mindset -->
+          <div class="swiper-slide showcase-slide">
+            <div class="showcase-slide__media">
+              <img src="assets/images/gallery-8.jpg" alt="The grind the glory" class="showcase-slide__img" loading="lazy" />
+              <div class="showcase-slide__overlay"></div>
+            </div>
+            <div class="showcase-slide__content">
+              <span class="showcase-slide__tag">The Mindset</span>
+              <h3 class="showcase-slide__title">The Grind.<br />The Glory.</h3>
+              <p class="showcase-slide__desc">Champions are made in the moments when they want to quit and don't. We train the body. Aviate forges the mind.</p>
+              <a href="booking.html" class="showcase-slide__cta">→ Book a Session</a>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="swiper-pagination showcase-pagination"></div>
+        <div class="swiper-button-prev showcase-btn-prev"></div>
+        <div class="swiper-button-next showcase-btn-next"></div>
+        <div class="showcase-counter">
+          <span id="showcase-current">01</span>
+          <span class="showcase-counter__sep">/</span>
+          <span class="showcase-counter__total">07</span>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ══════════════════════════════════════════
+         ABOUT STRIP
+    ══════════════════════════════════════════ -->
+    <section class="about-strip">
+      <div class="container about-strip__grid">
+        <div class="about-strip__media reveal">
+          <figure class="about-strip__image-wrap">
+            <img src="assets/images/gallery-3.jpg" alt="Aviate Gym team" class="about-strip__image" loading="lazy" />
+          </figure>
+          <div class="about-strip__stat-block">
+            <div class="about-strip__stat">
+              <span class="about-strip__stat-number">12</span>
+              <span class="about-strip__stat-suffix">+</span>
+              <span class="about-strip__stat-label">Years of Excellence</span>
+            </div>
+            <div class="about-strip__divider"></div>
+            <div class="about-strip__stat">
+              <span class="about-strip__stat-number">3K</span>
+              <span class="about-strip__stat-suffix">+</span>
+              <span class="about-strip__stat-label">Lives Transformed</span>
+            </div>
+          </div>
+        </div>
+        <div class="about-strip__copy reveal">
+          <p class="section-eyebrow">Our Philosophy</p>
+          <h2 class="section-heading">Engineered for<br />Peak Performance</h2>
+          <p class="about-strip__body">Aviate was built on a single conviction: exceptional environments produce exceptional athletes. From the architecture of our floor to every program, every detail is intentional.</p>
+          <p class="about-strip__body">We don't believe in one-size-fits-all. Our coaches design programming that adapts to your biology, schedule, and ambition.</p>
+          <div class="about-strip__actions">
+            <a href="about.html"           class="btn btn--outline">Our Story</a>
+            <a href="online-coaching.html" class="btn btn--primary">Online Coaching</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ══════════════════════════════════════════
+         PROGRAMS PREVIEW
+    ══════════════════════════════════════════ -->
+    <section class="programs-preview">
+      <div class="container">
+        <header class="section-header reveal">
+          <p class="section-eyebrow">What We Offer</p>
+          <h2 class="section-heading">Our Programs</h2>
+          <p class="section-subheading">Every discipline. Every level. One standard of excellence.</p>
+        </header>
+        <ul class="prog-list reveal-stagger">
+          <li class="prog-item">
+            <div class="prog-item__num">01</div>
+            <div class="prog-item__body">
+              <span class="prog-item__tag">Strength</span>
+              <h3 class="prog-item__title">Strength &amp; Conditioning</h3>
+              <p class="prog-item__desc">Progressive overload meets intelligent periodization.</p>
+            </div>
+            <a href="programs.html" class="prog-item__arrow">→</a>
+          </li>
+          <li class="prog-item">
+            <div class="prog-item__num">02</div>
+            <div class="prog-item__body">
+              <span class="prog-item__tag">Metabolic</span>
+              <h3 class="prog-item__title">High-Intensity Interval Training</h3>
+              <p class="prog-item__desc">Maximum output in minimum time.</p>
+            </div>
+            <a href="programs.html" class="prog-item__arrow">→</a>
+          </li>
+          <li class="prog-item">
+            <div class="prog-item__num">03</div>
+            <div class="prog-item__body">
+              <span class="prog-item__tag">Recovery</span>
+              <h3 class="prog-item__title">Mobility &amp; Functional Movement</h3>
+              <p class="prog-item__desc">Longevity is performance.</p>
+            </div>
+            <a href="programs.html" class="prog-item__arrow">→</a>
+          </li>
+          <li class="prog-item">
+            <div class="prog-item__num">04</div>
+            <div class="prog-item__body">
+              <span class="prog-item__tag">Elite</span>
+              <h3 class="prog-item__title">Personal Training</h3>
+              <p class="prog-item__desc">Complete attention. Fully bespoke programming.</p>
+            </div>
+            <a href="programs.html" class="prog-item__arrow">→</a>
+          </li>
+          <li class="prog-item">
+            <div class="prog-item__num">05</div>
+            <div class="prog-item__body">
+              <span class="prog-item__tag">Remote</span>
+              <h3 class="prog-item__title">Online Coaching</h3>
+              <p class="prog-item__desc">World-class coaching anywhere you are.</p>
+            </div>
+            <a href="online-coaching.html" class="prog-item__arrow">→</a>
+          </li>
+        </ul>
+        <div class="text-center reveal" style="margin-top:3rem">
+          <a href="programs.html" class="btn btn--primary">View All Programs</a>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ══════════════════════════════════════════
+         ONLINE COACHING TEASER
+    ══════════════════════════════════════════ -->
+    <section class="coaching-teaser">
+      <div class="coaching-teaser__bg">
+        <img src="assets/images/gallery-7.jpg" alt="" aria-hidden="true" class="coaching-teaser__bg-img" />
+        <div class="coaching-teaser__overlay"></div>
+      </div>
+      <div class="container coaching-teaser__inner reveal">
+        <p class="section-eyebrow" style="color:var(--color-gold);">Online Coaching</p>
+        <h2 class="coaching-teaser__heading">Your Goals.<br />Our Expertise.<br /><em>Anywhere.</em></h2>
+        <p class="coaching-teaser__body">From body recomposition to fat loss, from lean gaining to PCOD/thyroid-specific programs — our coaches design programs around your unique biology.</p>
+        <div class="coaching-teaser__actions">
+          <a href="online-coaching.html" class="btn btn--gold btn--large">Take the AI Survey</a>
+          <a href="https://www.instagram.com/aviate.gym" target="_blank" rel="noopener" class="btn btn--ghost">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+            @aviate.gym
+          </a>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ══════════════════════════════════════════
+         CTA BAND
+    ══════════════════════════════════════════ -->
+    <section class="cta-band">
+      <div class="container cta-band__inner reveal">
+        <div class="cta-band__text">
+          <p class="section-eyebrow">Take the First Step</p>
+          <h2 class="cta-band__heading">Begin Your<br /><em>Transformation.</em></h2>
+        </div>
+        <div class="cta-band__action">
+          <p class="cta-band__sub">One session to experience what intentional training truly feels like.</p>
+          <a href="booking.html" class="btn btn--gold btn--large">Book a Session</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+
+  <!-- ══════════════════════════════════════════
+       FOOTER
+  ══════════════════════════════════════════ -->
+  <footer class="site-footer">
+    <div class="container site-footer__inner">
+      <div class="site-footer__brand">
+        <a href="index.html" class="site-footer__logo">
+          <span class="site-footer__logo-owner">GOKUL SRINIVASAN'S</span>
+          <span class="site-footer__logo-brand">AVIATE GYM</span>
+        </a>
+        <p class="site-footer__tagline">Train with intention.</p>
+        <ul class="site-footer__socials">
+          <li><a href="https://www.instagram.com/aviate.gym" target="_blank" rel="noopener" class="site-footer__social-link">Instagram</a></li>
+          <li><a href="https://youtube.com/" target="_blank" rel="noopener" class="site-footer__social-link">YouTube</a></li>
+          <li><a href="https://facebook.com/" target="_blank" rel="noopener" class="site-footer__social-link">Facebook</a></li>
+        </ul>
+        <a href="https://www.instagram.com/aviate.gym" target="_blank" rel="noopener" class="site-footer__insta-badge">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+          @aviate.gym
+        </a>
+      </div>
+      <nav class="site-footer__nav">
+        <div class="site-footer__nav-col">
+          <h3 class="site-footer__nav-heading">Explore</h3>
+          <ul>
+            <li><a href="about.html"    class="site-footer__nav-link">About Us</a></li>
+            <li><a href="programs.html" class="site-footer__nav-link">Programs</a></li>
+            <li><a href="gallery.html"  class="site-footer__nav-link">Gallery</a></li>
+            <li><a href="results.html"  class="site-footer__nav-link">Results</a></li>
+          </ul>
+        </div>
+        <div class="site-footer__nav-col">
+          <h3 class="site-footer__nav-heading">Services</h3>
+          <ul>
+            <li><a href="online-coaching.html" class="site-footer__nav-link">Online Coaching</a></li>
+            <li><a href="booking.html"         class="site-footer__nav-link">Book a Session</a></li>
+            <li><a href="programs.html"        class="site-footer__nav-link">Memberships</a></li>
+          </ul>
+        </div>
+        <div class="site-footer__nav-col">
+          <h3 class="site-footer__nav-heading">Contact</h3>
+          <ul>
+            <li><a href="tel:+919789892696"          class="site-footer__nav-link">+91 97898 92696</a></li>
+            <li><a href="https://wa.me/919789892696" target="_blank" rel="noopener" class="site-footer__nav-link">WhatsApp</a></li>
+            <li><a href="https://www.instagram.com/aviate.gym" target="_blank" rel="noopener" class="site-footer__nav-link">@aviate.gym</a></li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+    <div class="site-footer__bottom">
+      <div class="container site-footer__bottom-inner">
+        <p class="site-footer__copy">© <span id="footer-year"></span> Gokul Srinivasan's Aviate Gym. All rights reserved.</p>
+        <p class="site-footer__credit">Crafted with precision in Chennai.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/11.0.5/swiper-bundle.min.js"></script>
+  <script src="script.js" defer></script>
+</body>
+</html>
