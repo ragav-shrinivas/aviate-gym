@@ -3,235 +3,771 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Gallery — Inside Aviate Gym. Experience the space, the team, and the energy." />
-  <title>Gallery — Aviate Gym</title>
+  <meta name="description" content="Programs — Aviate Gym. Six premium transformation programs designed by Coach Gokul Srinivasan: fat loss, lean gaining, body recomposition, strength & conditioning and more." />
+  <title>Programs — Aviate Gym</title>
+
+  <link rel="canonical" href="https://www.aviategym.in/programs.html" />
+  <meta name="theme-color" content="#060606" />
+  <meta name="author" content="Gokul Srinivasan's Aviate Gym" />
+  <meta name="robots" content="index, follow" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Aviate Gym" />
+  <meta property="og:title" content="Programs — Aviate Gym" />
+  <meta property="og:description" content="Six premium transformation programs designed by Coach Gokul Srinivasan." />
+  <meta property="og:url" content="https://www.aviategym.in/programs.html" />
+  <meta property="og:image" content="https://www.aviategym.in/assets/images/gallery-3.jpg" />
+  <meta property="og:locale" content="en_IN" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Programs — Aviate Gym" />
+  <meta name="twitter:description" content="Six premium transformation programs designed by Coach Gokul Srinivasan." />
+  <meta name="twitter:image" content="https://www.aviategym.in/assets/images/gallery-3.jpg" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Rajdhani:wght@300;400;500;600;700&family=DM+Sans:wght@200;300;400;500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/11.0.5/swiper-bundle.min.css" />
   <link rel="stylesheet" href="style.css" />
+
   <style>
-    /* ── Gallery-page specific overrides ── */
+  /* ============================================================
+     PROGRAMS PAGE — LOCAL STYLES ONLY
+  ============================================================ */
 
-    /* Full-bleed quote slides */
-    .quote-swiper { background: var(--color-black); padding-block: clamp(var(--space-16),8vw,var(--space-24)); }
-    .quote-swiper .swiper { overflow: visible; }
+  /* ── Hero ── */
+  .prog-hero {
+    position: relative;
+    height: 100svh;
+    min-height: 600px;
+    display: flex;
+    align-items: flex-end;
+    padding-bottom: clamp(3rem, 8vh, 6rem);
+    overflow: hidden;
+    background: var(--color-black);
+  }
 
-    .quote-slide {
-      position: relative;
-      height: clamp(420px, 58vh, 700px);
-      overflow: hidden;
-    }
+  .prog-hero__bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
 
-    .quote-slide__img {
-      width: 100%; height: 100%;
-      object-fit: cover;
-      object-position: center;
-      filter: brightness(0.55) grayscale(12%);
-      transition: transform 0.9s cubic-bezier(0.16,1,0.3,1);
-      transform: scale(1.06);
-    }
+  .prog-hero__img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    object-position: center;
+    filter: brightness(0.38) saturate(0.8);
+    transform: scale(1.04);
+    transition: transform 8s ease;
+  }
 
-    .swiper-slide-active .quote-slide__img { transform: scale(1); }
+  .prog-hero:hover .prog-hero__img { transform: scale(1.0); }
 
-    .quote-slide__content {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: clamp(var(--space-8),5vw,var(--space-16));
-      text-align: center;
-      opacity: 0;
-      transform: translateY(14px);
-      transition: opacity 0.7s var(--ease-out) 0.2s, transform 0.7s var(--ease-out) 0.2s;
-    }
+  .prog-hero__overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(
+      160deg,
+      rgba(6,6,6,0.10) 0%,
+      rgba(6,6,6,0.72) 100%
+    );
+    z-index: 1;
+  }
 
-    .swiper-slide-active .quote-slide__content { opacity: 1; transform: translateY(0); }
+  .prog-hero__content {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    padding-inline: var(--container-pad);
+    max-width: var(--container-max);
+    margin-inline: auto;
+  }
 
-    .quote-slide__tag {
-      font-family: var(--font-brand);
-      font-size: 0.58rem;
-      font-weight: 600;
-      letter-spacing: 0.4em;
-      text-transform: uppercase;
-      color: var(--color-gold);
-      margin-bottom: var(--space-5);
-    }
+  .prog-hero__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-family: var(--font-brand);
+    font-size: 0.62rem;
+    font-weight: 600;
+    letter-spacing: 0.42em;
+    text-transform: uppercase;
+    color: var(--color-gold);
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: ph-up 0.9s var(--ease-out) 0.2s forwards;
+  }
 
-    .quote-slide__quote {
-      font-family: var(--font-display);
-      font-size: clamp(var(--text-2xl), 4.5vw, var(--text-4xl));
-      font-weight: 300;
-      font-style: italic;
-      line-height: 1.15;
-      color: var(--color-white);
-      max-width: 22ch;
-      margin-inline: auto;
-      margin-bottom: var(--space-6);
-    }
+  .prog-hero__eyebrow-line {
+    display: block;
+    width: 30px; height: 1px;
+    background: var(--color-gold);
+    opacity: 0.7;
+  }
 
-    .quote-slide__sub {
-      font-family: var(--font-brand);
-      font-size: var(--text-xs);
-      font-weight: 500;
-      letter-spacing: 0.28em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.4);
-    }
+  .prog-hero__heading {
+    font-family: var(--font-display);
+    font-size: clamp(3.2rem, 9vw, 8rem);
+    font-weight: 300;
+    line-height: 0.96;
+    letter-spacing: -0.025em;
+    color: var(--color-white);
+    margin-bottom: 2rem;
+    opacity: 0;
+    transform: translateY(32px);
+    animation: ph-up 1s var(--ease-out) 0.38s forwards;
+  }
 
-    .quote-slide__cta {
-      display: inline-flex;
-      align-items: center;
-      gap: var(--space-2);
-      font-family: var(--font-brand);
-      font-size: var(--text-xs);
-      font-weight: 600;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.6);
-      margin-top: var(--space-5);
-      padding-bottom: 3px;
-      border-bottom: 1px solid rgba(255,255,255,0.2);
-      transition: color 180ms ease, border-color 180ms ease, gap 180ms ease;
-    }
-    .quote-slide__cta:hover { color: var(--color-gold); border-color: var(--color-gold); gap: var(--space-3); }
+  .prog-hero__heading em {
+    font-style: italic;
+    color: rgba(255,255,255,0.62);
+  }
 
-    /* Quote swiper nav */
-    .qswiper-prev, .qswiper-next {
-      position: absolute;
-      top: 50%; transform: translateY(-50%);
-      z-index: 10;
-      width: 50px; height: 50px;
-      border: 1px solid rgba(255,255,255,0.15);
-      background: rgba(0,0,0,0.35);
-      backdrop-filter: blur(6px);
-      display: flex; align-items: center; justify-content: center;
-      cursor: pointer;
-      transition: background 180ms, border-color 180ms;
-      margin: 0;
-    }
-    .qswiper-prev { left: clamp(1rem,3vw,3rem); }
-    .qswiper-next { right: clamp(1rem,3vw,3rem); }
-    .qswiper-prev:hover, .qswiper-next:hover { background: var(--color-gold); border-color: var(--color-gold); }
-    .qswiper-prev::after, .qswiper-next::after { font-size: 13px; color: #fff; font-weight: 700; }
+  .prog-hero__sub {
+    font-family: var(--font-body);
+    font-size: clamp(0.875rem, 1.5vw, 1.05rem);
+    font-weight: 300;
+    color: rgba(255,255,255,0.52);
+    max-width: 44ch;
+    line-height: 1.8;
+    margin-bottom: 2.5rem;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: ph-up 0.9s var(--ease-out) 0.56s forwards;
+  }
 
-    /* Gallery stats strip */
-    .gallery-stats {
-      background: var(--color-black);
-      border-top: 1px solid rgba(255,255,255,0.06);
-      padding-block: clamp(var(--space-10),5vw,var(--space-16));
-    }
-    .gallery-stats__inner {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: clamp(var(--space-12),8vw,var(--space-24));
-      flex-wrap: wrap;
-    }
-    .gallery-stat { display: flex; flex-direction: column; align-items: center; gap: var(--space-1); }
-    .gallery-stat__num {
-      font-family: var(--font-display);
-      font-size: clamp(var(--text-2xl),4vw,var(--text-4xl));
-      font-weight: 300;
-      color: var(--color-white);
-      line-height: 1;
-    }
-    .gallery-stat__suffix { color: var(--color-gold); }
-    .gallery-stat__label {
-      font-family: var(--font-brand);
-      font-size: 0.58rem;
-      letter-spacing: 0.28em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.3);
-      margin-top: 2px;
-    }
-    .gallery-stat__div {
-      width: 1px; height: 40px;
-      background: rgba(255,255,255,0.08);
-    }
+  .prog-hero__actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: ph-up 0.9s var(--ease-out) 0.72s forwards;
+  }
 
-    /* Spotlight section label */
-    .spotlight-label {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: var(--space-6);
-      flex-wrap: wrap;
-      margin-bottom: var(--space-4);
-    }
+  /* Scroll cue */
+  .prog-hero__scroll {
+    position: absolute;
+    bottom: 2.5rem;
+    right: var(--container-pad);
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    opacity: 0;
+    animation: ph-up 0.8s var(--ease-out) 1.1s forwards;
+  }
 
-    /* Section divider */
-    .section-divider {
-      width: 100%;
-      height: 1px;
-      background: linear-gradient(to right, transparent, var(--color-grey-mid), transparent);
-      margin-block: var(--space-4);
-    }
+  .prog-hero__scroll-line {
+    width: 1px; height: 48px;
+    background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.38));
+    animation: scroll-pulse 2.4s ease-in-out infinite;
+  }
 
-    /* Gallery grid label */
-    .gallery-grid-label {
-      font-family: var(--font-brand);
-      font-size: var(--text-xs);
-      font-weight: 600;
-      letter-spacing: 0.32em;
-      text-transform: uppercase;
-      color: var(--color-grey-muted);
-      margin-bottom: var(--space-6);
-    }
+  .prog-hero__scroll-label {
+    font-family: var(--font-brand);
+    font-size: 0.5rem;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.3);
+    writing-mode: vertical-rl;
+  }
 
-    /* Featured gallery-2 section */
-    .gallery-featured-section {
-      background: var(--color-cream);
-      padding-block: clamp(var(--space-16),8vw,var(--space-24));
-    }
-    .gallery-featured-section__inner {
-      display: grid;
-      grid-template-columns: 1fr 1.8fr;
-      gap: clamp(var(--space-10),5vw,var(--space-16));
-      align-items: center;
-    }
-    .gallery-featured-section__copy .section-heading { margin-bottom: var(--space-5); }
-    .gallery-featured-section__body {
-      font-family: var(--font-body);
-      font-size: var(--text-md);
-      font-weight: 300;
-      line-height: 1.8;
-      color: var(--color-text-muted);
-      margin-bottom: var(--space-6);
-    }
-    .gallery-featured-section__img-wrap {
-      overflow: hidden;
-      line-height: 0;
-      cursor: zoom-in;
-    }
-    .gallery-featured-section__img {
-      width: 100%;
-      height: clamp(360px,50vh,560px);
-      object-fit: cover;
-      object-position: center;
-      filter: grayscale(6%) brightness(0.98);
-      transition: transform 1s cubic-bezier(0.16,1,0.3,1), filter 0.6s ease;
-    }
-    .gallery-featured-section__img-wrap:hover .gallery-featured-section__img {
-      transform: scale(1.04);
-      filter: grayscale(0%) brightness(1.01);
-    }
+  @keyframes ph-up {
+    to { opacity: 1; transform: translateY(0); }
+  }
 
-    @media (max-width:768px) {
-      .gallery-featured-section__inner { grid-template-columns: 1fr; }
-      .qswiper-prev { left: 0.5rem; }
-      .qswiper-next { right: 0.5rem; }
-    }
+  @keyframes scroll-pulse {
+    0%,100% { opacity: 1; }
+    50%      { opacity: 0.25; }
+  }
+
+  /* ── Stats Strip ── */
+  .prog-stats {
+    background: var(--color-black);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    padding-block: clamp(1.5rem, 4vw, 2.5rem);
+  }
+
+  .prog-stats__inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(2rem, 8vw, 6rem);
+    flex-wrap: wrap;
+  }
+
+  .prog-stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.2rem;
+  }
+
+  .prog-stat__num {
+    font-family: var(--font-display);
+    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+    font-weight: 300;
+    color: var(--color-white);
+    line-height: 1;
+  }
+
+  .prog-stat__suffix { color: var(--color-gold); }
+
+  .prog-stat__label {
+    font-family: var(--font-brand);
+    font-size: 0.55rem;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.3);
+  }
+
+  .prog-stat__div {
+    width: 1px; height: 36px;
+    background: rgba(255,255,255,0.08);
+  }
+
+  /* ── Programs Grid Section ── */
+  .programs-grid-section {
+    background: var(--color-white);
+  }
+
+  .programs-grid-section .section-header {
+    text-align: left;
+    margin-bottom: clamp(2.5rem, 5vw, 4rem);
+  }
+
+  .prog-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--color-grey-mid);
+    border: 1px solid var(--color-grey-mid);
+  }
+
+  /* ── Program Card ── */
+  .prog-card {
+    background: var(--color-white);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+    transition: transform 0.4s var(--ease-out), box-shadow 0.4s var(--ease-out);
+  }
+
+  .prog-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 24px 64px rgba(0,0,0,0.10);
+    z-index: 2;
+  }
+
+  /* Gold accent line slides up on hover */
+  .prog-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 100%; height: 2px;
+    background: var(--color-gold);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.45s var(--ease-out);
+  }
+
+  .prog-card:hover::after { transform: scaleX(1); }
+
+  .prog-card__media {
+    overflow: hidden;
+    aspect-ratio: 4 / 3;
+    line-height: 0;
+  }
+
+  .prog-card__img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    filter: grayscale(12%) brightness(0.94);
+    transition: transform 0.9s var(--ease-out), filter 0.6s ease;
+  }
+
+  .prog-card:hover .prog-card__img {
+    transform: scale(1.07);
+    filter: grayscale(0%) brightness(1.01);
+  }
+
+  .prog-card__body {
+    padding: clamp(1.25rem, 3vw, 2rem);
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    gap: 0.6rem;
+  }
+
+  .prog-card__tag {
+    font-family: var(--font-brand);
+    font-size: 0.56rem;
+    font-weight: 600;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--color-gold);
+  }
+
+  .prog-card__title {
+    font-family: var(--font-display);
+    font-size: clamp(1.3rem, 2vw, 1.7rem);
+    font-weight: 400;
+    line-height: 1.12;
+    color: var(--color-text);
+  }
+
+  .prog-card__desc {
+    font-family: var(--font-body);
+    font-size: 0.8125rem;
+    font-weight: 300;
+    line-height: 1.75;
+    color: var(--color-text-muted);
+    flex: 1;
+  }
+
+  .prog-card__meta {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding-top: 0.9rem;
+    border-top: 1px solid var(--color-grey-light);
+    margin-top: 0.4rem;
+  }
+
+  .prog-card__duration {
+    font-family: var(--font-brand);
+    font-size: 0.56rem;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--color-grey-muted);
+  }
+
+  .prog-card__actions {
+    display: flex;
+    gap: 0.6rem;
+    margin-top: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .prog-card__btn-primary {
+    flex: 1;
+    text-align: center;
+    padding: 0.65rem 1rem;
+    background: var(--color-black);
+    color: var(--color-white);
+    font-family: var(--font-brand);
+    font-size: 0.58rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    border: 1.5px solid var(--color-black);
+    transition: background 0.25s ease, color 0.25s ease;
+    white-space: nowrap;
+  }
+
+  .prog-card__btn-primary:hover {
+    background: var(--color-gold);
+    border-color: var(--color-gold);
+    color: var(--color-black);
+  }
+
+  .prog-card__btn-ghost {
+    flex: 1;
+    text-align: center;
+    padding: 0.65rem 1rem;
+    background: transparent;
+    color: var(--color-text);
+    font-family: var(--font-brand);
+    font-size: 0.58rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    border: 1.5px solid var(--color-grey-mid);
+    transition: border-color 0.25s ease, color 0.25s ease;
+    white-space: nowrap;
+  }
+
+  .prog-card__btn-ghost:hover {
+    border-color: var(--color-text);
+    color: var(--color-text);
+  }
+
+  /* ── Philosophy Split Section ── */
+  .prog-philosophy {
+    background: var(--color-cream);
+  }
+
+  .prog-philosophy__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(3rem, 7vw, 7rem);
+    align-items: center;
+  }
+
+  .prog-philosophy__img-wrap {
+    position: relative;
+    overflow: hidden;
+    line-height: 0;
+  }
+
+  .prog-philosophy__img {
+    width: 100%;
+    height: clamp(380px, 55vh, 620px);
+    object-fit: cover;
+    object-position: center top;
+    filter: grayscale(8%) brightness(0.97);
+    transition: transform 1.2s var(--ease-out), filter 0.8s ease;
+  }
+
+  .prog-philosophy__img-wrap:hover .prog-philosophy__img {
+    transform: scale(1.04);
+    filter: grayscale(0%) brightness(1);
+  }
+
+  /* Black stat badge */
+  .prog-philosophy__badge {
+    position: absolute;
+    bottom: -1.5rem;
+    right: -1.5rem;
+    background: var(--color-black);
+    padding: 1.5rem 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+  }
+
+  .prog-philosophy__badge-num {
+    font-family: var(--font-display);
+    font-size: 2.4rem;
+    font-weight: 300;
+    color: var(--color-white);
+    line-height: 1;
+  }
+
+  .prog-philosophy__badge-suffix {
+    color: var(--color-gold);
+    font-size: 1.4rem;
+  }
+
+  .prog-philosophy__badge-label {
+    font-family: var(--font-brand);
+    font-size: 0.52rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.35);
+    margin-top: 0.25rem;
+  }
+
+  .prog-philosophy__copy { padding-block: 1rem; }
+
+  .prog-philosophy__copy .section-heading {
+    margin-bottom: 1.5rem;
+  }
+
+  .prog-philosophy__body {
+    font-family: var(--font-body);
+    font-size: clamp(0.9rem, 1.5vw, 1.05rem);
+    font-weight: 300;
+    line-height: 1.85;
+    color: var(--color-text-muted);
+    margin-bottom: 1rem;
+  }
+
+  .prog-philosophy__quote {
+    font-family: var(--font-display);
+    font-size: clamp(1.4rem, 2.5vw, 1.9rem);
+    font-weight: 300;
+    font-style: italic;
+    line-height: 1.3;
+    color: var(--color-text);
+    border-left: 2px solid var(--color-gold);
+    padding-left: 1.5rem;
+    margin: 2rem 0;
+  }
+
+  /* ── AI Recommender ── */
+  .prog-ai {
+    background: var(--color-black);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .prog-ai::before {
+    content: 'BMI';
+    position: absolute;
+    font-family: var(--font-brand);
+    font-size: clamp(8rem, 22vw, 20rem);
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: rgba(255,255,255,0.018);
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    white-space: nowrap;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .prog-ai__inner {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(3rem, 7vw, 7rem);
+    align-items: start;
+  }
+
+  .prog-ai__copy { padding-top: 0.5rem; }
+
+  .prog-ai__copy .section-eyebrow { color: var(--color-gold); }
+
+  .prog-ai__copy .section-heading {
+    color: rgba(255,255,255,0.92);
+    margin-bottom: 1.25rem;
+  }
+
+  .prog-ai__body {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    font-weight: 300;
+    line-height: 1.8;
+    color: rgba(255,255,255,0.42);
+    margin-bottom: 2rem;
+  }
+
+  .prog-ai__feature {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-family: var(--font-brand);
+    font-size: 0.6rem;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.32);
+    margin-bottom: 0.75rem;
+  }
+
+  .prog-ai__feature-dot {
+    width: 4px; height: 4px;
+    border-radius: 50%;
+    background: var(--color-gold);
+    flex-shrink: 0;
+  }
+
+  /* Form card */
+  .prog-ai__form-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    backdrop-filter: blur(12px);
+    padding: clamp(1.5rem, 4vw, 2.5rem);
+  }
+
+  .prog-ai__form-title {
+    font-family: var(--font-brand);
+    font-size: 0.6rem;
+    font-weight: 600;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--color-gold);
+    margin-bottom: 1.5rem;
+  }
+
+  .prog-ai__field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .prog-ai__label {
+    font-family: var(--font-brand);
+    font-size: 0.58rem;
+    font-weight: 600;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.35);
+  }
+
+  .prog-ai__input,
+  .prog-ai__select {
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(255,255,255,0.14);
+    padding: 0.65rem 0;
+    font-family: var(--font-body);
+    font-size: 0.9375rem;
+    font-weight: 300;
+    color: var(--color-white);
+    outline: none;
+    appearance: none;
+    -webkit-appearance: none;
+    transition: border-color 0.25s ease;
+  }
+
+  .prog-ai__input::placeholder { color: rgba(255,255,255,0.2); }
+
+  .prog-ai__input:focus,
+  .prog-ai__select:focus { border-color: var(--color-gold); }
+
+  .prog-ai__select option { background: var(--color-black); color: var(--color-white); }
+
+  .prog-ai__btn {
+    width: 100%;
+    padding: 1rem;
+    background: var(--color-gold);
+    color: var(--color-black);
+    font-family: var(--font-brand);
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    border: none;
+    cursor: pointer;
+    margin-top: 0.5rem;
+    transition: background 0.25s ease, transform 0.2s ease;
+  }
+
+  .prog-ai__btn:hover {
+    background: var(--color-gold-light);
+    transform: translateY(-2px);
+  }
+
+  /* Result card */
+  .prog-ai__result {
+    display: none;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 1.5rem;
+    padding: 1.5rem;
+    background: rgba(201,169,110,0.06);
+    border: 1px solid rgba(201,169,110,0.25);
+    animation: ph-up 0.6s var(--ease-out) forwards;
+  }
+
+  .prog-ai__result.is-visible { display: flex; }
+
+  .prog-ai__result-label {
+    font-family: var(--font-brand);
+    font-size: 0.55rem;
+    font-weight: 600;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--color-gold);
+  }
+
+  .prog-ai__result-bmi {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+  }
+
+  .prog-ai__result-bmi-num {
+    font-family: var(--font-display);
+    font-size: 3rem;
+    font-weight: 300;
+    color: var(--color-white);
+    line-height: 1;
+  }
+
+  .prog-ai__result-bmi-label {
+    font-family: var(--font-brand);
+    font-size: 0.58rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.35);
+  }
+
+  .prog-ai__result-program {
+    font-family: var(--font-display);
+    font-size: clamp(1.3rem, 2.5vw, 1.75rem);
+    font-weight: 300;
+    color: var(--color-white);
+    line-height: 1.15;
+  }
+
+  .prog-ai__result-reason {
+    font-family: var(--font-body);
+    font-size: 0.8125rem;
+    font-weight: 300;
+    line-height: 1.75;
+    color: rgba(255,255,255,0.48);
+  }
+
+  .prog-ai__result-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.85rem 1.75rem;
+    background: var(--color-gold);
+    color: var(--color-black);
+    font-family: var(--font-brand);
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    transition: background 0.25s ease, gap 0.2s ease;
+    width: fit-content;
+  }
+
+  .prog-ai__result-cta:hover {
+    background: var(--color-gold-light);
+    gap: 0.9rem;
+  }
+
+  .prog-ai__error {
+    font-family: var(--font-body);
+    font-size: 0.78rem;
+    color: #e07070;
+    margin-top: 0.5rem;
+    display: none;
+  }
+
+  .prog-ai__error.is-visible { display: block; }
+
+  /* ── CTA Band override (white on black — use existing .cta-band) ── */
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 1024px) {
+    .prog-grid { grid-template-columns: repeat(2, 1fr); }
+    .prog-ai__inner { grid-template-columns: 1fr; gap: 3rem; }
+    .prog-philosophy__grid { grid-template-columns: 1fr; gap: 3rem; }
+    .prog-philosophy__badge { bottom: 1rem; right: 1rem; }
+  }
+
+  @media (max-width: 768px) {
+    .prog-grid { grid-template-columns: 1fr; }
+    .prog-hero__heading { font-size: clamp(2.8rem, 12vw, 4.5rem); }
+    .prog-hero__actions { flex-direction: column; }
+    .prog-hero__actions .btn { text-align: center; justify-content: center; }
+    .prog-hero__scroll { display: none; }
+    .prog-stats__inner { gap: 1.5rem; }
+    .prog-stat__div { display: none; }
+    .prog-philosophy__badge { position: relative; bottom: auto; right: auto; margin-top: 1.5rem; width: 100%; }
+    .programs-grid-section .section-header { text-align: center; }
+  }
+
+  @media (max-width: 480px) {
+    .prog-hero__heading { font-size: clamp(2.4rem, 13vw, 3.5rem); }
+    .prog-card__actions { flex-direction: column; }
+    .prog-card__btn-primary,
+    .prog-card__btn-ghost { flex: unset; width: 100%; }
+    .prog-ai__form-card { padding: 1.25rem; }
+  }
   </style>
 </head>
 
 <body class="is-loading">
 
-  <!-- PRELOADER -->
-    <div class="preloader" id="preloader">
+  <!-- ══ PRELOADER ══ -->
+  <div class="preloader" id="preloader">
     <div class="preloader__panel preloader__panel--left"></div>
     <div class="preloader__panel preloader__panel--right"></div>
     <div class="preloader__corner preloader__corner--tl"></div>
@@ -255,8 +791,7 @@
     </div>
   </div>
 
-
-  <!-- NAVIGATION -->
+  <!-- ══ NAVIGATION ══ -->
   <header class="site-header" id="site-header">
     <nav class="nav">
       <a href="index.html" class="nav__logo" aria-label="Aviate Gym home">
@@ -264,9 +799,9 @@
       </a>
       <ul class="nav__links">
         <li><a href="about.html"           class="nav__link">About</a></li>
-        <li><a href="programs.html"        class="nav__link">Programs</a></li>
+        <li><a href="programs.html"        class="nav__link is-active">Programs</a></li>
         <li><a href="online-coaching.html" class="nav__link">Online Coaching</a></li>
-        <li><a href="gallery.html"         class="nav__link is-active">Gallery</a></li>
+        <li><a href="gallery.html"         class="nav__link">Gallery</a></li>
         <li><a href="results.html"         class="nav__link">Results</a></li>
         <li><a href="booking.html"         class="nav__link nav__link--cta">Book a Session</a></li>
       </ul>
@@ -289,363 +824,332 @@
 
   <main>
 
-    <!-- ══════════════════════════════════
-         PAGE HERO
-    ══════════════════════════════════ -->
-    <section class="page-hero">
-      <div class="container page-hero__inner">
-        <div class="page-hero__rule"></div>
-        <p class="section-eyebrow">The Space & The People</p>
-        <h1 class="page-hero__heading">Inside<br /><em style="font-style:italic;color:var(--color-gold-dark);">Aviate</em></h1>
-        <p class="page-hero__sub">The floor, the faces, the fire. Everything that makes Aviate more than just a gym — it's a movement.</p>
+    <!-- ══════════════════════════════
+         1. HERO
+    ══════════════════════════════ -->
+    <section class="prog-hero">
+      <div class="prog-hero__bg">
+        <img src="assets/images/gallery-3.jpg" alt="Aviate Programs" class="prog-hero__img" />
+      </div>
+      <div class="prog-hero__overlay"></div>
+
+      <div class="prog-hero__content">
+        <p class="prog-hero__eyebrow">
+          <span class="prog-hero__eyebrow-line"></span>
+          Gokul Srinivasan's Aviate Gym
+        </p>
+        <h1 class="prog-hero__heading">
+          Programs That<br /><em>Transform.</em>
+        </h1>
+        <p class="prog-hero__sub">
+          Six precision-built programs. One clear outcome — a body and mindset you've never had before.
+        </p>
+        <div class="prog-hero__actions">
+          <a href="#programs-grid" class="btn btn--gold btn--large">Explore Programs</a>
+          <a href="online-coaching.html" class="btn btn--ghost">Start Online Coaching</a>
+        </div>
+      </div>
+
+      <div class="prog-hero__scroll">
+        <div class="prog-hero__scroll-line"></div>
+        <span class="prog-hero__scroll-label">Scroll</span>
       </div>
     </section>
 
 
-    <!-- ══════════════════════════════════
-         360° GYM TOUR VIDEO
-    ══════════════════════════════════ -->
-    <section class="gallery-360">
-      <div class="container gallery-360__inner">
-
-        <div class="gallery-360__copy reveal">
-          <p class="section-eyebrow">360° Gym Tour</p>
-          <h2 class="gallery-360__heading">Experience<br />Aviate Before<br />You Walk In.</h2>
-          <p class="gallery-360__body">
-            Walk the floor virtually. Feel the layout, absorb the atmosphere, and understand what sets Aviate apart — before your first session even begins.
-          </p>
-          <a href="https://www.instagram.com/aviate.gym" target="_blank" rel="noopener"
-             style="display:inline-flex;align-items:center;gap:0.5rem;margin-top:1.5rem;
-             font-family:var(--font-brand);font-size:0.65rem;font-weight:600;
-             letter-spacing:0.22em;text-transform:uppercase;color:rgba(255,255,255,0.45);
-             border-bottom:1px solid rgba(255,255,255,0.15);padding-bottom:3px;
-             transition:color 180ms,border-color 180ms;"
-             onmouseover="this.style.color='var(--color-gold)';this.style.borderColor='var(--color-gold)'"
-             onmouseout="this.style.color='rgba(255,255,255,0.45)';this.style.borderColor='rgba(255,255,255,0.15)'">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
-            Follow @aviate.gym
-          </a>
-        </div>
-
-        <div class="reveal">
-          <div class="video-player">
-            <video
-              class="video-player__media"
-              poster="assets/images/gallery-3.jpg"
-              preload="none"
-              aria-label="360 degree gym tour"
-            >
-              <source src="assets/videos/gym 360.mp4"  type="video/mp4" />
-              <source src="assets/videos/gym-360.webm" type="video/webm" />
-            </video>
-            <button class="video-player__play-btn" aria-label="Play 360 gym tour">
-              <span class="video-player__play-icon"></span>
-            </button>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-
-    <!-- ══════════════════════════════════
+    <!-- ══════════════════════════════
          STATS STRIP
-    ══════════════════════════════════ -->
-    <div class="gallery-stats">
-      <div class="container gallery-stats__inner">
-        <div class="gallery-stat">
-          <span class="gallery-stat__num">12<span class="gallery-stat__suffix">+</span></span>
-          <span class="gallery-stat__label">Years of Excellence</span>
+    ══════════════════════════════ -->
+    <div class="prog-stats">
+      <div class="container prog-stats__inner">
+        <div class="prog-stat">
+          <span class="prog-stat__num">6<span class="prog-stat__suffix">+</span></span>
+          <span class="prog-stat__label">Programs</span>
         </div>
-        <div class="gallery-stat__div"></div>
-        <div class="gallery-stat">
-          <span class="gallery-stat__num">3K<span class="gallery-stat__suffix">+</span></span>
-          <span class="gallery-stat__label">Lives Transformed</span>
+        <div class="prog-stat__div"></div>
+        <div class="prog-stat">
+          <span class="prog-stat__num">3K<span class="prog-stat__suffix">+</span></span>
+          <span class="prog-stat__label">Lives Transformed</span>
         </div>
-        <div class="gallery-stat__div"></div>
-        <div class="gallery-stat">
-          <span class="gallery-stat__num">5<span class="gallery-stat__suffix">+</span></span>
-          <span class="gallery-stat__label">Expert Coaches</span>
+        <div class="prog-stat__div"></div>
+        <div class="prog-stat">
+          <span class="prog-stat__num">12<span class="prog-stat__suffix">+</span></span>
+          <span class="prog-stat__label">Years of Excellence</span>
         </div>
-        <div class="gallery-stat__div"></div>
-        <div class="gallery-stat">
-          <span class="gallery-stat__num">6<span class="gallery-stat__suffix"></span></span>
-          <span class="gallery-stat__label">Programs Offered</span>
+        <div class="prog-stat__div"></div>
+        <div class="prog-stat">
+          <span class="prog-stat__num">5<span class="prog-stat__suffix">★</span></span>
+          <span class="prog-stat__label">Google Rating</span>
         </div>
       </div>
     </div>
 
 
-    <!-- ══════════════════════════════════
-         QUOTE IMAGES — SWIPER SLIDER
-         gallery-1, 4, 5, 6, 7, 8 (quote images)
-    ══════════════════════════════════ -->
-    <section class="quote-swiper">
-      <div class="container" style="margin-bottom:clamp(1.5rem,3vw,2.5rem);">
-        <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:1.5rem;flex-wrap:wrap;">
-          <div>
-            <p class="section-eyebrow">Our Philosophy in Images</p>
-            <h2 class="section-heading" style="color:rgba(255,255,255,0.9);">Words We<br /><em>Live By</em></h2>
-          </div>
-          <a href="https://www.instagram.com/aviate.gym" target="_blank" rel="noopener" class="btn btn--outline-light">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
-            @aviate.gym
-          </a>
-        </div>
-      </div>
-
-      <div class="swiper quote-swiper-el" style="overflow:hidden;">
-        <div class="swiper-wrapper">
-
-          <!-- Slide 1 — gallery-1.jpg: Philosophy -->
-          <div class="swiper-slide quote-slide">
-            <img src="assets/images/gallery-1.jpg" alt="Train hard live harder" class="quote-slide__img" loading="lazy" />
-            <div class="quote-slide__content">
-              <span class="quote-slide__tag">The Philosophy</span>
-              <p class="quote-slide__quote">"Train Hard. Live Harder."</p>
-              <span class="quote-slide__sub">The Aviate Way</span>
-              <a href="https://www.instagram.com/aviate.gym" target="_blank" rel="noopener" class="quote-slide__cta">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
-                Follow our journey
-              </a>
-            </div>
-          </div>
-
-          <!-- Slide 2 — gallery-4.jpg: Strength -->
-          <div class="swiper-slide quote-slide">
-            <img src="assets/images/gallery-4.jpg" alt="Built different built here" class="quote-slide__img" loading="lazy" />
-            <div class="quote-slide__content">
-              <span class="quote-slide__tag">Strength Program</span>
-              <p class="quote-slide__quote">"Built Different. Built Here."</p>
-              <span class="quote-slide__sub">Strength &amp; Conditioning</span>
-              <a href="programs.html" class="quote-slide__cta">→ Explore Programs</a>
-            </div>
-          </div>
-
-          <!-- Slide 3 — gallery-5.jpg: Transformation -->
-          <div class="swiper-slide quote-slide">
-            <img src="assets/images/gallery-5.jpg" alt="Your before is just the start" class="quote-slide__img" loading="lazy" />
-            <div class="quote-slide__content">
-              <span class="quote-slide__tag">Transformation</span>
-              <p class="quote-slide__quote">"Your Before Is Just The Start."</p>
-              <span class="quote-slide__sub">3000+ Lives Changed</span>
-              <a href="results.html" class="quote-slide__cta">→ See Results</a>
-            </div>
-          </div>
-
-          <!-- Slide 4 — gallery-6.jpg: Community -->
-          <div class="swiper-slide quote-slide">
-            <img src="assets/images/gallery-6.jpg" alt="Alone you run together you fly" class="quote-slide__img" loading="lazy" />
-            <div class="quote-slide__content">
-              <span class="quote-slide__tag">Community</span>
-              <p class="quote-slide__quote">"Alone You Run. Together You Fly."</p>
-              <span class="quote-slide__sub">The Aviate Family</span>
-              <a href="https://www.instagram.com/aviate.gym" target="_blank" rel="noopener" class="quote-slide__cta">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
-                @aviate.gym
-              </a>
-            </div>
-          </div>
-
-          <!-- Slide 5 — gallery-7.jpg: Online Coaching -->
-          <div class="swiper-slide quote-slide">
-            <img src="assets/images/gallery-7.jpg" alt="World class coaching anywhere" class="quote-slide__img" loading="lazy" />
-            <div class="quote-slide__content">
-              <span class="quote-slide__tag">Online Coaching</span>
-              <p class="quote-slide__quote">"World-Class Coaching. Anywhere."</p>
-              <span class="quote-slide__sub">Train Remotely With Aviate</span>
-              <a href="online-coaching.html" class="quote-slide__cta">→ Start Online Coaching</a>
-            </div>
-          </div>
-
-          <!-- Slide 6 — gallery-8.jpg: Mindset -->
-          <div class="swiper-slide quote-slide">
-            <img src="assets/images/gallery-8.jpg" alt="The grind the glory" class="quote-slide__img" loading="lazy" />
-            <div class="quote-slide__content">
-              <span class="quote-slide__tag">The Mindset</span>
-              <p class="quote-slide__quote">"The Grind. The Glory."</p>
-              <span class="quote-slide__sub">Champions Are Made Here</span>
-              <a href="booking.html" class="quote-slide__cta">→ Book a Session</a>
-            </div>
-          </div>
-
-        </div>
-
-        <!-- Pagination -->
-        <div class="swiper-pagination quote-pagination"
-             style="bottom:1.5rem!important;"></div>
-
-        <!-- Nav buttons -->
-        <div class="swiper-button-prev qswiper-prev"></div>
-        <div class="swiper-button-next qswiper-next"></div>
-      </div>
-    </section>
-
-
-    <!-- ══════════════════════════════════
-         GALLERY-3 TEAM SPOTLIGHT
-         (The most important image — full width)
-    ══════════════════════════════════ -->
-    <section class="gallery-grid" style="background:var(--color-white);">
+    <!-- ══════════════════════════════
+         2. PROGRAMS GRID
+    ══════════════════════════════ -->
+    <section class="programs-grid-section" id="programs-grid">
       <div class="container">
 
-        <div class="spotlight-label reveal">
-          <div>
-            <p class="section-eyebrow">The Aviate Family</p>
-            <h2 class="section-heading">All Of Us.<br /><em style="font-style:italic;color:var(--color-gold-dark);">In One Frame.</em></h2>
-          </div>
-          <a href="https://www.instagram.com/aviate.gym" target="_blank" rel="noopener"
-             style="display:inline-flex;align-items:center;gap:0.5rem;
-             font-family:var(--font-brand);font-size:0.65rem;font-weight:600;
-             letter-spacing:0.22em;text-transform:uppercase;color:var(--color-text-muted);
-             border-bottom:1px solid var(--color-grey-mid);padding-bottom:3px;
-             transition:color 180ms,border-color 180ms;"
-             onmouseover="this.style.color='var(--color-gold-dark)';this.style.borderColor='var(--color-gold)'"
-             onmouseout="this.style.color='var(--color-text-muted)';this.style.borderColor='var(--color-grey-mid)'">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
-            @aviate.gym
-          </a>
+        <div class="section-header reveal">
+          <p class="section-eyebrow">What We Offer</p>
+          <h2 class="section-heading">Choose Your<br /><em>Transformation</em></h2>
+          <p class="section-subheading">Every program is personalised to your body, your schedule, and your goal. No templates — only results.</p>
         </div>
 
-        <!-- SPOTLIGHT: gallery-3.jpg -->
-        <div class="gallery-spotlight reveal" style="margin-bottom:var(--space-3);">
-          <img
-            src="assets/images/gallery-3.jpg"
-            alt="The full Aviate team — coaches and members together"
-            class="gallery-spotlight__img"
-            loading="eager"
-          />
-          <div class="gallery-spotlight__caption">
-            <div>
-              <p class="gallery-spotlight__label">Our Community</p>
-              <p class="gallery-spotlight__title">The Aviate Family<br />— All Together</p>
+        <div class="prog-grid reveal-stagger">
+
+          <!-- Card 1: Fat Loss (Female) -->
+          <div class="prog-card">
+            <div class="prog-card__media">
+              <img src="assets/images/female.jpg" alt="Female Weight Loss" class="prog-card__img" loading="lazy" />
             </div>
-            <a href="https://www.instagram.com/aviate.gym" target="_blank" rel="noopener" class="gallery-spotlight__insta">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
-              Tag us @aviate.gym
-            </a>
-          </div>
-        </div>
-
-        <div class="section-divider"></div>
-
-        <!-- Secondary grid — gallery-1, 4, 5, 6, 7, 8 -->
-        <p class="gallery-grid-label reveal">The Space &amp; The Stories</p>
-
-        <div class="gallery-grid-items reveal-stagger">
-          <!-- gallery-4: strength -->
-          <div class="gallery-item">
-            <img src="assets/images/gallery-4.jpg" alt="Strength training at Aviate" class="gallery-item__img" loading="lazy" />
-            <div class="gallery-item__overlay">
-              <span class="gallery-item__label">Strength Program</span>
+            <div class="prog-card__body">
+              <span class="prog-card__tag">Program 01</span>
+              <h3 class="prog-card__title">Weight Loss<br />— Female</h3>
+              <p class="prog-card__desc">Built around the female body. Sustainable fat loss with improved energy, confidence, and hormonal balance.</p>
+              <div class="prog-card__meta">
+                <span class="prog-card__duration">4 – 6 Months</span>
+              </div>
+              <div class="prog-card__actions">
+                <a href="online-coaching.html" class="prog-card__btn-ghost">Learn More</a>
+                <a href="online-coaching.html" class="prog-card__btn-primary">Start Program →</a>
+              </div>
             </div>
           </div>
 
-          <!-- gallery-5: transformation -->
-          <div class="gallery-item">
-            <img src="assets/images/gallery-5.jpg" alt="Transformation results" class="gallery-item__img" loading="lazy" />
-            <div class="gallery-item__overlay">
-              <span class="gallery-item__label">Transformation</span>
+          <!-- Card 2: Lean Gaining (Male) -->
+          <div class="prog-card">
+            <div class="prog-card__media">
+              <img src="assets/images/lean-gaining.jpg" alt="Lean Gaining Male" class="prog-card__img" loading="lazy" />
+            </div>
+            <div class="prog-card__body">
+              <span class="prog-card__tag">Program 02</span>
+              <h3 class="prog-card__title">Lean Gaining<br />— Male</h3>
+              <p class="prog-card__desc">Build lean muscle without excess fat. Precision hypertrophy training for an athletic, defined physique.</p>
+              <div class="prog-card__meta">
+                <span class="prog-card__duration">6 Months</span>
+              </div>
+              <div class="prog-card__actions">
+                <a href="online-coaching.html" class="prog-card__btn-ghost">Learn More</a>
+                <a href="online-coaching.html" class="prog-card__btn-primary">Start Program →</a>
+              </div>
             </div>
           </div>
 
-          <!-- gallery-6: community -->
-          <div class="gallery-item">
-            <img src="assets/images/gallery-6.jpg" alt="Aviate community" class="gallery-item__img" loading="lazy" />
-            <div class="gallery-item__overlay">
-              <span class="gallery-item__label">Community</span>
+          <!-- Card 3: Fat Loss Transformation -->
+          <div class="prog-card">
+            <div class="prog-card__media">
+              <img src="assets/images/fatloss.jpg" alt="Fat Loss Transformation" class="prog-card__img" loading="lazy" />
+            </div>
+            <div class="prog-card__body">
+              <span class="prog-card__tag">Program 03</span>
+              <h3 class="prog-card__title">Fat Loss<br />Transformation</h3>
+              <p class="prog-card__desc">A complete physical overhaul. Rebuild strength, shed fat, and emerge with a body you've never had before.</p>
+              <div class="prog-card__meta">
+                <span class="prog-card__duration">4 – 6 Months</span>
+              </div>
+              <div class="prog-card__actions">
+                <a href="online-coaching.html" class="prog-card__btn-ghost">Learn More</a>
+                <a href="online-coaching.html" class="prog-card__btn-primary">Start Program →</a>
+              </div>
             </div>
           </div>
 
-          <!-- gallery-7: online coaching -->
-          <div class="gallery-item">
-            <img src="assets/images/gallery-7.jpg" alt="Online coaching" class="gallery-item__img" loading="lazy" />
-            <div class="gallery-item__overlay">
-              <span class="gallery-item__label">Online Coaching</span>
+          <!-- Card 4: Online Coaching -->
+          <div class="prog-card">
+            <div class="prog-card__media">
+              <img src="assets/images/gallery-7.jpg" alt="Online Coaching" class="prog-card__img" loading="lazy" />
+            </div>
+            <div class="prog-card__body">
+              <span class="prog-card__tag">Program 04</span>
+              <h3 class="prog-card__title">Online<br />Coaching</h3>
+              <p class="prog-card__desc">World-class coaching, anywhere. Train remotely with Coach Gokul — custom plans, weekly check-ins, full accountability.</p>
+              <div class="prog-card__meta">
+                <span class="prog-card__duration">Ongoing — Flexible</span>
+              </div>
+              <div class="prog-card__actions">
+                <a href="online-coaching.html" class="prog-card__btn-ghost">Learn More</a>
+                <a href="online-coaching.html" class="prog-card__btn-primary">Start Program →</a>
+              </div>
             </div>
           </div>
 
-          <!-- gallery-8: mindset -->
-          <div class="gallery-item">
-            <img src="assets/images/gallery-8.jpg" alt="The mindset" class="gallery-item__img" loading="lazy" />
-            <div class="gallery-item__overlay">
-              <span class="gallery-item__label">The Mindset</span>
+          <!-- Card 5: Strength & Conditioning -->
+          <div class="prog-card">
+            <div class="prog-card__media">
+              <img src="assets/images/gallery-4.jpg" alt="Strength and Conditioning" class="prog-card__img" loading="lazy" />
+            </div>
+            <div class="prog-card__body">
+              <span class="prog-card__tag">Program 05</span>
+              <h3 class="prog-card__title">Strength &amp;<br />Conditioning</h3>
+              <p class="prog-card__desc">Progressive overload, compound lifts, and performance periodization — engineered for serious results.</p>
+              <div class="prog-card__meta">
+                <span class="prog-card__duration">6 Months</span>
+              </div>
+              <div class="prog-card__actions">
+                <a href="online-coaching.html" class="prog-card__btn-ghost">Learn More</a>
+                <a href="online-coaching.html" class="prog-card__btn-primary">Start Program →</a>
+              </div>
             </div>
           </div>
 
-          <!-- gallery-1: philosophy -->
-          <div class="gallery-item">
-            <img src="assets/images/gallery-1.jpg" alt="Aviate philosophy" class="gallery-item__img" loading="lazy" />
-            <div class="gallery-item__overlay">
-              <span class="gallery-item__label">The Philosophy</span>
+          <!-- Card 6: Body Recomposition -->
+          <div class="prog-card">
+            <div class="prog-card__media">
+              <img src="assets/images/recomposition.jpg" alt="Body Recomposition" class="prog-card__img" loading="lazy" />
+            </div>
+            <div class="prog-card__body">
+              <span class="prog-card__tag">Program 06</span>
+              <h3 class="prog-card__title">Body<br />Recomposition</h3>
+              <p class="prog-card__desc">Lose fat and build lean muscle simultaneously. The most efficient transformation protocol — science-backed, results-proven.</p>
+              <div class="prog-card__meta">
+                <span class="prog-card__duration">6 Months</span>
+              </div>
+              <div class="prog-card__actions">
+                <a href="online-coaching.html" class="prog-card__btn-ghost">Learn More</a>
+                <a href="online-coaching.html" class="prog-card__btn-primary">Start Program →</a>
+              </div>
             </div>
           </div>
 
-          <!-- gallery-3 small (community repeat, different crop) -->
-          <div class="gallery-item">
-            <img src="assets/images/gallery-3.jpg" alt="Aviate team" class="gallery-item__img" loading="lazy" style="object-position:top center;" />
-            <div class="gallery-item__overlay">
-              <span class="gallery-item__label">The Team</span>
-            </div>
-          </div>
-        </div>
-
+        </div><!-- /prog-grid -->
       </div>
     </section>
 
 
-    <!-- ══════════════════════════════════
-         GALLERY-2 — FEATURED NEAR BOTTOM
-         (Important image — prominent section)
-    ══════════════════════════════════ -->
-    <section class="gallery-featured-section">
-      <div class="container gallery-featured-section__inner">
+    <!-- ══════════════════════════════
+         3. PHILOSOPHY SPLIT
+    ══════════════════════════════ -->
+    <section class="prog-philosophy">
+      <div class="container">
+        <div class="prog-philosophy__grid">
 
-        <div class="gallery-featured-section__copy reveal">
-          <p class="section-eyebrow">Behind the Lens</p>
-          <h2 class="section-heading">More Than<br />A Gym.</h2>
-          <p class="gallery-featured-section__body">
-            Every corner of Aviate tells a story. This is the space where ordinary people
-            decide to become extraordinary — and where coaches pour everything into making
-            that happen.
-          </p>
-          <div style="display:flex;gap:1rem;flex-wrap:wrap;">
-            <a href="booking.html" class="btn btn--primary">Book a Session</a>
-            <a href="https://www.instagram.com/aviate.gym" target="_blank" rel="noopener" class="btn btn--outline">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
-              @aviate.gym
-            </a>
+          <div class="prog-philosophy__img-wrap reveal">
+            <img src="assets/images/gokul.jpg" alt="Coach Gokul Srinivasan" class="prog-philosophy__img" />
+            <div class="prog-philosophy__badge">
+              <span class="prog-philosophy__badge-num">3K<span class="prog-philosophy__badge-suffix">+</span></span>
+              <span class="prog-philosophy__badge-label">Lives Transformed</span>
+            </div>
           </div>
-        </div>
 
-        <!-- gallery-2.jpg featured -->
-        <div class="gallery-featured-section__img-wrap reveal" id="gallery2-featured">
-          <img
-            src="assets/images/gallery-2.jpg"
-            alt="Aviate Gym — more than a gym"
-            class="gallery-featured-section__img"
-            loading="lazy"
-          />
-        </div>
+          <div class="prog-philosophy__copy reveal">
+            <p class="section-eyebrow">The Philosophy</p>
+            <h2 class="section-heading">Built on<br /><em>Precision.</em></h2>
+            <p class="prog-philosophy__body">
+              Every program at Aviate is engineered — not guessed. Coach Gokul Srinivasan designs each plan around your exact body, lifestyle, and goal. Nothing is generic. Nothing is left to chance.
+            </p>
+            <blockquote class="prog-philosophy__quote">
+              "The body achieves what the mind believes — and what the program demands."
+            </blockquote>
+            <p class="prog-philosophy__body">
+              Whether you're starting from zero or pushing past a plateau, Aviate's approach combines science-backed training, personalised nutrition, and unmatched accountability.
+            </p>
+            <div style="display:flex;gap:1rem;flex-wrap:wrap;margin-top:2rem;">
+              <a href="online-coaching.html" class="btn btn--primary">Start Your Journey</a>
+              <a href="about.html"           class="btn btn--outline">About Coach Gokul</a>
+            </div>
+          </div>
 
+        </div>
       </div>
     </section>
 
 
-    <!-- ══════════════════════════════════
-         CTA BAND
-    ══════════════════════════════════ -->
+    <!-- ══════════════════════════════
+         4. AI BMI RECOMMENDER
+    ══════════════════════════════ -->
+    <section class="prog-ai">
+      <div class="container">
+        <div class="prog-ai__inner reveal">
+
+          <!-- Left: copy -->
+          <div class="prog-ai__copy">
+            <p class="section-eyebrow">AI Fitness Tool</p>
+            <h2 class="section-heading" style="color:rgba(255,255,255,0.92);">Find Your<br /><em style="color:var(--color-gold);">Best Program</em></h2>
+            <p class="prog-ai__body">
+              Enter your details below. Our tool calculates your BMI and recommends the most suitable Aviate program for your body and goal — instantly.
+            </p>
+            <div class="prog-ai__feature">
+              <span class="prog-ai__feature-dot"></span>
+              Instant BMI calculation
+            </div>
+            <div class="prog-ai__feature">
+              <span class="prog-ai__feature-dot"></span>
+              Science-based program match
+            </div>
+            <div class="prog-ai__feature">
+              <span class="prog-ai__feature-dot"></span>
+              Direct link to start your program
+            </div>
+          </div>
+
+          <!-- Right: form -->
+          <div class="prog-ai__form-card">
+            <p class="prog-ai__form-title">Your Fitness Profile</p>
+
+            <div class="prog-ai__field">
+              <label class="prog-ai__label" for="ai-height">Height (cm)</label>
+              <input class="prog-ai__input" type="number" id="ai-height" placeholder="e.g. 170" min="100" max="250" />
+            </div>
+
+            <div class="prog-ai__field">
+              <label class="prog-ai__label" for="ai-weight">Weight (kg)</label>
+              <input class="prog-ai__input" type="number" id="ai-weight" placeholder="e.g. 72" min="30" max="300" />
+            </div>
+
+            <div class="prog-ai__field">
+              <label class="prog-ai__label" for="ai-goal">Primary Goal</label>
+              <select class="prog-ai__select" id="ai-goal">
+                <option value="" disabled selected>Select your goal</option>
+                <option value="fatloss">Lose Fat</option>
+                <option value="muscle">Build Muscle</option>
+                <option value="recomp">Body Recomposition</option>
+                <option value="strength">Strength &amp; Performance</option>
+                <option value="hormonal">Hormonal / PCOD Management</option>
+              </select>
+            </div>
+
+            <p class="prog-ai__error" id="ai-error">Please fill in all fields to get your recommendation.</p>
+
+            <button class="prog-ai__btn" id="ai-calc-btn" type="button">
+              Calculate &amp; Recommend →
+            </button>
+
+            <!-- Result -->
+            <div class="prog-ai__result" id="ai-result">
+              <span class="prog-ai__result-label">Your BMI &amp; Program Match</span>
+              <div class="prog-ai__result-bmi">
+                <span class="prog-ai__result-bmi-num" id="ai-bmi-num">—</span>
+                <span class="prog-ai__result-bmi-label" id="ai-bmi-cat">BMI</span>
+              </div>
+              <h3 class="prog-ai__result-program" id="ai-prog-name">—</h3>
+              <p class="prog-ai__result-reason" id="ai-prog-reason">—</p>
+              <a href="online-coaching.html" class="prog-ai__result-cta">
+                Start This Program →
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ══════════════════════════════
+         5. CTA BAND
+    ══════════════════════════════ -->
     <section class="cta-band">
       <div class="container cta-band__inner reveal">
         <div class="cta-band__text">
-          <p class="section-eyebrow">You've Seen The Space</p>
-          <h2 class="cta-band__heading">Now Come<br /><em>Experience It.</em></h2>
+          <p class="section-eyebrow">Ready to Begin?</p>
+          <h2 class="cta-band__heading">Your First<br /><em>Session is Free.</em></h2>
         </div>
         <div class="cta-band__action">
-          <p class="cta-band__sub">One session to experience what Aviate truly feels like. Come in. Feel the difference.</p>
+          <p class="cta-band__sub">No commitment. No pressure. One free session to feel exactly what Aviate can do for you.</p>
           <div style="display:flex;gap:1rem;flex-wrap:wrap;">
-            <a href="booking.html"          class="btn btn--gold btn--large">Book a Session</a>
-            <a href="online-coaching.html"  class="btn btn--outline-light">Online Coaching →</a>
+            <a href="booking.html"         class="btn btn--gold btn--large">Book Free Session</a>
+            <a href="online-coaching.html" class="btn btn--outline-light">Online Coaching →</a>
           </div>
         </div>
       </div>
@@ -654,7 +1158,7 @@
   </main>
 
 
-  <!-- FOOTER -->
+  <!-- ══ FOOTER ══ -->
   <footer class="site-footer">
     <div class="container site-footer__inner">
       <div class="site-footer__brand">
@@ -665,8 +1169,8 @@
         <p class="site-footer__tagline">Train with intention.</p>
         <ul class="site-footer__socials">
           <li><a href="https://www.instagram.com/aviate.gym" target="_blank" rel="noopener" class="site-footer__social-link">Instagram</a></li>
-          <li><a href="https://youtube.com/" target="_blank" rel="noopener" class="site-footer__social-link">YouTube</a></li>
-          <li><a href="https://facebook.com/" target="_blank" rel="noopener" class="site-footer__social-link">Facebook</a></li>
+          <li><a href="https://youtube.com/"                 target="_blank" rel="noopener" class="site-footer__social-link">YouTube</a></li>
+          <li><a href="https://facebook.com/"               target="_blank" rel="noopener" class="site-footer__social-link">Facebook</a></li>
         </ul>
         <a href="https://www.instagram.com/aviate.gym" target="_blank" rel="noopener" class="site-footer__insta-badge">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
@@ -688,7 +1192,7 @@
           <ul>
             <li><a href="online-coaching.html" class="site-footer__nav-link">Online Coaching</a></li>
             <li><a href="booking.html"         class="site-footer__nav-link">Book a Session</a></li>
-            <li><a href="programs.html"        class="site-footer__nav-link">Memberships</a></li>
+            <li><a href="programs.html"        class="site-footer__nav-link">Programs</a></li>
           </ul>
         </div>
         <div class="site-footer__nav-col">
@@ -704,84 +1208,102 @@
     <div class="site-footer__bottom">
       <div class="container site-footer__bottom-inner">
         <p class="site-footer__copy">© <span id="footer-year"></span> Gokul Srinivasan's Aviate Gym. All rights reserved.</p>
+        <ul class="site-footer__legal">
+          <li><a href="privacy-policy.html"        class="site-footer__legal-link">Privacy Policy</a></li>
+          <li><a href="terms-and-conditions.html"  class="site-footer__legal-link">Terms &amp; Conditions</a></li>
+          <li><a href="refund-policy.html"         class="site-footer__legal-link">Refund Policy</a></li>
+        </ul>
         <p class="site-footer__credit">Crafted with precision in Chennai.</p>
       </div>
     </div>
   </footer>
 
-  <!-- Gallery item hover overlay styles (injected here to keep style.css clean) -->
-  <style>
-    .gallery-item {
-      position: relative;
-      overflow: hidden;
-      cursor: zoom-in;
-    }
-    .gallery-item__overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to top, rgba(0,0,0,0.55) 0%, transparent 50%);
-      opacity: 0;
-      transition: opacity 0.4s ease;
-      display: flex;
-      align-items: flex-end;
-      padding: var(--space-4);
-    }
-    .gallery-item:hover .gallery-item__overlay { opacity: 1; }
-    .gallery-item__label {
-      font-family: var(--font-brand);
-      font-size: 0.58rem;
-      font-weight: 600;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      color: var(--color-gold);
-    }
-
-    /* Quote pagination dots */
-    .quote-pagination .swiper-pagination-bullet {
-      width: 24px; height: 2px;
-      border-radius: 0;
-      background: rgba(255,255,255,0.2);
-      opacity: 1;
-      transition: background 0.3s, width 0.3s;
-    }
-    .quote-pagination .swiper-pagination-bullet-active {
-      background: var(--color-gold);
-      width: 40px;
-    }
-  </style>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/11.0.5/swiper-bundle.min.js"></script>
   <script src="script.js" defer></script>
   <script>
-    // Quote swiper — init after DOM ready
-    document.addEventListener('DOMContentLoaded', () => {
-      if (typeof Swiper === 'undefined') return;
+  /* ── AI BMI Recommender ── */
+  (function () {
+    const btn     = document.getElementById('ai-calc-btn');
+    const result  = document.getElementById('ai-result');
+    const errEl   = document.getElementById('ai-error');
+    const bmiNum  = document.getElementById('ai-bmi-num');
+    const bmiCat  = document.getElementById('ai-bmi-cat');
+    const progName = document.getElementById('ai-prog-name');
+    const progReason = document.getElementById('ai-prog-reason');
 
-      new Swiper('.quote-swiper-el', {
-        loop: true,
-        speed: 950,
-        grabCursor: true,
-        effect: 'slide',
-        autoplay: {
-          delay: 5000,
-          disableOnInteraction: false,
-          pauseOnMouseEnter: true,
-        },
-        pagination: {
-          el: '.quote-pagination',
-          clickable: true,
-        },
-        navigation: {
-          prevEl: '.qswiper-prev',
-          nextEl: '.qswiper-next',
-        },
-        keyboard: { enabled: true },
-        a11y: {
-          prevSlideMessage: 'Previous quote',
-          nextSlideMessage: 'Next quote',
-        },
-      });
+    const programs = {
+      fatloss: {
+        underweight: { name: 'Strength & Conditioning',   reason: 'Your BMI suggests you are underweight. Building foundational strength before aggressive fat loss is the smart approach for long-term results.' },
+        normal:      { name: 'Fat Loss Transformation',   reason: 'You are in a healthy BMI range. A targeted fat loss and toning program will help you achieve a lean, defined physique efficiently.' },
+        overweight:  { name: 'Fat Loss Transformation',   reason: 'Your BMI indicates excess weight. Our Fat Loss Transformation is the most effective protocol to shed fat while preserving muscle.' },
+        obese:       { name: 'Fat Loss Transformation',   reason: 'A structured, progressive fat loss program with full nutritional guidance is exactly what your body needs right now. You are in the right place.' },
+      },
+      muscle: {
+        underweight: { name: 'Lean Gaining — Male',       reason: 'Your BMI shows room to build. The Lean Gaining program will add quality muscle mass and bring you to an athletic, strong physique.' },
+        normal:      { name: 'Lean Gaining — Male',       reason: 'Perfect starting point. The Lean Gaining program will help you build maximum quality muscle without unwanted fat gain.' },
+        overweight:  { name: 'Body Recomposition',        reason: 'With your BMI, recomposition — losing fat while building muscle simultaneously — will give you the best visual and functional results.' },
+        obese:       { name: 'Fat Loss Transformation',   reason: 'We recommend starting with structured fat loss to reach a safer BMI, then transitioning to a muscle-building phase with full coach support.' },
+      },
+      recomp: {
+        underweight: { name: 'Lean Gaining — Male',       reason: 'At your BMI, lean gaining is the priority. Once you reach a healthy weight, recomposition will refine and define your physique further.' },
+        normal:      { name: 'Body Recomposition',        reason: 'Your BMI is ideal for a recomposition program — you can simultaneously build lean muscle and shed fat for a transformed physique.' },
+        overweight:  { name: 'Body Recomposition',        reason: 'Recomposition is the perfect fit. You will shed fat and build muscle at the same time, creating dramatic visible change within 6 months.' },
+        obese:       { name: 'Fat Loss Transformation',   reason: 'We recommend prioritising fat loss first. Once your BMI reduces, recomposition will accelerate your results significantly.' },
+      },
+      strength: {
+        underweight: { name: 'Strength & Conditioning',   reason: 'Strength training will build your foundation, improve your BMI, and create a powerful, functional physique from the ground up.' },
+        normal:      { name: 'Strength & Conditioning',   reason: 'Your BMI is ideal for a performance-focused program. Expect serious strength, power, and conditioning gains within 6 months.' },
+        overweight:  { name: 'Fat Loss Transformation',   reason: 'Losing fat first will significantly improve your strength performance. We recommend Fat Loss Transformation before a pure strength phase.' },
+        obese:       { name: 'Fat Loss Transformation',   reason: 'Structural fat loss is the priority. Reducing your BMI will massively improve your capacity and safety for strength training.' },
+      },
+      hormonal: {
+        underweight: { name: 'Strength & Conditioning',   reason: 'Light progressive strength training combined with nutrition will help restore hormonal balance while building a healthy body weight.' },
+        normal:      { name: 'Weight Loss — Female',      reason: 'Our Female Weight Loss program is designed with hormonal cycles in mind, making it the most effective and body-safe choice for you.' },
+        overweight:  { name: 'Weight Loss — Female',      reason: 'Excess weight significantly impacts hormonal balance. Our Female Weight Loss program addresses both simultaneously with care and precision.' },
+        obese:       { name: 'Weight Loss — Female',      reason: 'Structured, guided fat loss will dramatically improve your hormonal health. Our Female program is built for exactly this journey.' },
+      },
+    };
+
+    function getBMICategory(bmi) {
+      if (bmi < 18.5) return 'underweight';
+      if (bmi < 25)   return 'normal';
+      if (bmi < 30)   return 'overweight';
+      return 'obese';
+    }
+
+    function getBMILabel(bmi) {
+      if (bmi < 18.5) return 'Underweight';
+      if (bmi < 25)   return 'Healthy Weight';
+      if (bmi < 30)   return 'Overweight';
+      return 'Obese Range';
+    }
+
+    btn.addEventListener('click', () => {
+      const h = parseFloat(document.getElementById('ai-height').value);
+      const w = parseFloat(document.getElementById('ai-weight').value);
+      const g = document.getElementById('ai-goal').value;
+
+      errEl.classList.remove('is-visible');
+      result.classList.remove('is-visible');
+
+      if (!h || !w || !g || h < 100 || h > 250 || w < 30 || w > 300) {
+        errEl.classList.add('is-visible');
+        return;
+      }
+
+      const bmi = w / ((h / 100) ** 2);
+      const cat = getBMICategory(bmi);
+      const rec = programs[g][cat];
+
+      bmiNum.textContent    = bmi.toFixed(1);
+      bmiCat.textContent    = getBMILabel(bmi);
+      progName.textContent  = rec.name;
+      progReason.textContent = rec.reason;
+
+      result.classList.add('is-visible');
+      result.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     });
+  })();
   </script>
+
 </body>
 </html>
